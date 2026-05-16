@@ -156,7 +156,7 @@ export default function RatePage() {
       p_weighted_score:   weighted,
       p_comment:          comment.trim() || null,
       p_connection_type:  connectionType,
-      p_scores:           JSON.stringify(scoreRows),
+      p_scores:           scoreRows,
     })
 
     if (rpcErr) {
