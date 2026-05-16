@@ -6,10 +6,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import MetricSlider from '@/components/ui/MetricSlider'
+import TokenPaywall from '@/components/ui/TokenPaywall'
 import { computeProximityWeight, applyWeight, proximityLabel, proximityPercent } from '@/lib/algorithm/proximity'
 import { avatarUrl } from '@/lib/utils'
-import type { Profile, RatingMetric, ConnectionType, RatingSubmission } from '@/types'
-import { ChevronLeft, Loader2, CheckCircle } from 'lucide-react'
+import type { Profile, RatingMetric, ConnectionType } from '@/types'
+import { ChevronLeft, Loader2, CheckCircle, Coins } from 'lucide-react'
 
 const CONNECTION_OPTIONS: { value: ConnectionType; label: string; description: string }[] = [
   { value: 'stranger',     label: 'Stranger',     description: 'Never really interacted' },
@@ -18,6 +19,12 @@ const CONNECTION_OPTIONS: { value: ConnectionType; label: string; description: s
   { value: 'friend',       label: 'Friend',       description: 'Close personal relationship' },
   { value: 'family',       label: 'Family',       description: 'Family member' },
 ]
+
+interface CanRateResult {
+  can_rate: boolean
+  requires_token: boolean
+  tokens: number
+}
 
 export default function RatePage() {
   const { userId } = useParams<{ userId: string }>()
@@ -36,6 +43,8 @@ export default function RatePage() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
+  const [canRateInfo, setCanRateInfo] = useState<CanRateResult | null>(null)
+  const [showPaywall, setShowPaywall] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -44,11 +53,12 @@ export default function RatePage() {
       if (!user) { router.push('/auth/login'); return }
       setCurrentUserId(user.id)
 
-      const [{ data: p }, { data: m }, { data: conn }, { data: mutuals }] = await Promise.all([
+      const [{ data: p }, { data: m }, { data: conn }, { data: mutuals }, { data: canRate }] = await Promise.all([
         supabase.from('profiles').select('*').eq('id', userId).single(),
         supabase.from('rating_metrics').select('*').eq('active', true).order('sort_order'),
         supabase.from('connections').select('*').eq('user_id', user.id).eq('connected_user_id', userId).single(),
         supabase.rpc('get_mutual_connection_count', { user_a: user.id, user_b: userId }),
+        supabase.rpc('check_can_rate', { p_rated_id: userId }),
       ])
 
       if (!p) { router.push('/search'); return }
@@ -58,12 +68,18 @@ export default function RatePage() {
       setMetrics((m as RatingMetric[]) ?? [])
       setMutualCount((mutuals as number) ?? 0)
 
+      if (canRate) {
+        setCanRateInfo(canRate as CanRateResult)
+        if (!canRate.can_rate) {
+          setShowPaywall(true)
+        }
+      }
+
       if (conn) {
         setExistingConnection(conn)
         setConnectionType(conn.connection_type as ConnectionType)
       }
 
-      // Initialize all metric scores to 3
       const initial: Record<string, number> = {}
       ;(m as RatingMetric[])?.forEach(metric => { initial[metric.id] = 3 })
       setScores(initial)
@@ -73,10 +89,8 @@ export default function RatePage() {
     load()
   }, [userId, router])
 
-  // Recompute proximity whenever connection type or existing data changes
   useEffect(() => {
     if (!existingConnection && !loading) {
-      // First time rating this person
       const weight = computeProximityWeight({
         interactionCount: 0,
         connectionType,
@@ -136,7 +150,12 @@ export default function RatePage() {
     })
 
     if (rpcErr) {
-      setError(rpcErr.message ?? 'Failed to submit rating.')
+      if (rpcErr.message?.includes('NO_TOKENS')) {
+        setShowPaywall(true)
+        setCanRateInfo(prev => prev ? { ...prev, can_rate: false } : null)
+      } else {
+        setError(rpcErr.message ?? 'Failed to submit rating.')
+      }
       setSubmitting(false)
       return
     }
@@ -176,12 +195,26 @@ export default function RatePage() {
 
   if (!profile) return null
 
+  if (showPaywall) {
+    return (
+      <TokenPaywall
+        profile={profile}
+        tokens={canRateInfo?.tokens ?? 0}
+        requiresToken={canRateInfo?.requires_token ?? false}
+        onUseToken={() => {
+          setShowPaywall(false)
+          setCanRateInfo(prev => prev ? { ...prev, can_rate: true } : null)
+        }}
+        onBack={() => router.push(`/profile/${profile.username}`)}
+      />
+    )
+  }
+
   const pct = proximityPercent(proximityWeight)
   const label = proximityLabel(proximityWeight)
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5 animate-fade-in">
-      {/* Back */}
       <Link href={`/profile/${profile.username}`} className="flex items-center gap-1 text-muted text-sm hover:text-white">
         <ChevronLeft size={16} /> Back to profile
       </Link>
@@ -195,11 +228,29 @@ export default function RatePage() {
           height={56}
           className="rounded-xl ring-2 ring-border"
         />
-        <div>
+        <div className="flex-1">
           <h1 className="font-bold text-white">Rate {profile.full_name}</h1>
           <p className="text-muted text-sm">@{profile.username}</p>
         </div>
+        {/* Token balance badge */}
+        {canRateInfo && (
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/30 border border-border">
+            <Coins size={14} className="text-yellow-400" />
+            <span className="text-yellow-400 font-bold text-sm tabular-nums">{canRateInfo.tokens}</span>
+          </div>
+        )}
       </div>
+
+      {/* Token warning banner */}
+      {canRateInfo?.requires_token && (
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30">
+          <Coins size={18} className="text-yellow-400 shrink-0" />
+          <div>
+            <p className="text-yellow-300 text-sm font-semibold">Daily free rating used</p>
+            <p className="text-yellow-400/70 text-xs">Submitting will spend 1 token ({canRateInfo.tokens} remaining)</p>
+          </div>
+        </div>
+      )}
 
       {/* Proximity preview */}
       <div
@@ -319,6 +370,10 @@ export default function RatePage() {
           {submitting ? (
             <span className="flex items-center justify-center gap-2">
               <Loader2 size={20} className="animate-spin" /> Submitting…
+            </span>
+          ) : canRateInfo?.requires_token ? (
+            <span className="flex items-center justify-center gap-2">
+              <Coins size={18} /> Use 1 token · {pct}% influence
             </span>
           ) : `Submit rating · ${pct}% influence`}
         </button>
