@@ -1,4 +1,4 @@
-export type ConnectionType = 'colleague' | 'friend' | 'acquaintance' | 'stranger'
+export type ConnectionType = 'colleague' | 'friend' | 'acquaintance' | 'stranger' | 'family'
 
 export interface Profile {
   id: string

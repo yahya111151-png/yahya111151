@@ -13,9 +13,10 @@ import { ChevronLeft, Loader2, CheckCircle } from 'lucide-react'
 
 const CONNECTION_OPTIONS: { value: ConnectionType; label: string; description: string }[] = [
   { value: 'stranger',     label: 'Stranger',     description: 'Never really interacted' },
-  { value: 'acquaintance', label: 'Acquaintance',  description: 'Met a few times' },
-  { value: 'colleague',    label: 'Colleague',     description: 'Work or study together' },
-  { value: 'friend',       label: 'Friend',        description: 'Close personal relationship' },
+  { value: 'acquaintance', label: 'Acquaintance', description: 'Met a few times' },
+  { value: 'colleague',    label: 'Colleague',    description: 'Work or study together' },
+  { value: 'friend',       label: 'Friend',       description: 'Close personal relationship' },
+  { value: 'family',       label: 'Family',       description: 'Family member' },
 ]
 
 export default function RatePage() {
@@ -255,7 +256,7 @@ export default function RatePage() {
         {/* Connection type picker */}
         <div className="space-y-2">
           <h2 className="font-bold text-white text-sm">How do you know them?</h2>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {CONNECTION_OPTIONS.map(opt => (
               <button
                 key={opt.value}

@@ -40,6 +40,7 @@ export default function MetricSlider({
         {[1, 2, 3, 4, 5].map(star => (
           <button
             key={star}
+            type="button"
             onClick={() => onChange(metricId, star)}
             className="flex-1 h-10 rounded-xl font-bold text-sm transition-all duration-150"
             style={{

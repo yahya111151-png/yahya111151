@@ -2,8 +2,9 @@ import type { ConnectionType, ProximityParams } from '@/types'
 
 // Base score for each declared connection type
 const CONNECTION_TYPE_BASE: Record<ConnectionType, number> = {
-  colleague:    0.80,
+  family:       1.00,
   friend:       0.90,
+  colleague:    0.80,
   acquaintance: 0.50,
   stranger:     0.10,
 }
