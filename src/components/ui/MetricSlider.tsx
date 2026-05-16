@@ -10,13 +10,51 @@ interface MetricSliderProps {
   onClear: (metricId: string) => void
 }
 
-const LABELS = ['', 'Poor', 'Below Average', 'Average', 'Good', 'Excellent']
-const COLORS = ['', '#f87171', '#fb923c', '#fbbf24', '#34d399', '#10b981']
+const LABELS: Record<number, string> = {
+  '-5': 'Terrible',
+  '-4': 'Very Bad',
+  '-3': 'Bad',
+  '-2': 'Below Average',
+  '-1': 'Poor',
+  '0':  'Neutral',
+  '1':  'Okay',
+  '2':  'Good',
+  '3':  'Great',
+  '4':  'Excellent',
+  '5':  'Outstanding',
+}
+
+function scoreColor(v: number): string {
+  if (v <= -4) return '#ef4444'
+  if (v <= -2) return '#f97316'
+  if (v === -1) return '#fb923c'
+  if (v ===  0) return '#6b7280'
+  if (v ===  1) return '#86efac'
+  if (v <=  3) return '#34d399'
+  return '#10b981'
+}
+
+// position of thumb as percent 0–100
+function thumbPct(v: number) {
+  return ((v + 5) / 10) * 100
+}
+
+function trackGradient(v: number): string {
+  const color = scoreColor(v)
+  const pos = thumbPct(v)
+  const dark = '#1e1e30'
+  if (v > 0)  return `linear-gradient(to right, ${dark} 50%, ${color} 50%, ${color} ${pos}%, ${dark} ${pos}%)`
+  if (v < 0)  return `linear-gradient(to right, ${dark} ${pos}%, ${color} ${pos}%, ${color} 50%, ${dark} 50%)`
+  return dark
+}
+
+const QUICK = [-5, -3, 0, 3, 5]
 
 export default function MetricSlider({
   metricId, name, icon, description, value, onChange, onClear,
 }: MetricSliderProps) {
   const rated = value !== null
+  const color = rated ? scoreColor(value!) : '#4b5563'
 
   return (
     <div
@@ -26,6 +64,7 @@ export default function MetricSlider({
         borderColor: rated ? '#1e1e30' : '#13131f',
       }}
     >
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-xl" style={{ opacity: rated ? 1 : 0.4 }}>{icon}</span>
@@ -37,8 +76,8 @@ export default function MetricSlider({
         <div className="flex flex-col items-end gap-0.5">
           {rated ? (
             <>
-              <span className="font-bold text-lg tabular-nums" style={{ color: COLORS[value!] }}>
-                {value}/5
+              <span className="font-black text-xl tabular-nums" style={{ color }}>
+                {value! > 0 ? `+${value}` : value}
               </span>
               <button
                 type="button"
@@ -54,42 +93,47 @@ export default function MetricSlider({
         </div>
       </div>
 
-      {/* Star buttons */}
-      <div className="flex gap-2 justify-between">
-        {[1, 2, 3, 4, 5].map(star => (
+      {/* Quick-pick buttons */}
+      <div className="flex gap-1.5 justify-between">
+        {QUICK.map(q => (
           <button
-            key={star}
+            key={q}
             type="button"
-            onClick={() => onChange(metricId, star)}
-            className="flex-1 h-10 rounded-xl font-bold text-sm transition-all duration-150"
+            onClick={() => onChange(metricId, q)}
+            className="flex-1 h-9 rounded-xl font-bold text-xs transition-all duration-150"
             style={{
-              background: rated && value! >= star ? COLORS[star] + '33' : '#1e1e30',
-              border: `1.5px solid ${rated && value! >= star ? COLORS[star] : '#1e1e30'}`,
-              color: rated && value! >= star ? COLORS[star] : '#6b7280',
-              boxShadow: value === star ? `0 0 10px ${COLORS[star]}55` : undefined,
+              background: value === q ? scoreColor(q) + '33' : '#1e1e30',
+              border: `1.5px solid ${value === q ? scoreColor(q) : '#1e1e30'}`,
+              color: value === q ? scoreColor(q) : '#6b7280',
+              boxShadow: value === q ? `0 0 10px ${scoreColor(q)}55` : undefined,
             }}
           >
-            {star}
+            {q > 0 ? `+${q}` : q}
           </button>
         ))}
       </div>
 
-      {/* Slider — only visible once rated */}
-      {rated && (
+      {/* Slider */}
+      <div className="space-y-1">
         <input
           type="range"
-          min={1}
+          min={-5}
           max={5}
           step={1}
-          value={value!}
+          value={value ?? 0}
           onChange={e => onChange(metricId, Number(e.target.value))}
           className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
           style={{
-            background: `linear-gradient(to right, ${COLORS[value!]} ${(value! - 1) * 25}%, #1e1e30 ${(value! - 1) * 25}%)`,
-            accentColor: COLORS[value!],
+            background: rated ? trackGradient(value!) : '#1e1e30',
+            accentColor: rated ? color : '#6b7280',
           }}
         />
-      )}
+        <div className="flex justify-between text-muted text-xs px-0.5">
+          <span>−5</span>
+          <span>0</span>
+          <span>+5</span>
+        </div>
+      </div>
     </div>
   )
 }

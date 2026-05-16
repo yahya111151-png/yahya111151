@@ -343,7 +343,10 @@ export default function RatePage() {
           <div className="bg-surface border border-border rounded-2xl p-4 flex items-center justify-between">
             <div>
               <p className="text-muted text-sm">Raw average</p>
-              <p className="font-black text-2xl text-white tabular-nums">{rawAvg().toFixed(1)}<span className="text-muted font-normal text-base">/5</span></p>
+              <p className="font-black text-2xl text-white tabular-nums">
+                {rawAvg() > 0 ? '+' : ''}{rawAvg().toFixed(1)}
+                <span className="text-muted font-normal text-base"> / ±5</span>
+              </p>
             </div>
             <div className="text-center">
               <p className="text-muted text-xs">×</p>
@@ -352,6 +355,7 @@ export default function RatePage() {
             <div className="text-right">
               <p className="text-muted text-sm">Weighted contribution</p>
               <p className="font-black text-2xl tabular-nums" style={{ color: '#c084fc' }}>
+                {applyWeight(rawAvg(), proximityWeight) > 0 ? '+' : ''}
                 {applyWeight(rawAvg(), proximityWeight).toFixed(2)}
               </p>
             </div>
