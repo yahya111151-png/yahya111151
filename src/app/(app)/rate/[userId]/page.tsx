@@ -117,48 +117,29 @@ export default function RatePage() {
     const avg = rawAvg()
     const weighted = applyWeight(avg, proximityWeight)
 
-    const { data: rating, error: ratingErr } = await supabase
-      .from('ratings')
-      .insert({
-        rater_id: currentUserId,
-        rated_id: profile.id,
-        proximity_weight: proximityWeight,
-        closeness_score: proximityWeight,
-        raw_avg_score: Math.round(avg * 100) / 100,
-        weighted_score: weighted,
-        comment: comment.trim() || null,
-      })
-      .select()
-      .single()
+    const scoreRows = metrics.map(m => ({
+      metric_id: m.id,
+      score: scores[m.id] ?? 3,
+      weighted_score: applyWeight(scores[m.id] ?? 3, proximityWeight),
+    }))
 
-    if (ratingErr || !rating) {
-      setError(ratingErr?.message ?? 'Failed to submit rating.')
+    const { error: rpcErr } = await supabase.rpc('submit_rating', {
+      p_rater_id:         currentUserId,
+      p_rated_id:         profile.id,
+      p_proximity_weight: proximityWeight,
+      p_closeness_score:  proximityWeight,
+      p_raw_avg_score:    Math.round(avg * 100) / 100,
+      p_weighted_score:   weighted,
+      p_comment:          comment.trim() || null,
+      p_connection_type:  connectionType,
+      p_scores:           JSON.stringify(scoreRows),
+    })
+
+    if (rpcErr) {
+      setError(rpcErr.message ?? 'Failed to submit rating.')
       setSubmitting(false)
       return
     }
-
-    // Insert per-metric scores
-    const scoreRows: RatingSubmission[] = metrics.map(m => ({
-      metric_id: m.id,
-      score: scores[m.id] ?? 3,
-    }))
-
-    await supabase.from('rating_scores').insert(
-      scoreRows.map(s => ({
-        rating_id: rating.id,
-        metric_id: s.metric_id,
-        score: s.score,
-        weighted_score: applyWeight(s.score, proximityWeight),
-      }))
-    )
-
-    // Upsert connection type
-    await supabase.from('connections').upsert({
-      user_id: currentUserId,
-      connected_user_id: profile.id,
-      connection_type: connectionType,
-      last_interaction_at: new Date().toISOString(),
-    }, { onConflict: 'user_id,connected_user_id' })
 
     setSuccess(true)
     setSubmitting(false)
