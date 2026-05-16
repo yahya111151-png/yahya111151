@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import SocialLoginButtons from '@/components/ui/SocialLoginButtons'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -38,6 +39,14 @@ export default function LoginPage() {
             <span className="text-primary">dive</span>
           </Link>
           <p className="text-muted mt-2">Sign in to your account</p>
+        </div>
+
+        <SocialLoginButtons />
+
+        <div className="flex items-center gap-3">
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-muted text-xs">or sign in with email</span>
+          <div className="flex-1 h-px bg-border" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
