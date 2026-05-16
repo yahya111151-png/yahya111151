@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { avatarUrl, coverGradient } from '@/lib/utils'
 import type { Profile } from '@/types'
-import { Camera, MapPin, Loader2, CheckCircle, ChevronLeft } from 'lucide-react'
+import { Camera, MapPin, Loader2, CheckCircle, ChevronLeft, Upload, X } from 'lucide-react'
 import Link from 'next/link'
 
 type Section = 'profile' | 'contact' | 'privacy'
@@ -19,6 +19,10 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState(false)
   const [section, setSection] = useState<Section>('profile')
   const [locating, setLocating] = useState(false)
+  const [uploadingAvatar, setUploadingAvatar] = useState(false)
+  const [uploadingCover, setUploadingCover] = useState(false)
+  const avatarInputRef = useRef<HTMLInputElement>(null)
+  const coverInputRef = useRef<HTMLInputElement>(null)
 
   const [form, setForm] = useState({
     full_name: '',
@@ -90,6 +94,34 @@ export default function SettingsPage() {
     setLocating(false)
   }
 
+  async function uploadImage(file: File, type: 'avatar' | 'cover') {
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+
+    const ext = file.name.split('.').pop()
+    const path = `${user.id}/${type}.${ext}`
+
+    if (type === 'avatar') setUploadingAvatar(true)
+    else setUploadingCover(true)
+
+    const { error } = await supabase.storage.from('avatars').upload(path, file, { upsert: true })
+
+    if (!error) {
+      const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(path)
+      const bustedUrl = `${publicUrl}?t=${Date.now()}`
+      setForm(f => ({
+        ...f,
+        [type === 'avatar' ? 'avatar_url' : 'cover_photo_url']: bustedUrl,
+      }))
+    } else {
+      alert(`Upload failed: ${error.message}`)
+    }
+
+    if (type === 'avatar') setUploadingAvatar(false)
+    else setUploadingCover(false)
+  }
+
   async function handleSave(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
@@ -142,19 +174,63 @@ export default function SettingsPage() {
         <h1 className="font-black text-2xl text-white">Edit Profile</h1>
       </div>
 
-      {/* Cover + avatar preview */}
-      <div className="relative rounded-2xl overflow-hidden">
-        <div
-          className="h-28 w-full"
+      {/* Cover + avatar upload */}
+      <div className="relative rounded-2xl overflow-visible">
+        {/* Cover photo */}
+        <button
+          type="button"
+          onClick={() => coverInputRef.current?.click()}
+          disabled={uploadingCover}
+          className="relative h-28 w-full rounded-2xl overflow-hidden group block"
           style={{
             background: form.cover_photo_url ? undefined : coverGradient(form.username),
             backgroundImage: form.cover_photo_url ? `url(${form.cover_photo_url})` : undefined,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
+        >
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+            {uploadingCover ? (
+              <Loader2 size={24} className="text-white animate-spin" />
+            ) : (
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 text-white text-sm font-semibold bg-black/50 px-3 py-1.5 rounded-lg">
+                <Camera size={16} /> Change cover
+              </span>
+            )}
+          </div>
+        </button>
+        <input
+          ref={coverInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          className="hidden"
+          onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f, 'cover') }}
         />
+
+        {/* Avatar */}
         <div className="absolute bottom-0 left-4 translate-y-1/2">
-          <Image src={avatar} alt="avatar" width={64} height={64} className="rounded-xl ring-4 ring-bg" />
+          <button
+            type="button"
+            onClick={() => avatarInputRef.current?.click()}
+            disabled={uploadingAvatar}
+            className="relative group"
+          >
+            <Image src={avatar} alt="avatar" width={64} height={64} className="rounded-xl ring-4 ring-bg" />
+            <div className="absolute inset-0 rounded-xl bg-black/0 group-hover:bg-black/50 transition-colors flex items-center justify-center">
+              {uploadingAvatar ? (
+                <Loader2 size={16} className="text-white animate-spin" />
+              ) : (
+                <Upload size={16} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+              )}
+            </div>
+          </button>
+          <input
+            ref={avatarInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            className="hidden"
+            onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f, 'avatar') }}
+          />
         </div>
       </div>
 
@@ -202,14 +278,10 @@ export default function SettingsPage() {
             <Field label="City / Location (text)">
               <input value={form.location} onChange={set('location')} className={inputCls} placeholder="e.g. New York, NY" />
             </Field>
-            <Field label="Avatar URL">
-              <input value={form.avatar_url} onChange={set('avatar_url')} className={inputCls} placeholder="https://…" type="url" />
-              <p className="text-muted text-xs mt-1">Paste any image URL. Leave empty for auto-generated avatar.</p>
-            </Field>
-            <Field label="Cover photo URL">
-              <input value={form.cover_photo_url} onChange={set('cover_photo_url')} className={inputCls} placeholder="https://…" type="url" />
-              <p className="text-muted text-xs mt-1">Leave empty for a unique gradient cover.</p>
-            </Field>
+            <div className="flex items-center gap-3 px-4 py-3 bg-surface border border-border rounded-xl">
+              <Camera size={16} className="text-muted shrink-0" />
+              <p className="text-muted text-xs">Tap your avatar or cover photo above to upload a new image (max 5 MB).</p>
+            </div>
           </div>
         )}
 
