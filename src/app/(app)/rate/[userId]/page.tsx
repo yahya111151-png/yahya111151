@@ -80,9 +80,7 @@ export default function RatePage() {
         setConnectionType(conn.connection_type as ConnectionType)
       }
 
-      const initial: Record<string, number> = {}
-      ;(m as RatingMetric[])?.forEach(metric => { initial[metric.id] = 3 })
-      setScores(initial)
+      setScores({})
 
       setLoading(false)
     }
@@ -115,11 +113,21 @@ export default function RatePage() {
     setScores(prev => ({ ...prev, [metricId]: value }))
   }
 
+  function clearScore(metricId: string) {
+    setScores(prev => {
+      const next = { ...prev }
+      delete next[metricId]
+      return next
+    })
+  }
+
   function rawAvg(): number {
     const vals = Object.values(scores)
     if (vals.length === 0) return 0
     return vals.reduce((a, b) => a + b, 0) / vals.length
   }
+
+  const ratedCount = Object.keys(scores).length
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -131,11 +139,13 @@ export default function RatePage() {
     const avg = rawAvg()
     const weighted = applyWeight(avg, proximityWeight)
 
-    const scoreRows = metrics.map(m => ({
-      metric_id: m.id,
-      score: scores[m.id] ?? 3,
-      weighted_score: applyWeight(scores[m.id] ?? 3, proximityWeight),
-    }))
+    const scoreRows = metrics
+      .filter(m => scores[m.id] !== undefined)
+      .map(m => ({
+        metric_id: m.id,
+        score: scores[m.id],
+        weighted_score: applyWeight(scores[m.id], proximityWeight),
+      }))
 
     const { error: rpcErr } = await supabase.rpc('submit_rating', {
       p_rater_id:         currentUserId,
@@ -310,7 +320,10 @@ export default function RatePage() {
 
         {/* Metric sliders */}
         <div className="space-y-2">
-          <h2 className="font-bold text-white text-sm">Score each dimension</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="font-bold text-white text-sm">Score each dimension</h2>
+            <span className="text-muted text-xs">{ratedCount}/{metrics.length} rated</span>
+          </div>
           {metrics.map(m => (
             <MetricSlider
               key={m.id}
@@ -318,29 +331,32 @@ export default function RatePage() {
               name={m.name}
               icon={m.icon}
               description={m.description}
-              value={scores[m.id] ?? 3}
+              value={scores[m.id] ?? null}
               onChange={setScore}
+              onClear={clearScore}
             />
           ))}
         </div>
 
         {/* Overall preview */}
-        <div className="bg-surface border border-border rounded-2xl p-4 flex items-center justify-between">
-          <div>
-            <p className="text-muted text-sm">Raw average</p>
-            <p className="font-black text-2xl text-white tabular-nums">{rawAvg().toFixed(1)}<span className="text-muted font-normal text-base">/5</span></p>
+        {ratedCount > 0 && (
+          <div className="bg-surface border border-border rounded-2xl p-4 flex items-center justify-between">
+            <div>
+              <p className="text-muted text-sm">Raw average</p>
+              <p className="font-black text-2xl text-white tabular-nums">{rawAvg().toFixed(1)}<span className="text-muted font-normal text-base">/5</span></p>
+            </div>
+            <div className="text-center">
+              <p className="text-muted text-xs">×</p>
+              <p className="text-primary font-bold">{pct}% weight</p>
+            </div>
+            <div className="text-right">
+              <p className="text-muted text-sm">Weighted contribution</p>
+              <p className="font-black text-2xl tabular-nums" style={{ color: '#c084fc' }}>
+                {applyWeight(rawAvg(), proximityWeight).toFixed(2)}
+              </p>
+            </div>
           </div>
-          <div className="text-center">
-            <p className="text-muted text-xs">×</p>
-            <p className="text-primary font-bold">{pct}% weight</p>
-          </div>
-          <div className="text-right">
-            <p className="text-muted text-sm">Weighted contribution</p>
-            <p className="font-black text-2xl tabular-nums" style={{ color: '#c084fc' }}>
-              {applyWeight(rawAvg(), proximityWeight).toFixed(2)}
-            </p>
-          </div>
-        </div>
+        )}
 
         {/* Comment */}
         <div className="space-y-1">
@@ -364,7 +380,7 @@ export default function RatePage() {
 
         <button
           type="submit"
-          disabled={submitting || Object.keys(scores).length === 0}
+          disabled={submitting || ratedCount === 0}
           className="w-full py-4 bg-primary text-bg font-bold rounded-2xl text-lg hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md"
         >
           {submitting ? (
