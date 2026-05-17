@@ -2,15 +2,21 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import webpush from 'web-push'
 
-webpush.setVapidDetails(
-  process.env.VAPID_EMAIL!,
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  process.env.VAPID_PRIVATE_KEY!
-)
+// VAPID setup is deferred to handler time (not module level) so the build
+// doesn't fail when env vars aren't present in the Vercel build environment.
+function initWebPush() {
+  webpush.setVapidDetails(
+    process.env.VAPID_EMAIL!,
+    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+    process.env.VAPID_PRIVATE_KEY!
+  )
+}
 
 export async function POST(request: Request) {
   const { rated_id, rater_name } = await request.json()
   if (!rated_id) return NextResponse.json({ error: 'Missing rated_id' }, { status: 400 })
+
+  initWebPush()
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -26,7 +32,7 @@ export async function POST(request: Request) {
 
   const payload = JSON.stringify({
     title: 'Someone rated you! ⭐',
-    body: rater_name ? `${rater_name} just rated you on Nosedive` : 'You just received a new rating',
+    body: rater_name ? `${rater_name} just rated you on Lens` : 'You just received a new rating',
     url: '/dashboard',
   })
 
