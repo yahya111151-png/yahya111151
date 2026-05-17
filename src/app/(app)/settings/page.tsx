@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 import { avatarUrl, coverGradient } from '@/lib/utils'
 import type { Profile } from '@/types'
 import { Camera, MapPin, Loader2, CheckCircle, ChevronLeft, Upload, X } from 'lucide-react'
+import Avatar from '@/components/ui/Avatar'
 import Link from 'next/link'
 
 type Section = 'profile' | 'contact' | 'privacy'
@@ -215,7 +216,7 @@ export default function SettingsPage() {
             disabled={uploadingAvatar}
             className="relative group"
           >
-            <Image src={avatar} alt="avatar" width={64} height={64} className="rounded-xl ring-4 ring-bg" />
+            <Avatar src={form.avatar_url || null} username={form.username} size={64} className="rounded-xl ring-4 ring-bg" />
             <div className="absolute inset-0 rounded-xl bg-black/0 group-hover:bg-black/50 transition-colors flex items-center justify-center">
               {uploadingAvatar ? (
                 <Loader2 size={16} className="text-white animate-spin" />

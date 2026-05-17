@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import MetricSlider from '@/components/ui/MetricSlider'
 import TokenPaywall from '@/components/ui/TokenPaywall'
+import Avatar from '@/components/ui/Avatar'
 import { computeProximityWeight, applyWeight, proximityLabel, proximityPercent } from '@/lib/algorithm/proximity'
-import { avatarUrl } from '@/lib/utils'
 import type { Profile, RatingMetric, ConnectionType } from '@/types'
 import { ChevronLeft, Loader2, CheckCircle, Coins } from 'lucide-react'
 
@@ -231,11 +230,10 @@ export default function RatePage() {
 
       {/* Target profile */}
       <div className="bg-surface border border-border rounded-2xl p-4 flex items-center gap-4">
-        <Image
-          src={profile.avatar_url ?? avatarUrl(profile.username)}
-          alt={profile.full_name}
-          width={56}
-          height={56}
+        <Avatar
+          src={profile.avatar_url}
+          username={profile.username}
+          size={56}
           className="rounded-xl ring-2 ring-border"
         />
         <div className="flex-1">

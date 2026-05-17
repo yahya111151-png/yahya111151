@@ -7,7 +7,8 @@ import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import UserCard from '@/components/ui/UserCard'
 import QRScanner from '@/components/ui/QRScanner'
-import { avatarUrl, scoreColor, distanceLabel } from '@/lib/utils'
+import { scoreColor, distanceLabel } from '@/lib/utils'
+import Avatar from '@/components/ui/Avatar'
 import type { Profile, NearbyUser } from '@/types'
 import { Search, MapPin, QrCode, Phone, Loader2, Navigation } from 'lucide-react'
 
@@ -224,11 +225,10 @@ export default function SearchPage() {
                   href={`/profile/${u.username}`}
                   className="flex items-center gap-3 p-3 bg-surface border border-border rounded-xl hover:border-primary/40 transition-colors"
                 >
-                  <Image
-                    src={u.avatar_url ?? avatarUrl(u.username)}
-                    alt={u.full_name}
-                    width={48}
-                    height={48}
+                  <Avatar
+                    src={u.avatar_url}
+                    username={u.username}
+                    size={48}
                     className="rounded-xl"
                   />
                   <div className="flex-1 min-w-0">

@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { avatarUrl, formatScore, scoreColor } from '@/lib/utils'
+import Avatar from '@/components/ui/Avatar'
+import { formatScore, scoreColor } from '@/lib/utils'
 import type { Profile } from '@/types'
 
 interface UserCardProps {
@@ -10,15 +10,13 @@ interface UserCardProps {
 }
 
 export default function UserCard({ profile, showScore = true, compact = false }: UserCardProps) {
-  const avatar = profile.avatar_url ?? avatarUrl(profile.username)
-
   if (compact) {
     return (
       <Link
         href={`/profile/${profile.username}`}
         className="flex items-center gap-3 p-3 rounded-xl bg-surface border border-border hover:border-primary/40 transition-colors"
       >
-        <Image src={avatar} alt={profile.full_name} width={40} height={40} className="rounded-full" />
+        <Avatar src={profile.avatar_url} username={profile.username} size={40} className="rounded-full" />
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-white text-sm truncate">{profile.full_name}</p>
           <p className="text-muted text-xs truncate">@{profile.username}</p>
@@ -37,7 +35,7 @@ export default function UserCard({ profile, showScore = true, compact = false }:
       href={`/profile/${profile.username}`}
       className="flex items-center gap-4 p-4 rounded-2xl bg-surface border border-border hover:border-primary/40 hover:shadow-glow-sm transition-all duration-200"
     >
-      <Image src={avatar} alt={profile.full_name} width={56} height={56} className="rounded-full ring-2 ring-border" />
+      <Avatar src={profile.avatar_url} username={profile.username} size={56} className="rounded-full ring-2 ring-border" />
       <div className="flex-1 min-w-0">
         <p className="font-bold text-white truncate">{profile.full_name}</p>
         <p className="text-muted text-sm truncate">@{profile.username}</p>
