@@ -205,7 +205,7 @@ export default function RatePage() {
           based on your closeness to {profile?.full_name.split(' ')[0]}.
         </p>
         <div className="flex flex-col gap-3 pt-4">
-          <Link href={`/profile/${profile?.username}`} className="py-3 bg-primary text-bg font-bold rounded-xl shadow-glow-sm">
+          <Link href={`/profile/${profile?.username}`} className="py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm">
             View their profile
           </Link>
           <Link href="/search" className="py-3 bg-surface border border-border text-foreground font-semibold rounded-xl">
@@ -256,7 +256,7 @@ export default function RatePage() {
         </div>
         {/* Token balance badge */}
         {canRateInfo && (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-900/30 border border-border">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary/5 border border-primary/20">
             <Coins size={14} className="text-yellow-400" />
             <span className="text-yellow-400 font-bold text-sm tabular-nums">{canRateInfo.tokens}</span>
           </div>
@@ -318,9 +318,9 @@ export default function RatePage() {
                 onClick={() => setConnectionType(opt.value)}
                 className="p-3 rounded-xl border text-left transition-all duration-150"
                 style={{
-                  background: connectionType === opt.value ? '#e8476a22' : '#0f0f1a',
-                  borderColor: connectionType === opt.value ? '#e8476a' : '#1e1e30',
-                  boxShadow: connectionType === opt.value ? '0 0 12px rgba(192,132,252,0.2)' : undefined,
+                  background: connectionType === opt.value ? '#e8476a15' : '#ffffff',
+                  borderColor: connectionType === opt.value ? '#e8476a' : '#fce7ec',
+                  boxShadow: connectionType === opt.value ? '0 0 12px rgba(232,71,106,0.15)' : undefined,
                 }}
               >
                 <p className="text-foreground text-sm font-semibold">{opt.label}</p>
@@ -397,7 +397,7 @@ export default function RatePage() {
         <button
           type="submit"
           disabled={submitting || ratedCount === 0}
-          className="w-full py-4 bg-primary text-bg font-bold rounded-2xl text-lg hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md"
+          className="w-full py-4 bg-primary text-white font-bold rounded-2xl text-lg hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md"
         >
           {submitting ? (
             <span className="flex items-center justify-center gap-2">

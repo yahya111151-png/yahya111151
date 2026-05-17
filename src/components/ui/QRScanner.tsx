@@ -31,7 +31,7 @@ export default function QRScanner() {
               stopScanner()
               router.push(`/profile/${match[1]}`)
             } else {
-              setError('QR code is not a Nosedive profile.')
+              setError('QR code is not a Lens profile.')
             }
           } catch {
             setError('Could not read this QR code.')
@@ -66,12 +66,12 @@ export default function QRScanner() {
             <Camera size={36} className="text-primary" />
           </div>
           <div className="text-center">
-            <p className="font-semibold text-white">Scan a Profile QR Code</p>
-            <p className="text-muted text-sm mt-1">Point your camera at someone's Nosedive QR code to visit their profile</p>
+            <p className="font-semibold text-foreground">Scan a Profile QR Code</p>
+            <p className="text-muted text-sm mt-1">Point your camera at someone's Lens QR code to visit their profile</p>
           </div>
           <button
             onClick={startScanner}
-            className="px-8 py-3 bg-primary text-bg font-bold rounded-2xl shadow-glow-sm hover:shadow-glow-md transition-all"
+            className="px-8 py-3 bg-primary text-white font-bold rounded-2xl shadow-glow-sm hover:shadow-glow-md transition-all"
           >
             Open Camera
           </button>
@@ -117,7 +117,7 @@ export default function QRScanner() {
           <p className="text-center text-muted text-sm animate-pulse">Scanning…</p>
           <button
             onClick={stopScanner}
-            className="w-full py-2.5 flex items-center justify-center gap-2 bg-surface border border-border rounded-xl text-white text-sm"
+            className="w-full py-2.5 flex items-center justify-center gap-2 bg-surface border border-border rounded-xl text-foreground text-sm"
           >
             <X size={16} /> Cancel
           </button>

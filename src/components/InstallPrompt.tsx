@@ -56,11 +56,11 @@ export default function InstallPrompt() {
         </div>
 
         <div className="flex-1 min-w-0">
-          <p className="font-bold text-white text-sm">Install Nosedive</p>
+          <p className="font-bold text-foreground text-sm">Install Lens</p>
           {isIOS ? (
             <p className="text-muted text-xs mt-0.5 leading-relaxed">
-              Tap <span className="text-white">Share</span> then{' '}
-              <span className="text-white">"Add to Home Screen"</span> to install.
+              Tap <span className="text-foreground font-semibold">Share</span> then{' '}
+              <span className="text-foreground font-semibold">"Add to Home Screen"</span> to install.
             </p>
           ) : (
             <p className="text-muted text-xs mt-0.5">Add to your home screen for the best experience.</p>
@@ -69,14 +69,14 @@ export default function InstallPrompt() {
           {!isIOS && (
             <button
               onClick={install}
-              className="mt-2 px-4 py-1.5 bg-primary text-bg text-xs font-bold rounded-xl shadow-glow-sm"
+              className="mt-2 px-4 py-1.5 bg-primary text-white text-xs font-bold rounded-xl shadow-glow-sm"
             >
               Install app
             </button>
           )}
         </div>
 
-        <button onClick={dismiss} className="p-1 text-muted hover:text-white transition-colors shrink-0">
+        <button onClick={dismiss} className="p-1 text-muted hover:text-foreground transition-colors shrink-0">
           <X size={16} />
         </button>
       </div>

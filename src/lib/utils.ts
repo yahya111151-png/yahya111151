@@ -5,20 +5,21 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// score is on -5 to +5 scale
 export function scoreColor(score: number): string {
-  if (score >= 4.0) return 'text-score-high'
-  if (score >= 2.5) return 'text-score-mid'
+  if (score >= 2)  return 'text-score-high'
+  if (score >= 0)  return 'text-score-mid'
   return 'text-score-low'
 }
 
 export function scoreRingColor(score: number): string {
-  if (score >= 4.0) return '#34d399'
-  if (score >= 2.5) return '#fbbf24'
-  return '#f87171'
+  if (score >= 2)  return '#16a34a'
+  if (score >= 0)  return '#d97706'
+  return '#dc2626'
 }
 
 export function formatScore(score: number): string {
-  return score.toFixed(2)
+  return `${score > 0 ? '+' : ''}${score.toFixed(2)}`
 }
 
 export function timeAgo(date: string): string {
@@ -37,7 +38,7 @@ export function coverGradient(username: string): string {
   const hash = username.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
   const h1 = hash % 360
   const h2 = (hash * 13 + 120) % 360
-  return `linear-gradient(135deg, hsl(${h1},60%,15%) 0%, hsl(${h2},55%,22%) 100%)`
+  return `linear-gradient(135deg, hsl(${h1},55%,88%) 0%, hsl(${h2},50%,82%) 100%)`
 }
 
 export function distanceLabel(km: number): string {

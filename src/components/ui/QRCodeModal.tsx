@@ -26,7 +26,7 @@ export default function QRCodeModal({ username, fullName, onClose }: QRCodeModal
 
   async function share() {
     if (navigator.share) {
-      await navigator.share({ title: `${fullName} on Nosedive`, url })
+      await navigator.share({ title: `${fullName} on Lens`, url })
     } else {
       copyLink()
     }
@@ -43,7 +43,7 @@ export default function QRCodeModal({ username, fullName, onClose }: QRCodeModal
       >
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-bold text-white">Scan to visit profile</h3>
+            <h3 className="font-bold text-foreground">Scan to visit profile</h3>
             <p className="text-muted text-sm">@{username}</p>
           </div>
           <button onClick={onClose} className="p-2 rounded-xl hover:bg-border transition-colors">
@@ -59,7 +59,7 @@ export default function QRCodeModal({ username, fullName, onClose }: QRCodeModal
                 value={url}
                 size={180}
                 bgColor="#ffffff"
-                fgColor="#07070f"
+                fgColor="#1c1b22"
                 level="M"
               />
             )}
@@ -75,14 +75,14 @@ export default function QRCodeModal({ username, fullName, onClose }: QRCodeModal
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={copyLink}
-            className="flex items-center justify-center gap-2 py-3 bg-surface border border-border rounded-xl text-white font-medium text-sm hover:border-primary/40 transition-colors"
+            className="flex items-center justify-center gap-2 py-3 bg-surface border border-border rounded-xl text-foreground font-medium text-sm hover:border-primary/40 transition-colors"
           >
             {copied ? <Check size={16} className="text-score-high" /> : <Copy size={16} />}
             {copied ? 'Copied!' : 'Copy link'}
           </button>
           <button
             onClick={share}
-            className="flex items-center justify-center gap-2 py-3 bg-primary text-bg font-bold rounded-xl text-sm shadow-glow-sm"
+            className="flex items-center justify-center gap-2 py-3 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm"
           >
             <Share2 size={16} />
             Share

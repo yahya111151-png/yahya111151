@@ -23,7 +23,7 @@ export default function LandingPage() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
           <Link
             href="/auth/signup"
-            className="px-8 py-3 bg-primary text-bg font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-glow-sm hover:shadow-glow-md"
+            className="px-8 py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-glow-sm hover:shadow-glow-md"
           >
             Get Started
           </Link>
@@ -37,7 +37,7 @@ export default function LandingPage() {
 
         <div className="flex items-center justify-center gap-8 pt-4 text-muted text-sm">
           <div className="text-center">
-            <p className="text-foreground font-bold text-2xl">6</p>
+            <p className="text-foreground font-bold text-2xl">8</p>
             <p>metrics</p>
           </div>
           <div className="w-px h-8 bg-border" />

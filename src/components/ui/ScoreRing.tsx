@@ -21,8 +21,8 @@ export default function ScoreRing({
 }: ScoreRingProps) {
   const radius = (size - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
-  // score is 0–5, map to 0–1 for the ring fill
-  const pct = Math.min(1, Math.max(0, score / 5))
+  // score is -5 to +5, map to 0–1 for the ring fill
+  const pct = Math.min(1, Math.max(0, (score + 5) / 10))
   const offset = circumference * (1 - pct)
   const color = scoreRingColor(score)
   const center = size / 2
@@ -36,7 +36,7 @@ export default function ScoreRing({
           cy={center}
           r={radius}
           fill="none"
-          stroke="#1e1e30"
+          stroke="#fce7ec"
           strokeWidth={strokeWidth}
         />
         {/* Progress */}

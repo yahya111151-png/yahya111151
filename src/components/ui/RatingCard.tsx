@@ -19,9 +19,9 @@ export default function RatingCard({ rating, metricScores, isOwn }: RatingCardPr
         <div>
           <div className="flex items-center gap-2">
             <span className={`font-bold text-lg tabular-nums ${scoreColor(rating.raw_avg_score)}`}>
-              {rating.raw_avg_score.toFixed(1)}
+              {rating.raw_avg_score > 0 ? '+' : ''}{rating.raw_avg_score.toFixed(1)}
             </span>
-            <span className="text-muted text-sm">/ 5.0</span>
+            <span className="text-muted text-sm">/ ±5</span>
           </div>
           <p className="text-muted text-xs mt-0.5">{timeAgo(rating.created_at)}</p>
         </div>
@@ -31,9 +31,9 @@ export default function RatingCard({ rating, metricScores, isOwn }: RatingCardPr
           <div
             className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium"
             style={{
-              background: `hsl(${pct * 1.2}, 70%, 20%)`,
-              color: `hsl(${pct * 1.2}, 80%, 65%)`,
-              border: `1px solid hsl(${pct * 1.2}, 60%, 35%)`,
+              background: `hsl(${pct * 1.2}, 70%, 94%)`,
+              color: `hsl(${pct * 1.2}, 60%, 40%)`,
+              border: `1px solid hsl(${pct * 1.2}, 50%, 80%)`,
             }}
           >
             <span className="font-bold">{pct}%</span>
@@ -50,7 +50,7 @@ export default function RatingCard({ rating, metricScores, isOwn }: RatingCardPr
             <div key={m.name} className="bg-bg rounded-xl p-2 text-center">
               <span className="text-base">{m.icon}</span>
               <p className="text-xs text-muted mt-0.5">{m.name}</p>
-              <p className={`text-sm font-bold tabular-nums ${scoreColor(m.score)}`}>{m.score}</p>
+              <p className={`text-sm font-bold tabular-nums ${scoreColor(m.score)}`}>{m.score > 0 ? `+${m.score}` : m.score}</p>
             </div>
           ))}
         </div>

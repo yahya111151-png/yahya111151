@@ -52,7 +52,7 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
         <p className="text-muted text-sm">Your token balance has been updated. You can now rate again.</p>
         <button
           onClick={onUseToken}
-          className="w-full py-3 bg-primary text-bg font-bold rounded-xl shadow-glow-sm mt-4"
+          className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm mt-4"
         >
           Continue rating
         </button>
@@ -89,7 +89,7 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
         </div>
 
         {/* Token balance */}
-        <div className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-900/40 border border-border">
+        <div className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary/5 border border-primary/20">
           <Coins size={16} className="text-yellow-400" />
           <span className="text-yellow-400 font-bold">{tokens} token{tokens !== 1 ? 's' : ''} remaining</span>
         </div>
@@ -97,7 +97,7 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
         {hasTokens && (
           <button
             onClick={onUseToken}
-            className="w-full py-3 bg-primary text-bg font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
+            className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
           >
             <span className="flex items-center justify-center gap-2">
               <Coins size={16} /> Use 1 token to rate now
@@ -121,13 +121,13 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
               disabled={buying}
               className="w-full p-4 rounded-xl border text-left transition-all duration-150 relative overflow-hidden disabled:opacity-50"
               style={{
-                background: pack.popular ? '#e8476a11' : '#0f0f1a',
-                borderColor: pack.popular ? '#e8476a' : '#1e1e30',
-                boxShadow: pack.popular ? '0 0 16px rgba(192,132,252,0.15)' : undefined,
+                background: pack.popular ? '#e8476a0d' : '#ffffff',
+                borderColor: pack.popular ? '#e8476a' : '#fce7ec',
+                boxShadow: pack.popular ? '0 0 16px rgba(232,71,106,0.15)' : undefined,
               }}
             >
               {pack.popular && (
-                <span className="absolute top-2 right-2 text-xs font-bold px-2 py-0.5 rounded-full bg-primary text-bg">
+                <span className="absolute top-2 right-2 text-xs font-bold px-2 py-0.5 rounded-full bg-primary text-white">
                   Popular
                 </span>
               )}

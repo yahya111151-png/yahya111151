@@ -144,7 +144,7 @@ export default function ProfilePage({ params }: PageProps) {
             {!isOwn && currentUserId && (
               <Link
                 href={`/rate/${profile.id}`}
-                className="flex items-center gap-2 px-4 py-2.5 bg-primary text-bg font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
+                className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
               >
                 <Star size={14} /> Rate
               </Link>
@@ -244,7 +244,7 @@ export default function ProfilePage({ params }: PageProps) {
                   {isOwn ? 'Share your profile to get your first rating.' : `Be the first to rate ${profile.full_name.split(' ')[0]}.`}
                 </p>
                 {!isOwn && currentUserId && (
-                  <Link href={`/rate/${profile.id}`} className="inline-block mt-4 px-6 py-2.5 bg-primary text-bg font-bold rounded-xl text-sm shadow-glow-sm">
+                  <Link href={`/rate/${profile.id}`} className="inline-block mt-4 px-6 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm">
                     Rate now
                   </Link>
                 )}
@@ -256,8 +256,8 @@ export default function ProfilePage({ params }: PageProps) {
                   <p className="text-xs text-muted mb-2 font-medium uppercase tracking-wider">Skill radar</p>
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart data={radarData} margin={{ top: 0, right: 20, bottom: 10, left: 20 }}>
-                      <PolarGrid stroke="#1e1e30" />
-                      <PolarAngleAxis dataKey="metric" tick={{ fill: '#6b7280', fontSize: 10 }} />
+                      <PolarGrid stroke="#fce7ec" />
+                      <PolarAngleAxis dataKey="metric" tick={{ fill: '#94a3b8', fontSize: 10 }} />
                       <Radar dataKey="score" stroke="#e8476a" fill="#e8476a" fillOpacity={0.2} strokeWidth={2} />
                     </RadarChart>
                   </ResponsiveContainer>
@@ -272,17 +272,17 @@ export default function ProfilePage({ params }: PageProps) {
                           <span>{m.metric_icon}</span>{m.metric_name}
                         </span>
                         <span className={`font-bold text-sm tabular-nums ${scoreColor(m.avg_score)}`}>
-                          {m.avg_score.toFixed(1)}
-                          <span className="text-muted font-normal text-xs"> / 5</span>
+                          {m.avg_score > 0 ? '+' : ''}{m.avg_score.toFixed(1)}
+                          <span className="text-muted font-normal text-xs"> / ±5</span>
                         </span>
                       </div>
                       <div className="h-1.5 bg-border rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full"
                           style={{
-                            width: `${(m.avg_score / 5) * 100}%`,
-                            background: m.avg_score >= 4 ? '#34d399' : m.avg_score >= 2.5 ? '#fbbf24' : '#f87171',
-                            boxShadow: `0 0 6px ${m.avg_score >= 4 ? '#34d399' : m.avg_score >= 2.5 ? '#fbbf24' : '#f87171'}66`,
+                            width: `${((m.avg_score + 5) / 10) * 100}%`,
+                            background: m.avg_score >= 2 ? '#34d399' : m.avg_score >= 0 ? '#fbbf24' : '#f87171',
+                            boxShadow: `0 0 6px ${m.avg_score >= 2 ? '#34d399' : m.avg_score >= 0 ? '#fbbf24' : '#f87171'}66`,
                             transition: 'width 0.8s cubic-bezier(0.4,0,0.2,1)',
                           }}
                         />

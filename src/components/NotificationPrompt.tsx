@@ -36,24 +36,24 @@ export default function NotificationPrompt() {
           <Bell size={18} className="text-primary" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-white text-sm">Enable notifications</p>
+          <p className="font-semibold text-foreground text-sm">Enable notifications</p>
           <p className="text-muted text-xs mt-0.5">Get notified when someone rates you</p>
           <div className="flex gap-2 mt-3">
             <button
               onClick={handleEnable}
-              className="px-3 py-1.5 bg-primary text-bg text-xs font-bold rounded-lg hover:bg-primary/90 transition-colors"
+              className="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-colors"
             >
               Enable
             </button>
             <button
               onClick={dismiss}
-              className="px-3 py-1.5 bg-surface border border-border text-muted text-xs rounded-lg hover:text-white transition-colors"
+              className="px-3 py-1.5 bg-surface border border-border text-muted text-xs rounded-lg hover:text-foreground transition-colors"
             >
               Not now
             </button>
           </div>
         </div>
-        <button onClick={dismiss} className="text-muted hover:text-white shrink-0">
+        <button onClick={dismiss} className="text-muted hover:text-foreground shrink-0">
           <X size={16} />
         </button>
       </div>
