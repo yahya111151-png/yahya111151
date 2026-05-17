@@ -2,19 +2,20 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Search, Bell, User, Settings } from 'lucide-react'
+import { Home, Search, Bell, User, Settings, Trophy } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { href: '/dashboard',   icon: Home,     label: 'Home'    },
-  { href: '/search',      icon: Search,   label: 'Search'  },
-  { href: '/feed',        icon: Bell,     label: 'Feed'    },
-  { href: '/profile/me',  icon: User,     label: 'Profile' },
-  { href: '/settings',    icon: Settings, label: 'Settings'},
+  { href: '/dashboard',    icon: Home,    label: 'Home'       },
+  { href: '/search',       icon: Search,  label: 'Search'     },
+  { href: '/leaderboard',  icon: Trophy,  label: 'Leaderboard'},
+  { href: '/feed',         icon: Bell,    label: 'Feed'       },
+  { href: '/profile/me',   icon: User,    label: 'Profile'    },
+  { href: '/settings',     icon: Settings,label: 'Settings'   },
 ]
 
-// Bottom mobile nav shows only the first 4; Settings lives in the desktop top bar
-const MOBILE_NAV = NAV.slice(0, 4)
+// Bottom mobile nav: Home, Search, Leaderboard, Profile
+const MOBILE_NAV = [NAV[0], NAV[1], NAV[2], NAV[4]]
 
 export default function Navbar() {
   const path = usePathname()

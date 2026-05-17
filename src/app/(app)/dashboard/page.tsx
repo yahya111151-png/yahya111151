@@ -6,7 +6,7 @@ import ScoreRing from '@/components/ui/ScoreRing'
 import UserCard from '@/components/ui/UserCard'
 import { avatarUrl, scoreColor } from '@/lib/utils'
 import type { ProfileWithMetrics, Profile } from '@/types'
-import { Star, TrendingUp, Users, ChevronRight } from 'lucide-react'
+import { Star, TrendingUp, Users, ChevronRight, Trophy } from 'lucide-react'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -123,6 +123,21 @@ export default async function DashboardPage() {
           </div>
         </section>
       )}
+
+      {/* Leaderboard teaser */}
+      <Link
+        href="/leaderboard"
+        className="flex items-center gap-4 p-4 bg-surface border border-border rounded-2xl hover:border-primary/40 hover:shadow-glow-sm transition-all group"
+      >
+        <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+          <Trophy size={22} className="text-primary" />
+        </div>
+        <div className="flex-1">
+          <p className="font-bold text-foreground">Leaderboard</p>
+          <p className="text-muted text-sm">See the highest-rated people on Lens</p>
+        </div>
+        <ChevronRight size={18} className="text-muted group-hover:text-primary transition-colors shrink-0" />
+      </Link>
 
       {/* People to rate */}
       {suggested && suggested.length > 0 && (
