@@ -42,16 +42,21 @@ export default function SearchPage() {
   const [phoneLoading, setPhoneLoading]   = useState(false)
 
   const textSearch = useCallback(async (q: string) => {
-    if (!q.trim()) { setResults([]); setSearched(false); return }
-    setSearching(true); setSearched(true)
+    setSearching(true)
     const supabase = createClient()
-    const { data } = await supabase
+    const { data: { user } } = await supabase.auth.getUser()
+    let query_builder = supabase
       .from('profiles')
       .select('*')
-      .or(`username.ilike.%${q}%,full_name.ilike.%${q}%`)
       .order('aggregate_score', { ascending: false })
-      .limit(20)
+      .limit(50)
+    if (user) query_builder = query_builder.neq('id', user.id)
+    if (q.trim()) {
+      query_builder = query_builder.or(`username.ilike.%${q}%,full_name.ilike.%${q}%`)
+    }
+    const { data } = await query_builder
     setResults((data as Profile[]) ?? [])
+    setSearched(true)
     setSearching(false)
   }, [])
 
@@ -59,6 +64,9 @@ export default function SearchPage() {
     const t = setTimeout(() => textSearch(query), 300)
     return () => clearTimeout(t)
   }, [query, textSearch])
+
+  // Load all users on mount
+  useEffect(() => { textSearch('') }, [textSearch])
 
   async function getNearby() {
     setNearbyLoading(true)
@@ -135,6 +143,11 @@ export default function SearchPage() {
             {searching && <Loader2 size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted animate-spin" />}
           </div>
 
+          {searching && results.length === 0 && (
+            <div className="flex justify-center py-10">
+              <Loader2 size={28} className="text-primary animate-spin" />
+            </div>
+          )}
           {searched && !searching && results.length === 0 && (
             <div className="text-center py-10 text-muted">
               <p className="text-3xl mb-2">🔍</p>
@@ -143,14 +156,10 @@ export default function SearchPage() {
           )}
           {results.length > 0 && (
             <div className="space-y-2">
-              <p className="text-muted text-sm">{results.length} result{results.length !== 1 ? 's' : ''}</p>
+              <p className="text-muted text-sm">
+                {query.trim() ? `${results.length} result${results.length !== 1 ? 's' : ''}` : `${results.length} users`}
+              </p>
               {results.map(p => <UserCard key={p.id} profile={p} />)}
-            </div>
-          )}
-          {!searched && (
-            <div className="text-center py-10 text-muted">
-              <p className="text-4xl mb-2">👥</p>
-              <p>Search for someone to rate them</p>
             </div>
           )}
         </div>
