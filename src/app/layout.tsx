@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const nunito = Nunito({ subsets: ['latin'], variable: '--font-nunito', weight: ['400','500','600','700','800','900'] })
 
 export const viewport: Viewport = {
-  themeColor: '#07070f',
+  themeColor: '#e8476a',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -14,13 +14,13 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Nosedive — Social Rating',
+  title: 'Lens — Rate, Appreciate',
   description: 'Rate the people in your life. Your score, weighted by how well they know you.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent',
-    title: 'Nosedive',
+    statusBarStyle: 'default',
+    title: 'Lens',
   },
   icons: {
     icon: '/icon.svg',
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="bg-bg text-white min-h-screen">{children}</body>
+    <html lang="en" className={nunito.variable}>
+      <body className="bg-bg text-foreground min-h-screen">{children}</body>
     </html>
   )
 }

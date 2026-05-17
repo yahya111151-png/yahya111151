@@ -172,7 +172,7 @@ export default function SettingsPage() {
         <Link href={`/profile/${profile?.username}`} className="p-2 rounded-xl hover:bg-surface transition-colors">
           <ChevronLeft size={20} className="text-muted" />
         </Link>
-        <h1 className="font-black text-2xl text-white">Edit Profile</h1>
+        <h1 className="font-black text-2xl text-foreground">Edit Profile</h1>
       </div>
 
       {/* Cover + avatar upload */}
@@ -190,11 +190,11 @@ export default function SettingsPage() {
             backgroundPosition: 'center',
           }}
         >
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+          <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/40 transition-colors flex items-center justify-center">
             {uploadingCover ? (
-              <Loader2 size={24} className="text-white animate-spin" />
+              <Loader2 size={24} className="text-foreground animate-spin" />
             ) : (
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 text-white text-sm font-semibold bg-black/50 px-3 py-1.5 rounded-lg">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 text-foreground text-sm font-semibold bg-gray-900/50 px-3 py-1.5 rounded-lg">
                 <Camera size={16} /> Change cover
               </span>
             )}
@@ -217,11 +217,11 @@ export default function SettingsPage() {
             className="relative group"
           >
             <Avatar src={form.avatar_url || null} username={form.username} size={64} className="rounded-xl ring-4 ring-bg" />
-            <div className="absolute inset-0 rounded-xl bg-black/0 group-hover:bg-black/50 transition-colors flex items-center justify-center">
+            <div className="absolute inset-0 rounded-xl bg-gray-900/0 group-hover:bg-gray-900/50 transition-colors flex items-center justify-center">
               {uploadingAvatar ? (
-                <Loader2 size={16} className="text-white animate-spin" />
+                <Loader2 size={16} className="text-foreground animate-spin" />
               ) : (
-                <Upload size={16} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Upload size={16} className="text-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
               )}
             </div>
           </button>
@@ -242,7 +242,7 @@ export default function SettingsPage() {
             key={s.key}
             onClick={() => setSection(s.key)}
             className={`flex-1 py-2 rounded-xl text-xs font-medium transition-colors ${
-              section === s.key ? 'bg-primary/15 text-primary border border-primary/30' : 'text-muted hover:text-white'
+              section === s.key ? 'bg-primary/15 text-primary border border-primary/30' : 'text-muted hover:text-foreground'
             }`}
           >
             {s.label}
@@ -311,7 +311,7 @@ export default function SettingsPage() {
         {section === 'privacy' && (
           <div className="space-y-4">
             <div className="bg-surface border border-border rounded-2xl p-4 space-y-3">
-              <p className="font-semibold text-white text-sm">Location discovery</p>
+              <p className="font-semibold text-foreground text-sm">Location discovery</p>
               <p className="text-muted text-xs leading-relaxed">
                 When enabled, people nearby can discover your profile. Your exact coordinates are never shown.
               </p>
@@ -326,7 +326,7 @@ export default function SettingsPage() {
                   type="button"
                   onClick={captureLocation}
                   disabled={locating}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-surface border border-border rounded-xl text-white text-sm hover:border-primary/40 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2.5 bg-surface border border-border rounded-xl text-foreground text-sm hover:border-primary/40 transition-colors"
                 >
                   {locating ? <Loader2 size={16} className="animate-spin" /> : <MapPin size={16} className="text-primary" />}
                   {locating ? 'Getting location…' : 'Use my current location'}
@@ -370,12 +370,12 @@ export default function SettingsPage() {
   )
 }
 
-const inputCls = 'w-full px-4 py-3 bg-bg border border-border rounded-xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors text-sm'
+const inputCls = 'w-full px-4 py-3 bg-bg border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors text-sm'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-sm font-medium text-white/80">{label}</label>
+      <label className="text-sm font-medium text-foreground/80">{label}</label>
       {children}
     </div>
   )
@@ -387,7 +387,7 @@ function Toggle({ label, description, checked, onChange }: {
   return (
     <div className="flex items-start justify-between gap-3">
       <div>
-        <p className="text-white text-sm font-medium">{label}</p>
+        <p className="text-foreground text-sm font-medium">{label}</p>
         <p className="text-muted text-xs mt-0.5">{description}</p>
       </div>
       <button

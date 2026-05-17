@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-nunito: 'Nunito', system-ui, sans-serif;
 }
 
 * {
@@ -16,9 +16,9 @@ html {
 }
 
 body {
-  background-color: #07070f;
-  color: #f1f5f9;
-  font-family: var(--font-inter);
+  background-color: #fef6f7;
+  color: #1c1b22;
+  font-family: var(--font-nunito);
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
 }
@@ -51,8 +51,8 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 50%;
   background: currentColor;
   cursor: pointer;
-  border: 2px solid #07070f;
-  box-shadow: 0 0 8px currentColor;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(232,71,106,0.3);
 }
 
 input[type='range']::-moz-range-thumb {
@@ -61,15 +61,15 @@ input[type='range']::-moz-range-thumb {
   border-radius: 50%;
   background: currentColor;
   cursor: pointer;
-  border: 2px solid #07070f;
-  box-shadow: 0 0 8px currentColor;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(232,71,106,0.3);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #07070f; }
-::-webkit-scrollbar-thumb { background: #1e1e30; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #2e2e40; }
+::-webkit-scrollbar-track { background: #fef6f7; }
+::-webkit-scrollbar-thumb { background: #fce7ec; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #f9c0cb; }
 
 /* Remove number input arrows */
 input[type='number']::-webkit-inner-spin-button,

@@ -55,7 +55,7 @@ export default async function DashboardPage() {
             className="rounded-2xl ring-2 ring-primary/30"
           />
           <div className="flex-1">
-            <h1 className="font-black text-xl text-white">{profile.full_name}</h1>
+            <h1 className="font-black text-xl text-foreground">{profile.full_name}</h1>
             <p className="text-muted text-sm">@{profile.username}</p>
             {profile.occupation && <p className="text-muted/70 text-xs mt-0.5">{profile.occupation}</p>}
           </div>
@@ -79,7 +79,7 @@ export default async function DashboardPage() {
       {/* Metric breakdown */}
       {metrics.length > 0 && (
         <section className="space-y-3">
-          <h2 className="font-bold text-white flex items-center gap-2">
+          <h2 className="font-bold text-foreground flex items-center gap-2">
             <TrendingUp size={16} className="text-primary" />
             Your metrics
           </h2>
@@ -102,7 +102,7 @@ export default async function DashboardPage() {
       {recentRatings && recentRatings.length > 0 && (
         <section className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-white">Recent ratings</h2>
+            <h2 className="font-bold text-foreground">Recent ratings</h2>
             <Link href="/feed" className="text-sm text-primary hover:underline">See all</Link>
           </div>
           <div className="space-y-2">
@@ -110,7 +110,7 @@ export default async function DashboardPage() {
               <div key={r.id} className="bg-surface border border-border rounded-xl p-3 flex items-center gap-3">
                 <div className="flex-1">
                   <span className="text-muted text-xs">Anonymous rating</span>
-                  <p className="text-white text-sm font-semibold mt-0.5">
+                  <p className="text-foreground text-sm font-semibold mt-0.5">
                     Score: <span className={scoreColor(r.raw_avg_score)}>{r.raw_avg_score.toFixed(1)}</span>
                     <span className="text-muted font-normal ml-2">· weight {Math.round(r.proximity_weight * 100)}%</span>
                   </p>
@@ -128,7 +128,7 @@ export default async function DashboardPage() {
       {suggested && suggested.length > 0 && (
         <section className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-white flex items-center gap-2">
+            <h2 className="font-bold text-foreground flex items-center gap-2">
               <Users size={16} className="text-primary" />
               Discover people
             </h2>

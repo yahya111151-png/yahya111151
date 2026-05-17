@@ -1,12 +1,12 @@
 {
-  "name": "Nosedive",
-  "short_name": "Nosedive",
-  "description": "Rate the people in your life. Your score, weighted by how well they know you.",
+  "name": "Lens",
+  "short_name": "Lens",
+  "description": "Rate, Appreciate. Your score, weighted by how well they know you.",
   "start_url": "/dashboard",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#07070f",
-  "theme_color": "#07070f",
+  "background_color": "#fef6f7",
+  "theme_color": "#e8476a",
   "categories": ["social", "lifestyle"],
   "icons": [
     {

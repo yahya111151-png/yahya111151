@@ -18,7 +18,7 @@ export default function UserCard({ profile, showScore = true, compact = false }:
       >
         <Avatar src={profile.avatar_url} username={profile.username} size={40} className="rounded-full" />
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-white text-sm truncate">{profile.full_name}</p>
+          <p className="font-semibold text-foreground text-sm truncate">{profile.full_name}</p>
           <p className="text-muted text-xs truncate">@{profile.username}</p>
         </div>
         {showScore && (
@@ -37,7 +37,7 @@ export default function UserCard({ profile, showScore = true, compact = false }:
     >
       <Avatar src={profile.avatar_url} username={profile.username} size={56} className="rounded-full ring-2 ring-border" />
       <div className="flex-1 min-w-0">
-        <p className="font-bold text-white truncate">{profile.full_name}</p>
+        <p className="font-bold text-foreground truncate">{profile.full_name}</p>
         <p className="text-muted text-sm truncate">@{profile.username}</p>
         {profile.occupation && (
           <p className="text-muted text-xs truncate mt-0.5">{profile.occupation}</p>

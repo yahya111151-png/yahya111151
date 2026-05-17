@@ -58,7 +58,7 @@ export default function RatingCard({ rating, metricScores, isOwn }: RatingCardPr
 
       {/* Comment */}
       {rating.comment && (
-        <p className="text-sm text-white/80 italic border-l-2 border-primary/40 pl-3">
+        <p className="text-sm text-foreground/80 italic border-l-2 border-primary/40 pl-3">
           "{rating.comment}"
         </p>
       )}

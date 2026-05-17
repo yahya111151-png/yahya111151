@@ -112,7 +112,7 @@ export default function ProfilePage({ params }: PageProps) {
         {isOwn && (
           <Link
             href="/settings"
-            className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-black/50 backdrop-blur-sm text-white text-xs font-medium rounded-xl border border-white/20 hover:bg-black/70 transition-colors"
+            className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-gray-900/50 backdrop-blur-sm text-foreground text-xs font-medium rounded-xl border border-white/20 hover:bg-gray-900/70 transition-colors"
           >
             <Pencil size={12} /> Edit
           </Link>
@@ -136,7 +136,7 @@ export default function ProfilePage({ params }: PageProps) {
           <div className="flex gap-2 pb-1">
             <button
               onClick={() => setShowQR(true)}
-              className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-white hover:border-primary/40 transition-colors"
+              className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-foreground hover:border-primary/40 transition-colors"
               title="QR Code"
             >
               <QrCode size={18} />
@@ -152,7 +152,7 @@ export default function ProfilePage({ params }: PageProps) {
             {isOwn && (
               <Link
                 href="/settings"
-                className="flex items-center gap-2 px-4 py-2.5 bg-surface border border-border text-white font-semibold rounded-xl text-sm hover:border-primary/40 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-surface border border-border text-foreground font-semibold rounded-xl text-sm hover:border-primary/40 transition-colors"
               >
                 <Pencil size={14} /> Edit profile
               </Link>
@@ -162,7 +162,7 @@ export default function ProfilePage({ params }: PageProps) {
 
         {/* ── Name + bio ── */}
         <div className="mt-3 space-y-1">
-          <h1 className="font-black text-2xl text-white leading-tight">{profile.full_name}</h1>
+          <h1 className="font-black text-2xl text-foreground leading-tight">{profile.full_name}</h1>
           <p className="text-muted">@{profile.username}</p>
 
           <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
@@ -179,7 +179,7 @@ export default function ProfilePage({ params }: PageProps) {
           </div>
 
           {profile.bio && (
-            <p className="text-white/70 text-sm mt-2 leading-relaxed">{profile.bio}</p>
+            <p className="text-foreground/70 text-sm mt-2 leading-relaxed">{profile.bio}</p>
           )}
         </div>
 
@@ -193,17 +193,17 @@ export default function ProfilePage({ params }: PageProps) {
           </div>
           <div className="w-px bg-border" />
           <div className="text-center">
-            <p className="font-black text-xl text-white">{profile.total_ratings}</p>
+            <p className="font-black text-xl text-foreground">{profile.total_ratings}</p>
             <p className="text-muted text-xs">Ratings</p>
           </div>
           <div className="w-px bg-border" />
           <div className="text-center">
-            <p className="font-black text-xl text-white">{connections.length}</p>
+            <p className="font-black text-xl text-foreground">{connections.length}</p>
             <p className="text-muted text-xs">Connections</p>
           </div>
           <div className="w-px bg-border" />
           <div className="text-center">
-            <p className="font-black text-xl text-white">{memberSince(profile.created_at).split(' ')[1]}</p>
+            <p className="font-black text-xl text-foreground">{memberSince(profile.created_at).split(' ')[1]}</p>
             <p className="text-muted text-xs">Joined</p>
           </div>
         </div>
@@ -215,7 +215,7 @@ export default function ProfilePage({ params }: PageProps) {
               key={t.key}
               onClick={() => setTab(t.key)}
               className={`px-4 py-2.5 text-sm font-medium transition-colors relative ${
-                tab === t.key ? 'text-primary' : 'text-muted hover:text-white'
+                tab === t.key ? 'text-primary' : 'text-muted hover:text-foreground'
               }`}
             >
               {t.label}
@@ -239,7 +239,7 @@ export default function ProfilePage({ params }: PageProps) {
             {metrics.length === 0 ? (
               <div className="text-center py-10 text-muted">
                 <p className="text-3xl mb-2">⭐</p>
-                <p className="text-white font-semibold">No ratings yet</p>
+                <p className="text-foreground font-semibold">No ratings yet</p>
                 <p className="text-sm mt-1">
                   {isOwn ? 'Share your profile to get your first rating.' : `Be the first to rate ${profile.full_name.split(' ')[0]}.`}
                 </p>
@@ -258,7 +258,7 @@ export default function ProfilePage({ params }: PageProps) {
                     <RadarChart data={radarData} margin={{ top: 0, right: 20, bottom: 10, left: 20 }}>
                       <PolarGrid stroke="#1e1e30" />
                       <PolarAngleAxis dataKey="metric" tick={{ fill: '#6b7280', fontSize: 10 }} />
-                      <Radar dataKey="score" stroke="#c084fc" fill="#c084fc" fillOpacity={0.2} strokeWidth={2} />
+                      <Radar dataKey="score" stroke="#e8476a" fill="#e8476a" fillOpacity={0.2} strokeWidth={2} />
                     </RadarChart>
                   </ResponsiveContainer>
                 </div>
@@ -268,7 +268,7 @@ export default function ProfilePage({ params }: PageProps) {
                   {metrics.map(m => (
                     <div key={m.metric_id} className="bg-surface border border-border rounded-xl p-3">
                       <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-sm text-white flex items-center gap-1.5">
+                        <span className="text-sm text-foreground flex items-center gap-1.5">
                           <span>{m.metric_icon}</span>{m.metric_name}
                         </span>
                         <span className={`font-bold text-sm tabular-nums ${scoreColor(m.avg_score)}`}>
@@ -302,7 +302,7 @@ export default function ProfilePage({ params }: PageProps) {
             {ratings.length === 0 ? (
               <div className="text-center py-10 text-muted">
                 <p className="text-3xl mb-2">📭</p>
-                <p className="text-white font-semibold">No ratings yet</p>
+                <p className="text-foreground font-semibold">No ratings yet</p>
               </div>
             ) : (
               ratings.map((r: any) => {
@@ -325,7 +325,7 @@ export default function ProfilePage({ params }: PageProps) {
             {connections.length === 0 ? (
               <div className="text-center py-10 text-muted">
                 <p className="text-3xl mb-2">👥</p>
-                <p className="text-white font-semibold">No connections yet</p>
+                <p className="text-foreground font-semibold">No connections yet</p>
               </div>
             ) : (
               connections.map((c: any) => {
@@ -345,7 +345,7 @@ export default function ProfilePage({ params }: PageProps) {
                       className="rounded-xl"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-white text-sm truncate">{p.full_name}</p>
+                      <p className="font-semibold text-foreground text-sm truncate">{p.full_name}</p>
                       <p className="text-muted text-xs">@{p.username}</p>
                     </div>
                     <div className="text-right shrink-0">

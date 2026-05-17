@@ -5,30 +5,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#07070f',
-        surface: '#0f0f1a',
-        border: '#1e1e30',
-        primary: '#c084fc',    // neon purple
-        secondary: '#38bdf8',  // neon cyan
-        accent: '#f472b6',     // neon pink
-        muted: '#6b7280',
+        bg: '#fef6f7',
+        surface: '#ffffff',
+        border: '#fce7ec',
+        primary: '#e8476a',    // rose/coral — Nosedive rating pink
+        secondary: '#8b6ff7',  // soft purple
+        accent: '#ff8fab',     // light pink
+        muted: '#94a3b8',
+        foreground: '#1c1b22', // dark text for light bg
         score: {
-          high: '#34d399',     // emerald
-          mid: '#fbbf24',      // amber
-          low: '#f87171',      // red
+          high: '#16a34a',     // green
+          mid: '#d97706',      // amber
+          low: '#dc2626',      // red
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-nunito)', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
-        'glow-primary': 'radial-gradient(ellipse at center, rgba(192,132,252,0.15) 0%, transparent 70%)',
-        'glow-accent': 'radial-gradient(ellipse at center, rgba(244,114,182,0.1) 0%, transparent 70%)',
+        'glow-primary': 'radial-gradient(ellipse at center, rgba(232,71,106,0.12) 0%, transparent 70%)',
+        'glow-accent': 'radial-gradient(ellipse at center, rgba(255,143,171,0.1) 0%, transparent 70%)',
       },
       boxShadow: {
-        'glow-sm': '0 0 10px rgba(192,132,252,0.3)',
-        'glow-md': '0 0 20px rgba(192,132,252,0.4)',
-        'glow-accent': '0 0 20px rgba(244,114,182,0.35)',
+        'glow-sm': '0 2px 12px rgba(232,71,106,0.18)',
+        'glow-md': '0 4px 24px rgba(232,71,106,0.25)',
+        'glow-accent': '0 4px 20px rgba(255,143,171,0.25)',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

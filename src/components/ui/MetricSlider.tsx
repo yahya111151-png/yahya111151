@@ -82,7 +82,7 @@ export default function MetricSlider({
               <button
                 type="button"
                 onClick={() => onClear(metricId)}
-                className="text-muted text-xs hover:text-white transition-colors"
+                className="text-muted text-xs hover:text-foreground transition-colors"
               >
                 {LABELS[value!]} · clear
               </button>

@@ -108,7 +108,7 @@ export default function SearchPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-4 animate-fade-in">
-      <h1 className="font-black text-2xl text-white">Find people</h1>
+      <h1 className="font-black text-2xl text-foreground">Find people</h1>
 
       {/* Tab bar */}
       <div className="grid grid-cols-4 gap-1 p-1 bg-surface border border-border rounded-2xl">
@@ -119,7 +119,7 @@ export default function SearchPage() {
             className={`flex flex-col items-center gap-1 py-2.5 rounded-xl text-xs font-medium transition-all ${
               tab === key
                 ? 'bg-primary/15 text-primary border border-primary/30'
-                : 'text-muted hover:text-white'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             <Icon size={18} strokeWidth={tab === key ? 2.5 : 1.8} />
@@ -139,7 +139,7 @@ export default function SearchPage() {
               onChange={e => setQuery(e.target.value)}
               placeholder="Search by name or username…"
               autoFocus
-              className="w-full pl-11 pr-4 py-3.5 bg-surface border border-border rounded-2xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
+              className="w-full pl-11 pr-4 py-3.5 bg-surface border border-border rounded-2xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
             />
             {searching && <Loader2 size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted animate-spin" />}
           </div>
@@ -152,7 +152,7 @@ export default function SearchPage() {
           {searched && !searching && results.length === 0 && (
             <div className="text-center py-10 text-muted">
               <p className="text-3xl mb-2">🔍</p>
-              <p>No users found for <span className="text-white">"{query}"</span></p>
+              <p>No users found for <span className="text-foreground">"{query}"</span></p>
             </div>
           )}
           {results.length > 0 && (
@@ -175,7 +175,7 @@ export default function SearchPage() {
                 <Navigation size={36} className="text-primary" />
               </div>
               <div>
-                <p className="font-semibold text-white">Discover people nearby</p>
+                <p className="font-semibold text-foreground">Discover people nearby</p>
                 <p className="text-muted text-sm mt-1 max-w-xs">
                   Find Nosedive users within 50 km of you. Only users who opted in appear here.
                 </p>
@@ -205,9 +205,9 @@ export default function SearchPage() {
           {locationGranted && nearbyUsers.length === 0 && !nearbyLoading && (
             <div className="text-center py-10 text-muted">
               <p className="text-3xl mb-2">🗺️</p>
-              <p className="text-white font-semibold">No one nearby</p>
+              <p className="text-foreground font-semibold">No one nearby</p>
               <p className="text-sm mt-1">No users with location enabled within 50 km.</p>
-              <button onClick={getNearby} className="mt-4 px-6 py-2 bg-surface border border-border rounded-xl text-white text-sm">
+              <button onClick={getNearby} className="mt-4 px-6 py-2 bg-surface border border-border rounded-xl text-foreground text-sm">
                 Refresh
               </button>
             </div>
@@ -232,7 +232,7 @@ export default function SearchPage() {
                     className="rounded-xl"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-white text-sm truncate">{u.full_name}</p>
+                    <p className="font-semibold text-foreground text-sm truncate">{u.full_name}</p>
                     <p className="text-muted text-xs">@{u.username}</p>
                     {u.occupation && <p className="text-muted/70 text-xs truncate">{u.occupation}</p>}
                   </div>
@@ -258,7 +258,7 @@ export default function SearchPage() {
       {tab === 'phone' && (
         <div className="space-y-4">
           <div className="bg-surface border border-border rounded-2xl p-4 text-sm text-muted">
-            <p className="text-white font-semibold mb-1">Find by phone number</p>
+            <p className="text-foreground font-semibold mb-1">Find by phone number</p>
             <p>Only users who opted to make their phone public will appear.</p>
           </div>
 
@@ -269,7 +269,7 @@ export default function SearchPage() {
               onChange={e => setPhone(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && searchByPhone()}
               placeholder="+1 555 000 0000"
-              className="flex-1 px-4 py-3.5 bg-surface border border-border rounded-2xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
+              className="flex-1 px-4 py-3.5 bg-surface border border-border rounded-2xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
             />
             <button
               onClick={searchByPhone}

@@ -67,10 +67,10 @@ export default function SignupPage() {
             <Mail size={36} className="text-primary" />
           </div>
           <div>
-            <h2 className="font-black text-2xl text-white">Check your email</h2>
+            <h2 className="font-black text-2xl text-foreground">Check your email</h2>
             <p className="text-muted mt-2 text-sm leading-relaxed">
               We sent a verification link to{' '}
-              <span className="text-white font-semibold">{form.email}</span>.
+              <span className="text-foreground font-semibold">{form.email}</span>.
               Click the link in the email to activate your account.
             </p>
           </div>
@@ -80,7 +80,7 @@ export default function SignupPage() {
           </div>
           <Link
             href="/auth/login"
-            className="block w-full py-3 bg-primary text-bg font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
+            className="block w-full py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
           >
             Go to Sign In
           </Link>
@@ -96,8 +96,8 @@ export default function SignupPage() {
       <div className="relative z-10 w-full max-w-sm space-y-6 animate-slide-up">
         <div className="text-center">
           <Link href="/" className="text-3xl font-black tracking-tight">
-            <span className="text-white">nose</span>
-            <span className="text-primary">dive</span>
+            <span className="text-foreground">Le</span>
+            <span className="text-primary">ns</span>
           </Link>
           <p className="text-muted mt-2">Create your account</p>
         </div>
@@ -113,17 +113,17 @@ export default function SignupPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-sm font-medium text-white/80">Full Name</label>
+              <label className="text-sm font-medium text-foreground/80">Full Name</label>
               <input
                 required
                 value={form.fullName}
                 onChange={set('fullName')}
                 placeholder="Alex Chen"
-                className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
+                className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-medium text-white/80">Username</label>
+              <label className="text-sm font-medium text-foreground/80">Username</label>
               <input
                 required
                 value={form.username}
@@ -131,25 +131,25 @@ export default function SignupPage() {
                 placeholder="alex_c"
                 pattern="[a-zA-Z0-9_]+"
                 title="Letters, numbers, underscores only"
-                className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
+                className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
               />
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="text-sm font-medium text-white/80">Email</label>
+            <label className="text-sm font-medium text-foreground/80">Email</label>
             <input
               type="email"
               required
               value={form.email}
               onChange={set('email')}
               placeholder="you@example.com"
-              className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
+              className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-sm font-medium text-white/80">Password</label>
+            <label className="text-sm font-medium text-foreground/80">Password</label>
             <input
               type="password"
               required
@@ -157,7 +157,7 @@ export default function SignupPage() {
               value={form.password}
               onChange={set('password')}
               placeholder="Min. 8 characters"
-              className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
+              className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
             />
           </div>
 
@@ -170,7 +170,7 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-primary text-bg font-bold rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md"
+            className="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md"
           >
             {loading ? 'Creating account…' : 'Create Account'}
           </button>

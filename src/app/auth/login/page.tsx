@@ -35,10 +35,10 @@ export default function LoginPage() {
       <div className="relative z-10 w-full max-w-sm space-y-6 animate-slide-up">
         <div className="text-center">
           <Link href="/" className="text-3xl font-black tracking-tight">
-            <span className="text-white">nose</span>
-            <span className="text-primary">dive</span>
+            <span className="text-foreground">Le</span>
+            <span className="text-primary">ns</span>
           </Link>
-          <p className="text-muted mt-2">Sign in to your account</p>
+          <p className="text-muted mt-2">Rate, Appreciate</p>
         </div>
 
         <SocialLoginButtons />
@@ -51,25 +51,25 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
-            <label className="text-sm font-medium text-white/80">Email</label>
+            <label className="text-sm font-medium text-foreground/80">Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
+              className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
             />
           </div>
           <div className="space-y-1">
-            <label className="text-sm font-medium text-white/80">Password</label>
+            <label className="text-sm font-medium text-foreground/80">Password</label>
             <input
               type="password"
               required
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
+              className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors"
             />
           </div>
 
@@ -82,7 +82,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-primary text-bg font-bold rounded-xl hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-glow-sm hover:shadow-glow-md"
+            className="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-glow-sm hover:shadow-glow-md"
           >
             {loading ? 'Signing in…' : 'Sign In'}
           </button>

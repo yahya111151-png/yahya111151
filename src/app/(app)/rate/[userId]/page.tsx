@@ -199,7 +199,7 @@ export default function RatePage() {
     return (
       <div className="max-w-sm mx-auto px-4 py-16 text-center space-y-4 animate-fade-in">
         <CheckCircle size={56} className="text-score-high mx-auto" style={{ filter: 'drop-shadow(0 0 16px #34d399)' }} />
-        <h2 className="font-black text-2xl text-white">Rating submitted!</h2>
+        <h2 className="font-black text-2xl text-foreground">Rating submitted!</h2>
         <p className="text-muted">
           Your rating carried <span className="text-primary font-bold">{proximityPercent(proximityWeight)}%</span> weight
           based on your closeness to {profile?.full_name.split(' ')[0]}.
@@ -208,7 +208,7 @@ export default function RatePage() {
           <Link href={`/profile/${profile?.username}`} className="py-3 bg-primary text-bg font-bold rounded-xl shadow-glow-sm">
             View their profile
           </Link>
-          <Link href="/search" className="py-3 bg-surface border border-border text-white font-semibold rounded-xl">
+          <Link href="/search" className="py-3 bg-surface border border-border text-foreground font-semibold rounded-xl">
             Rate someone else
           </Link>
         </div>
@@ -238,7 +238,7 @@ export default function RatePage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5 animate-fade-in">
-      <Link href={`/profile/${profile.username}`} className="flex items-center gap-1 text-muted text-sm hover:text-white">
+      <Link href={`/profile/${profile.username}`} className="flex items-center gap-1 text-muted text-sm hover:text-foreground">
         <ChevronLeft size={16} /> Back to profile
       </Link>
 
@@ -251,12 +251,12 @@ export default function RatePage() {
           className="rounded-xl ring-2 ring-border"
         />
         <div className="flex-1">
-          <h1 className="font-bold text-white">Rate {profile.full_name}</h1>
+          <h1 className="font-bold text-foreground">Rate {profile.full_name}</h1>
           <p className="text-muted text-sm">@{profile.username}</p>
         </div>
         {/* Token balance badge */}
         {canRateInfo && (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/30 border border-border">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-900/30 border border-border">
             <Coins size={14} className="text-yellow-400" />
             <span className="text-yellow-400 font-bold text-sm tabular-nums">{canRateInfo.tokens}</span>
           </div>
@@ -283,7 +283,7 @@ export default function RatePage() {
         }}
       >
         <div className="flex items-center justify-between mb-2">
-          <p className="font-semibold text-white text-sm">Your rating influence</p>
+          <p className="font-semibold text-foreground text-sm">Your rating influence</p>
           <span
             className="font-black text-xl tabular-nums"
             style={{ color: `hsl(${pct * 1.2}, 80%, 65%)` }}
@@ -291,7 +291,7 @@ export default function RatePage() {
             {pct}%
           </span>
         </div>
-        <div className="h-2 bg-black/30 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-900/30 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{
@@ -309,7 +309,7 @@ export default function RatePage() {
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Connection type picker */}
         <div className="space-y-2">
-          <h2 className="font-bold text-white text-sm">How do you know them?</h2>
+          <h2 className="font-bold text-foreground text-sm">How do you know them?</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {CONNECTION_OPTIONS.map(opt => (
               <button
@@ -318,12 +318,12 @@ export default function RatePage() {
                 onClick={() => setConnectionType(opt.value)}
                 className="p-3 rounded-xl border text-left transition-all duration-150"
                 style={{
-                  background: connectionType === opt.value ? '#c084fc22' : '#0f0f1a',
-                  borderColor: connectionType === opt.value ? '#c084fc' : '#1e1e30',
+                  background: connectionType === opt.value ? '#e8476a22' : '#0f0f1a',
+                  borderColor: connectionType === opt.value ? '#e8476a' : '#1e1e30',
                   boxShadow: connectionType === opt.value ? '0 0 12px rgba(192,132,252,0.2)' : undefined,
                 }}
               >
-                <p className="text-white text-sm font-semibold">{opt.label}</p>
+                <p className="text-foreground text-sm font-semibold">{opt.label}</p>
                 <p className="text-muted text-xs">{opt.description}</p>
               </button>
             ))}
@@ -333,7 +333,7 @@ export default function RatePage() {
         {/* Metric sliders */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-white text-sm">Score each dimension</h2>
+            <h2 className="font-bold text-foreground text-sm">Score each dimension</h2>
             <span className="text-muted text-xs">{ratedCount}/{metrics.length} rated</span>
           </div>
           {metrics.map(m => (
@@ -355,7 +355,7 @@ export default function RatePage() {
           <div className="bg-surface border border-border rounded-2xl p-4 flex items-center justify-between">
             <div>
               <p className="text-muted text-sm">Raw average</p>
-              <p className="font-black text-2xl text-white tabular-nums">
+              <p className="font-black text-2xl text-foreground tabular-nums">
                 {rawAvg() > 0 ? '+' : ''}{rawAvg().toFixed(1)}
                 <span className="text-muted font-normal text-base"> / ±5</span>
               </p>
@@ -366,7 +366,7 @@ export default function RatePage() {
             </div>
             <div className="text-right">
               <p className="text-muted text-sm">Weighted contribution</p>
-              <p className="font-black text-2xl tabular-nums" style={{ color: '#c084fc' }}>
+              <p className="font-black text-2xl tabular-nums" style={{ color: '#e8476a' }}>
                 {applyWeight(rawAvg(), proximityWeight) > 0 ? '+' : ''}
                 {applyWeight(rawAvg(), proximityWeight).toFixed(2)}
               </p>
@@ -376,14 +376,14 @@ export default function RatePage() {
 
         {/* Comment */}
         <div className="space-y-1">
-          <label className="text-sm font-medium text-white/80">Leave a comment (optional)</label>
+          <label className="text-sm font-medium text-foreground/80">Leave a comment (optional)</label>
           <textarea
             value={comment}
             onChange={e => setComment(e.target.value)}
             placeholder="What do you think of this person? (shown anonymously)"
             rows={3}
             maxLength={280}
-            className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-white placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors resize-none text-sm"
+            className="w-full px-4 py-3 bg-surface border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-primary/60 transition-colors resize-none text-sm"
           />
           <p className="text-muted text-xs text-right">{comment.length}/280</p>
         </div>

@@ -13,13 +13,11 @@ export default function LandingPage() {
         </div>
 
         <h1 className="text-6xl font-black tracking-tight">
-          <span className="text-white">nose</span>
-          <span className="text-primary" style={{ textShadow: '0 0 30px rgba(192,132,252,0.5)' }}>dive</span>
+          <span className="text-foreground">Lens</span>
         </h1>
 
         <p className="text-muted text-lg leading-relaxed">
-          Rate the people in your life. Be rated by them. Your score reflects{' '}
-          <span className="text-white font-medium">who you really are</span> — weighted by how well they know you.
+          Rate, Appreciate
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
@@ -31,7 +29,7 @@ export default function LandingPage() {
           </Link>
           <Link
             href="/auth/login"
-            className="px-8 py-3 bg-surface border border-border text-white font-semibold rounded-2xl hover:border-primary/40 transition-colors"
+            className="px-8 py-3 bg-surface border border-border text-foreground font-semibold rounded-2xl hover:border-primary/40 transition-colors"
           >
             Sign In
           </Link>
@@ -39,17 +37,17 @@ export default function LandingPage() {
 
         <div className="flex items-center justify-center gap-8 pt-4 text-muted text-sm">
           <div className="text-center">
-            <p className="text-white font-bold text-2xl">6</p>
+            <p className="text-foreground font-bold text-2xl">6</p>
             <p>metrics</p>
           </div>
           <div className="w-px h-8 bg-border" />
           <div className="text-center">
-            <p className="text-white font-bold text-2xl">∞</p>
+            <p className="text-foreground font-bold text-2xl">∞</p>
             <p>connections</p>
           </div>
           <div className="w-px h-8 bg-border" />
           <div className="text-center">
-            <p className="text-white font-bold text-2xl">1</p>
+            <p className="text-foreground font-bold text-2xl">1</p>
             <p>score</p>
           </div>
         </div>
