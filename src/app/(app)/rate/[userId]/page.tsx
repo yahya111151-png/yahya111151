@@ -169,6 +169,20 @@ export default function RatePage() {
       return
     }
 
+    // Send push notification to rated user
+    const supabaseForName = createClient()
+    const { data: raterProfile } = await supabaseForName
+      .from('profiles').select('full_name').eq('id', currentUserId).single()
+
+    fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        rated_id: profile.id,
+        rater_name: raterProfile?.full_name ?? null,
+      }),
+    }).catch(() => {}) // fire and forget
+
     setSuccess(true)
     setSubmitting(false)
   }
