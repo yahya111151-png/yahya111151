@@ -5,12 +5,14 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import SocialLoginButtons from '@/components/ui/SocialLoginButtons'
+import { Mail } from 'lucide-react'
 
 export default function SignupPage() {
   const router = useRouter()
   const [form, setForm] = useState({ email: '', password: '', fullName: '', username: '' })
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [emailSent, setEmailSent] = useState(false)
 
   function set(key: keyof typeof form) {
     return (e: React.ChangeEvent<HTMLInputElement>) => setForm(f => ({ ...f, [key]: e.target.value }))
@@ -51,9 +53,40 @@ export default function SignupPage() {
       setError(error.message)
       setLoading(false)
     } else {
-      router.push('/dashboard')
-      router.refresh()
+      setEmailSent(true)
+      setLoading(false)
     }
+  }
+
+  if (emailSent) {
+    return (
+      <main className="min-h-screen flex items-center justify-center px-4">
+        <div className="absolute inset-0 bg-glow-primary pointer-events-none" />
+        <div className="relative z-10 w-full max-w-sm text-center space-y-5 animate-slide-up">
+          <div className="w-20 h-20 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto">
+            <Mail size={36} className="text-primary" />
+          </div>
+          <div>
+            <h2 className="font-black text-2xl text-white">Check your email</h2>
+            <p className="text-muted mt-2 text-sm leading-relaxed">
+              We sent a verification link to{' '}
+              <span className="text-white font-semibold">{form.email}</span>.
+              Click the link in the email to activate your account.
+            </p>
+          </div>
+          <div className="px-4 py-3 bg-surface border border-border rounded-xl text-muted text-xs text-left space-y-1">
+            <p>• Check your spam folder if you don't see it</p>
+            <p>• The link expires in 24 hours</p>
+          </div>
+          <Link
+            href="/auth/login"
+            className="block w-full py-3 bg-primary text-bg font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
+          >
+            Go to Sign In
+          </Link>
+        </div>
+      </main>
+    )
   }
 
   return (
