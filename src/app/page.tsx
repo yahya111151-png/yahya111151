@@ -35,9 +35,10 @@ const FEATURES = [
 ]
 
 const MOCK_PROFILES = [
-  { name: 'Sarah K.',   score: '+4.21', color: '#16a34a', angle: '-6deg',  x: '-260px', y: '0px'   },
-  { name: 'James L.',  score: '+2.88', color: '#d97706', angle:  '4deg',  x:  '260px', y: '20px'  },
-  { name: 'Maya T.',   score: '+3.74', color: '#16a34a', angle: '-3deg',  x: '-180px', y: '120px' },
+  { name: 'Sarah K.',  username: 'sarah_k',  score: '+4.21', color: '#16a34a', ratings: 38 },
+  { name: 'James L.', username: 'james_l',  score: '+2.88', color: '#d97706', ratings: 14 },
+  { name: 'Maya T.',  username: 'maya_t',   score: '+3.74', color: '#16a34a', ratings: 61 },
+  { name: 'Omar R.',  username: 'omar_r',   score: '-1.20', color: '#dc2626', ratings: 9  },
 ]
 
 const HOW_IT_WORKS = [
@@ -51,37 +52,14 @@ export default function LandingPage() {
     <main className="min-h-screen overflow-x-hidden">
 
       {/* ── Hero ── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 overflow-hidden">
+      <section className="relative flex flex-col items-center px-4 pt-20 pb-12 overflow-hidden">
 
-        {/* Background gradients */}
+        {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-rose-50 via-white to-white pointer-events-none" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-primary/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/6 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Floating mock profile cards — desktop only */}
-        {MOCK_PROFILES.map((p) => (
-          <div
-            key={p.name}
-            className="hidden lg:flex absolute items-center gap-3 px-4 py-3 bg-white/80 backdrop-blur-sm border border-rose-100 rounded-2xl shadow-glow-sm pointer-events-none select-none"
-            style={{
-              left: '50%',
-              top: '50%',
-              transform: `translate(calc(-50% + ${p.x}), calc(-50% + ${p.y})) rotate(${p.angle})`,
-              opacity: 0.85,
-            }}
-          >
-            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-sm font-black text-primary shrink-0">
-              {p.name[0]}
-            </div>
-            <div>
-              <p className="font-bold text-foreground text-sm">{p.name}</p>
-              <p className="text-xs" style={{ color: p.color }}>{p.score}</p>
-            </div>
-          </div>
-        ))}
-
-        {/* Hero content */}
-        <div className="relative z-10 text-center max-w-2xl space-y-6 animate-slide-up">
+        {/* Content — no absolute children inside, so nothing can overlap */}
+        <div className="relative z-10 text-center max-w-2xl w-full space-y-6 animate-slide-up">
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold">
@@ -89,24 +67,25 @@ export default function LandingPage() {
             Social reputation, quantified
           </div>
 
-          {/* Wordmark */}
-          <div className="space-y-1">
+          {/* Wordmark + slogan */}
+          <div>
             <h1 className="text-7xl sm:text-8xl font-black tracking-tight leading-none">
               <span className="text-foreground">Le</span><span className="text-primary">ns</span>
             </h1>
-            <p className="text-3xl sm:text-4xl font-black text-foreground/80 tracking-tight">
+            <p className="text-3xl sm:text-4xl font-black text-foreground/80 tracking-tight mt-2">
               See More.
             </p>
           </div>
 
-          {/* Sub-tagline */}
-          <p className="text-muted text-lg sm:text-xl leading-relaxed max-w-lg mx-auto">
-            Rate the people around you across <span className="text-foreground font-semibold">8 dimensions</span>.
+          {/* Description */}
+          <p className="text-muted text-lg sm:text-xl leading-relaxed max-w-md mx-auto">
+            Rate the people around you across{' '}
+            <span className="text-foreground font-semibold">8 dimensions</span>.
             Your closeness to them shapes how much your opinion counts.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/auth/signup"
               className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-glow-sm hover:shadow-glow-md text-lg"
@@ -122,10 +101,10 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          {/* Social proof strip */}
-          <div className="flex items-center justify-center gap-6 pt-4 text-sm text-muted">
+          {/* Trust strip */}
+          <div className="flex items-center justify-center gap-6 text-sm text-muted pt-2">
             <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-score-high animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-score-high" />
               Anonymous ratings
             </span>
             <span className="w-px h-4 bg-border" />
@@ -135,10 +114,24 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted/60 text-xs animate-bounce">
-          <div className="w-px h-6 bg-gradient-to-b from-transparent to-muted/40" />
+        {/* Profile cards row — below content, no overlap possible */}
+        <div className="relative z-10 w-full max-w-2xl mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {MOCK_PROFILES.map((p) => (
+            <div
+              key={p.name}
+              className="flex items-center gap-2.5 px-3 py-2.5 bg-white/90 border border-rose-100 rounded-2xl shadow-sm select-none"
+            >
+              <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-xs font-black text-primary shrink-0">
+                {p.name[0]}
+              </div>
+              <div className="min-w-0">
+                <p className="font-bold text-foreground text-xs truncate">{p.name}</p>
+                <p className="text-[11px] font-semibold" style={{ color: p.color }}>{p.score}</p>
+              </div>
+            </div>
+          ))}
         </div>
+
       </section>
 
       {/* ── How it works ── */}
@@ -154,16 +147,14 @@ export default function LandingPage() {
                 key={step.step}
                 className="relative p-6 rounded-3xl border border-border bg-surface hover:border-primary/30 hover:shadow-glow-sm transition-all"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-4xl font-black text-primary/20 leading-none">{step.step}</span>
-                  {i < HOW_IT_WORKS.length - 1 && (
-                    <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                      <ChevronRight size={20} className="text-border" />
-                    </div>
-                  )}
-                </div>
+                <p className="text-5xl font-black text-primary/15 leading-none mb-3">{step.step}</p>
                 <h3 className="font-black text-foreground text-lg mb-2">{step.title}</h3>
                 <p className="text-muted text-sm leading-relaxed">{step.desc}</p>
+                {i < HOW_IT_WORKS.length - 1 && (
+                  <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-0.5">
+                    <ChevronRight size={18} className="text-border" />
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -171,55 +162,67 @@ export default function LandingPage() {
       </section>
 
       {/* ── Score showcase ── */}
-      <section className="py-20 px-4 bg-gradient-to-b from-white to-rose-50/60">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-primary text-sm font-bold uppercase tracking-widest mb-2">Your score</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-foreground">A number that actually means something</h2>
-            <p className="text-muted mt-3 max-w-md mx-auto">
-              Rated on a −5 to +5 scale. A close friend's vote counts more than a stranger's.
-              Confidence grows with every rating.
+      <section className="py-20 px-4 bg-rose-50/40">
+        <div className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+
+          {/* Left: text */}
+          <div className="flex-1 space-y-4">
+            <p className="text-primary text-sm font-bold uppercase tracking-widest">Your score</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-foreground leading-tight">
+              A number that actually<br />means something
+            </h2>
+            <p className="text-muted leading-relaxed">
+              Scored on a −5 to +5 scale. A close friend's vote carries more weight than a
+              stranger's. The more ratings you receive, the more your score reflects reality.
             </p>
+            <ul className="space-y-2 text-sm">
+              {['Weighted by proximity', 'Per-dimension breakdown', 'Radar chart overview', 'Anonymous — no pressure'].map(item => (
+                <li key={item} className="flex items-center gap-2 text-foreground/80">
+                  <span className="w-4 h-4 rounded-full bg-primary/15 flex items-center justify-center shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Mock score card */}
-          <div className="max-w-sm mx-auto bg-white border border-border rounded-3xl p-6 shadow-glow-sm">
-            <div className="flex items-center gap-4 mb-5">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-200 to-pink-300 flex items-center justify-center text-2xl font-black text-white shadow-glow-sm">
+          {/* Right: mock profile card */}
+          <div className="w-full max-w-xs bg-white border border-border rounded-3xl p-5 shadow-glow-sm shrink-0">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-300 to-pink-400 flex items-center justify-center text-xl font-black text-white shadow-sm">
                 Y
               </div>
-              <div>
-                <p className="font-black text-foreground text-lg">Your Name</p>
+              <div className="flex-1">
+                <p className="font-black text-foreground">Your Name</p>
                 <p className="text-muted text-sm">@username</p>
               </div>
-              <div className="ml-auto text-right">
-                <p className="font-black text-3xl text-score-high">+3.74</p>
-                <p className="text-muted text-xs">aggregate score</p>
+              <div className="text-right">
+                <p className="font-black text-2xl text-score-high">+3.74</p>
+                <p className="text-muted text-xs">score</p>
               </div>
             </div>
 
-            {/* Metric bars */}
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {[
-                { name: 'Intelligence', icon: '🧠', val: 0.82 },
-                { name: 'Kindness',     icon: '💛', val: 0.91 },
-                { name: 'Humor',        icon: '😄', val: 0.68 },
-                { name: 'Honesty',      icon: '🤝', val: 0.78 },
+                { name: 'Intelligence', icon: '🧠', pct: 82 },
+                { name: 'Kindness',     icon: '💛', pct: 91 },
+                { name: 'Humor',        icon: '😄', pct: 68 },
+                { name: 'Honesty',      icon: '🤝', pct: 78 },
               ].map(m => (
-                <div key={m.name} className="flex items-center gap-3">
-                  <span className="text-base w-6 text-center shrink-0">{m.icon}</span>
+                <div key={m.name} className="flex items-center gap-2">
+                  <span className="text-sm w-5 text-center shrink-0">{m.icon}</span>
                   <p className="text-xs text-muted w-20 shrink-0">{m.name}</p>
                   <div className="flex-1 h-1.5 bg-border rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-primary"
-                      style={{ width: `${m.val * 100}%` }}
-                    />
+                    <div className="h-full rounded-full bg-primary" style={{ width: `${m.pct}%` }} />
                   </div>
-                  <p className="text-xs font-bold text-primary w-8 text-right shrink-0">
-                    +{((m.val * 10) - 5).toFixed(1)}
-                  </p>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-4 pt-4 border-t border-border flex items-center justify-between text-xs text-muted">
+              <span>24 ratings received</span>
+              <span className="text-primary font-semibold">Rank #12 →</span>
             </div>
           </div>
         </div>
