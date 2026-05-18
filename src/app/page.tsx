@@ -72,8 +72,8 @@ export default function LandingPage() {
             <h1 className="text-7xl sm:text-8xl font-black tracking-tight leading-none">
               <span className="text-foreground">Le</span><span className="text-primary">ns</span>
             </h1>
-            <p className="text-3xl sm:text-4xl font-black text-foreground/80 tracking-tight mt-2">
-              See More.
+            <p className="text-2xl sm:text-3xl font-black text-foreground/80 tracking-tight mt-2">
+              See through people, See More.
             </p>
           </div>
 
@@ -260,8 +260,8 @@ export default function LandingPage() {
             Join Lens today
           </div>
           <h2 className="text-4xl sm:text-5xl font-black text-foreground leading-tight">
-            Ready to<br />
-            <span className="text-primary">See More?</span>
+            Ready to see<br />
+            <span className="text-primary">through people?</span>
           </h2>
           <p className="text-muted text-lg">
             Create your profile in seconds. Start rating. See where you stand.
@@ -291,7 +291,7 @@ export default function LandingPage() {
           <span className="font-black text-xl">
             <span className="text-foreground">Le</span><span className="text-primary">ns</span>
           </span>
-          <p className="text-muted text-sm">See More. Know more. Be honest.</p>
+          <p className="text-muted text-sm">See through people, See More.</p>
           <div className="flex gap-4 text-sm text-muted">
             <Link href="/auth/login"  className="hover:text-primary transition-colors">Sign in</Link>
             <Link href="/auth/signup" className="hover:text-primary transition-colors">Sign up</Link>
