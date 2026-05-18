@@ -3,11 +3,11 @@ declare const self: ServiceWorkerGlobalScope
 
 self.addEventListener('push', (event) => {
   const data = event.data ? event.data.json() : {}
-  const title = data.title ?? 'Nosedive'
+  const title = data.title ?? 'Lens'
   const options: NotificationOptions = {
     body: data.body ?? '',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/icon-192x192.png',
+    icon: '/icon.svg',
+    badge: '/icon.svg',
     data: { url: data.url ?? '/dashboard' },
     vibrate: [100, 50, 100],
   }

@@ -16,45 +16,81 @@ export function usePushNotifications() {
   useEffect(() => {
     if (typeof window !== 'undefined' && 'Notification' in window) {
       setPermission(Notification.permission)
+      // Check if already subscribed
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(reg =>
+          reg.pushManager.getSubscription().then(sub => {
+            if (sub) setSubscribed(true)
+          })
+        ).catch(() => {})
+      }
     }
   }, [])
 
   async function subscribe() {
-    if (!('serviceWorker' in navigator) || !('PushManager' in window)) return false
+    try {
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        console.warn('[Push] Service worker or PushManager not supported')
+        return false
+      }
 
-    const reg = await navigator.serviceWorker.ready
-    const result = await Notification.requestPermission()
-    setPermission(result)
-    if (result !== 'granted') return false
+      const result = await Notification.requestPermission()
+      setPermission(result)
+      if (result !== 'granted') return false
 
-    const existing = await reg.pushManager.getSubscription()
-    const sub = existing ?? await reg.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!),
-    })
+      const reg = await navigator.serviceWorker.ready
 
-    await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(sub.toJSON()),
-    })
+      // Unsubscribe from any old subscription first to force a fresh one
+      const existing = await reg.pushManager.getSubscription()
+      if (existing) await existing.unsubscribe()
 
-    setSubscribed(true)
-    return true
+      const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+      if (!vapidKey) {
+        console.error('[Push] NEXT_PUBLIC_VAPID_PUBLIC_KEY is not set')
+        return false
+      }
+
+      const sub = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(vapidKey),
+      })
+
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sub.toJSON()),
+      })
+
+      if (!res.ok) {
+        const err = await res.json()
+        console.error('[Push] Subscribe API error:', err)
+        return false
+      }
+
+      setSubscribed(true)
+      return true
+    } catch (err) {
+      console.error('[Push] subscribe() error:', err)
+      return false
+    }
   }
 
   async function unsubscribe() {
-    if (!('serviceWorker' in navigator)) return
-    const reg = await navigator.serviceWorker.ready
-    const sub = await reg.pushManager.getSubscription()
-    if (!sub) return
-    await fetch('/api/subscribe', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ endpoint: sub.endpoint }),
-    })
-    await sub.unsubscribe()
-    setSubscribed(false)
+    try {
+      if (!('serviceWorker' in navigator)) return
+      const reg = await navigator.serviceWorker.ready
+      const sub = await reg.pushManager.getSubscription()
+      if (!sub) return
+      await fetch('/api/subscribe', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ endpoint: sub.endpoint }),
+      })
+      await sub.unsubscribe()
+      setSubscribed(false)
+    } catch (err) {
+      console.error('[Push] unsubscribe() error:', err)
+    }
   }
 
   return { permission, subscribed, subscribe, unsubscribe }
