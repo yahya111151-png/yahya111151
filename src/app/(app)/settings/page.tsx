@@ -8,6 +8,7 @@ import { avatarUrl, coverGradient } from '@/lib/utils'
 import type { Profile } from '@/types'
 import { Camera, MapPin, Loader2, CheckCircle, ChevronLeft, Upload, X, Bell, BellOff, Trash2, AlertTriangle } from 'lucide-react'
 import Avatar from '@/components/ui/Avatar'
+import AppSetupCard from '@/components/ui/AppSetupCard'
 import Link from 'next/link'
 import { usePushNotifications } from '@/hooks/usePushNotifications'
 
@@ -246,7 +247,10 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      {/* Notifications toggle */}
+      {/* App setup — install + notifications */}
+      <AppSetupCard />
+
+      {/* Notifications toggle (also kept for quick toggle once enabled) */}
       <NotificationToggle />
 
       {/* Section tabs */}

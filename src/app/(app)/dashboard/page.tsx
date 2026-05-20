@@ -7,6 +7,7 @@ import UserCard from '@/components/ui/UserCard'
 import TierBadge from '@/components/ui/TierBadge'
 import RewardsTierCard from '@/components/ui/RewardsTierCard'
 import DailyStreakCard from '@/components/ui/DailyStreakCard'
+import AppSetupCard from '@/components/ui/AppSetupCard'
 import { avatarUrl, scoreColor } from '@/lib/utils'
 import type { ProfileWithMetrics, Profile } from '@/types'
 import { Star, TrendingUp, Users, ChevronRight, Trophy } from 'lucide-react'
@@ -47,9 +48,6 @@ export default async function DashboardPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
-      {/* Notification nudge */}
-      <NotificationBanner />
-
       {/* Hero card */}
       <div className="relative bg-surface border border-border rounded-3xl p-6 overflow-hidden">
         <div className="absolute inset-0 bg-glow-primary opacity-50 pointer-events-none" />
@@ -85,6 +83,9 @@ export default async function DashboardPage() {
           </Link>
         </div>
       </div>
+
+      {/* App setup checklist — install + notifications */}
+      <AppSetupCard />
 
       {/* Rewards tier card — front and centre */}
       <RewardsTierCard score={profile.aggregate_score} totalRatings={profile.total_ratings} />
