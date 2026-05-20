@@ -8,9 +8,12 @@ import { createClient } from '@/lib/supabase/client'
 import ScoreRing from '@/components/ui/ScoreRing'
 import RatingCard from '@/components/ui/RatingCard'
 import QRCodeModal from '@/components/ui/QRCodeModal'
+import RatingHistoryChart from '@/components/ui/RatingHistoryChart'
 import { avatarUrl, coverGradient, scoreColor, memberSince } from '@/lib/utils'
 import type { ProfileWithMetrics, Rating } from '@/types'
-import { MapPin, Briefcase, Star, QrCode, Pencil, Loader2 } from 'lucide-react'
+import { MapPin, Briefcase, Star, QrCode, Pencil, Loader2, Share2, MessageCircle } from 'lucide-react'
+import TierBadge from '@/components/ui/TierBadge'
+import RewardsTierCard from '@/components/ui/RewardsTierCard'
 import {
   RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer,
 } from 'recharts'
@@ -32,6 +35,7 @@ export default function ProfilePage({ params }: PageProps) {
   const [loading, setLoading]         = useState(true)
   const [tab, setTab]                 = useState<Tab>('overview')
   const [showQR, setShowQR]           = useState(false)
+  const [shared, setShared]           = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -83,12 +87,25 @@ export default function ProfilePage({ params }: PageProps) {
 
   const isOwn   = currentUserId === profile.id
   const avatar  = profile.avatar_url ?? avatarUrl(profile.username)
+
+  async function handleShare() {
+    const url  = `${window.location.origin}/profile/${profile!.username}`
+    const text = `Check out ${profile!.full_name}'s profile on Lens — score ${profile!.aggregate_score >= 0 ? '+' : ''}${profile!.aggregate_score.toFixed(2)}`
+    if (navigator.share) {
+      try { await navigator.share({ title: profile!.full_name, text, url }); setShared(true) }
+      catch {}
+    } else {
+      await navigator.clipboard.writeText(url)
+      setShared(true)
+      setTimeout(() => setShared(false), 2000)
+    }
+  }
   const metrics = profile.metric_scores ?? []
   const radarData = metrics.map(m => ({ metric: m.metric_name, score: m.avg_score, fullMark: 5 }))
 
   const TABS: { key: Tab; label: string; count?: number }[] = [
     { key: 'overview',     label: 'Overview' },
-    { key: 'ratings',      label: 'Ratings',     count: profile.total_ratings },
+    { key: 'ratings',      label: 'Reflections', count: profile.total_ratings },
     { key: 'connections',  label: 'Connections',  count: connections.length },
   ]
 
@@ -133,7 +150,7 @@ export default function ProfilePage({ params }: PageProps) {
           </div>
 
           {/* Action buttons */}
-          <div className="flex gap-2 pb-1">
+          <div className="flex gap-2 pb-1 flex-wrap justify-end">
             <button
               onClick={() => setShowQR(true)}
               className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-foreground hover:border-primary/40 transition-colors"
@@ -141,13 +158,29 @@ export default function ProfilePage({ params }: PageProps) {
             >
               <QrCode size={18} />
             </button>
+            <button
+              onClick={handleShare}
+              className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-foreground hover:border-primary/40 transition-colors"
+              title={shared ? 'Copied!' : 'Share profile'}
+            >
+              <Share2 size={18} className={shared ? 'text-primary' : ''} />
+            </button>
             {!isOwn && currentUserId && (
-              <Link
-                href={`/rate/${profile.id}`}
-                className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
-              >
-                <Star size={14} /> Rate
-              </Link>
+              <>
+                <Link
+                  href={`/chat/new/${profile.id}`}
+                  className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-foreground hover:border-primary/40 transition-colors"
+                  title="Message"
+                >
+                  <MessageCircle size={18} />
+                </Link>
+                <Link
+                  href={`/rate/${profile.id}`}
+                  className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
+                >
+                  <Star size={14} /> Reflect
+                </Link>
+              </>
             )}
             {isOwn && (
               <Link
@@ -162,7 +195,10 @@ export default function ProfilePage({ params }: PageProps) {
 
         {/* ── Name + bio ── */}
         <div className="mt-3 space-y-1">
-          <h1 className="font-black text-2xl text-foreground leading-tight">{profile.full_name}</h1>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="font-black text-2xl text-foreground leading-tight">{profile.full_name}</h1>
+            <TierBadge score={profile.aggregate_score} totalRatings={profile.total_ratings} size="sm" />
+          </div>
           <p className="text-muted">@{profile.username}</p>
 
           <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
@@ -189,12 +225,12 @@ export default function ProfilePage({ params }: PageProps) {
             <p className={`font-black text-xl tabular-nums ${scoreColor(profile.aggregate_score)}`}>
               {profile.aggregate_score.toFixed(2)}
             </p>
-            <p className="text-muted text-xs">Score</p>
+            <p className="text-muted text-xs">Impression</p>
           </div>
           <div className="w-px bg-border" />
           <div className="text-center">
             <p className="font-black text-xl text-foreground">{profile.total_ratings}</p>
-            <p className="text-muted text-xs">Ratings</p>
+            <p className="text-muted text-xs">Reflections</p>
           </div>
           <div className="w-px bg-border" />
           <div className="text-center">
@@ -236,21 +272,28 @@ export default function ProfilePage({ params }: PageProps) {
         {/* OVERVIEW TAB */}
         {tab === 'overview' && (
           <div className="space-y-5">
+            {/* Rewards tier card — own profile only */}
+            {isOwn && (
+              <RewardsTierCard score={profile.aggregate_score} totalRatings={profile.total_ratings} />
+            )}
             {metrics.length === 0 ? (
               <div className="text-center py-10 text-muted">
                 <p className="text-3xl mb-2">⭐</p>
-                <p className="text-foreground font-semibold">No ratings yet</p>
+                <p className="text-foreground font-semibold">No reflections yet</p>
                 <p className="text-sm mt-1">
-                  {isOwn ? 'Share your profile to get your first rating.' : `Be the first to rate ${profile.full_name.split(' ')[0]}.`}
+                  {isOwn ? 'Share your profile so others can reflect on you.' : `Be the first to share your thoughts on ${profile.full_name.split(' ')[0]}.`}
                 </p>
                 {!isOwn && currentUserId && (
                   <Link href={`/rate/${profile.id}`} className="inline-block mt-4 px-6 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm">
-                    Rate now
+                    Share your thoughts
                   </Link>
                 )}
               </div>
             ) : (
               <>
+                {/* History chart */}
+                <RatingHistoryChart userId={profile.id} />
+
                 {/* Radar chart */}
                 <div className="bg-surface border border-border rounded-2xl p-4 h-52">
                   <p className="text-xs text-muted mb-2 font-medium uppercase tracking-wider">Skill radar</p>
@@ -287,7 +330,7 @@ export default function ProfilePage({ params }: PageProps) {
                           }}
                         />
                       </div>
-                      <p className="text-muted text-xs mt-1">{m.rating_count} ratings</p>
+                      <p className="text-muted text-xs mt-1">{m.rating_count} reflections</p>
                     </div>
                   ))}
                 </div>
@@ -302,7 +345,7 @@ export default function ProfilePage({ params }: PageProps) {
             {ratings.length === 0 ? (
               <div className="text-center py-10 text-muted">
                 <p className="text-3xl mb-2">📭</p>
-                <p className="text-foreground font-semibold">No ratings yet</p>
+                <p className="text-foreground font-semibold">No reflections yet</p>
               </div>
             ) : (
               ratings.map((r: any) => {

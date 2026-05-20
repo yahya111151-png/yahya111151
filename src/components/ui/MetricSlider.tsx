@@ -88,7 +88,7 @@ export default function MetricSlider({
               </button>
             </>
           ) : (
-            <span className="text-muted text-xs italic">not rated</span>
+            <span className="text-muted text-xs italic">not yet</span>
           )}
         </div>
       </div>

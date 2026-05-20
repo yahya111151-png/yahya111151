@@ -9,7 +9,7 @@ import TokenPaywall from '@/components/ui/TokenPaywall'
 import Avatar from '@/components/ui/Avatar'
 import { computeProximityWeight, applyWeight, proximityLabel, proximityPercent } from '@/lib/algorithm/proximity'
 import type { Profile, RatingMetric, ConnectionType } from '@/types'
-import { ChevronLeft, Loader2, CheckCircle, Coins } from 'lucide-react'
+import { ChevronLeft, Loader2, CheckCircle, Coins, Share2 } from 'lucide-react'
 
 const CONNECTION_OPTIONS: { value: ConnectionType; label: string; description: string }[] = [
   { value: 'stranger',     label: 'Stranger',     description: 'Never really interacted' },
@@ -44,6 +44,7 @@ export default function RatePage() {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
   const [canRateInfo, setCanRateInfo] = useState<CanRateResult | null>(null)
   const [showPaywall, setShowPaywall] = useState(false)
+  const [shareCopied, setShareCopied] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -163,24 +164,17 @@ export default function RatePage() {
         setShowPaywall(true)
         setCanRateInfo(prev => prev ? { ...prev, can_rate: false } : null)
       } else {
-        setError(rpcErr.message ?? 'Failed to submit rating.')
+        setError(rpcErr.message ?? 'Failed to share your thoughts.')
       }
       setSubmitting(false)
       return
     }
 
-    // Send push notification to rated user
-    const supabaseForName = createClient()
-    const { data: raterProfile } = await supabaseForName
-      .from('profiles').select('full_name').eq('id', currentUserId).single()
-
+    // Send anonymous push notification to rated user
     fetch('/api/notify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        rated_id: profile.id,
-        rater_name: raterProfile?.full_name ?? null,
-      }),
+      body: JSON.stringify({ rated_id: profile.id }),
     }).catch(() => {}) // fire and forget
 
     setSuccess(true)
@@ -195,21 +189,80 @@ export default function RatePage() {
     )
   }
 
+  async function handleShareRating() {
+    if (!profile) return
+    const avg = rawAvg()
+    const sign = avg >= 0 ? '+' : ''
+    const text = `I just shared my thoughts on ${profile.full_name} on Lens: ${sign}${avg.toFixed(1)} / ±5`
+    const url  = `${window.location.origin}/profile/${profile.username}`
+    if (navigator.share) {
+      try { await navigator.share({ title: 'My Lens reflection', text, url }) } catch {}
+    } else {
+      await navigator.clipboard.writeText(`${text}\n${url}`)
+      setShareCopied(true)
+      setTimeout(() => setShareCopied(false), 2000)
+    }
+  }
+
   if (success) {
+    const avg  = rawAvg()
+    const sign = avg >= 0 ? '+' : ''
+    const pct  = proximityPercent(proximityWeight)
     return (
-      <div className="max-w-sm mx-auto px-4 py-16 text-center space-y-4 animate-fade-in">
-        <CheckCircle size={56} className="text-score-high mx-auto" style={{ filter: 'drop-shadow(0 0 16px #34d399)' }} />
-        <h2 className="font-black text-2xl text-foreground">Rating submitted!</h2>
-        <p className="text-muted">
-          Your rating carried <span className="text-primary font-bold">{proximityPercent(proximityWeight)}%</span> weight
-          based on your closeness to {profile?.full_name.split(' ')[0]}.
-        </p>
-        <div className="flex flex-col gap-3 pt-4">
-          <Link href={`/profile/${profile?.username}`} className="py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm">
+      <div className="max-w-sm mx-auto px-4 py-12 space-y-5 animate-fade-in">
+        <div className="text-center space-y-2">
+          <CheckCircle size={56} className="text-score-high mx-auto" style={{ filter: 'drop-shadow(0 0 16px #34d399)' }} />
+          <h2 className="font-black text-2xl text-foreground">Reflection shared!</h2>
+          <p className="text-muted text-sm">
+            Your thoughts carried <span className="text-primary font-bold">{pct}%</span> weight
+            based on your closeness to {profile?.full_name.split(' ')[0]}.
+          </p>
+        </div>
+
+        {/* Share card */}
+        <div className="bg-surface border border-border rounded-2xl p-5 space-y-3">
+          <p className="text-xs text-muted uppercase tracking-widest font-semibold">Your reflection summary</p>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-lg font-black text-primary shrink-0">
+              {profile?.full_name[0]}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-foreground truncate">{profile?.full_name}</p>
+              <p className="text-muted text-sm">@{profile?.username}</p>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="font-black text-2xl tabular-nums" style={{ color: avg >= 2 ? '#16a34a' : avg >= 0 ? '#d97706' : '#dc2626' }}>
+                {sign}{avg.toFixed(1)}
+              </p>
+              <p className="text-muted text-xs">/ ±5</p>
+            </div>
+          </div>
+          {/* Metric scores row */}
+          <div className="grid grid-cols-4 gap-1">
+            {metrics.filter(m => scores[m.id] !== undefined).map(m => (
+              <div key={m.id} className="text-center p-1.5 bg-bg rounded-xl">
+                <p className="text-base">{m.icon}</p>
+                <p className="text-xs font-bold text-foreground tabular-nums">
+                  {scores[m.id] >= 0 ? '+' : ''}{scores[m.id]}
+                </p>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={handleShareRating}
+            className="w-full flex items-center justify-center gap-2 py-2.5 bg-primary/10 border border-primary/20 text-primary font-semibold rounded-xl text-sm hover:bg-primary/15 transition-colors"
+          >
+            <Share2 size={15} />
+            {shareCopied ? 'Link copied!' : 'Share my reflection'}
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <Link href={`/profile/${profile?.username}`} className="py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm text-center">
             View their profile
           </Link>
-          <Link href="/search" className="py-3 bg-surface border border-border text-foreground font-semibold rounded-xl">
-            Rate someone else
+          <Link href="/search" className="py-3 bg-surface border border-border text-foreground font-semibold rounded-xl text-center">
+            Reflect on someone else
           </Link>
         </div>
       </div>
@@ -251,7 +304,7 @@ export default function RatePage() {
           className="rounded-xl ring-2 ring-border"
         />
         <div className="flex-1">
-          <h1 className="font-bold text-foreground">Rate {profile.full_name}</h1>
+          <h1 className="font-bold text-foreground">Reflect on {profile.full_name}</h1>
           <p className="text-muted text-sm">@{profile.username}</p>
         </div>
         {/* Token balance badge */}
@@ -268,7 +321,7 @@ export default function RatePage() {
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30">
           <Coins size={18} className="text-yellow-400 shrink-0" />
           <div>
-            <p className="text-yellow-300 text-sm font-semibold">Daily free rating used</p>
+            <p className="text-yellow-300 text-sm font-semibold">Daily free reflection used</p>
             <p className="text-yellow-400/70 text-xs">Submitting will spend 1 token ({canRateInfo.tokens} remaining)</p>
           </div>
         </div>
@@ -283,7 +336,7 @@ export default function RatePage() {
         }}
       >
         <div className="flex items-center justify-between mb-2">
-          <p className="font-semibold text-foreground text-sm">Your rating influence</p>
+          <p className="font-semibold text-foreground text-sm">Your connection weight</p>
           <span
             className="font-black text-xl tabular-nums"
             style={{ color: `hsl(${pct * 1.2}, 80%, 65%)` }}
@@ -333,8 +386,8 @@ export default function RatePage() {
         {/* Metric sliders */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-foreground text-sm">Score each dimension</h2>
-            <span className="text-muted text-xs">{ratedCount}/{metrics.length} rated</span>
+            <h2 className="font-bold text-foreground text-sm">Weigh in on each dimension</h2>
+            <span className="text-muted text-xs">{ratedCount}/{metrics.length} done</span>
           </div>
           {metrics.map(m => (
             <MetricSlider
@@ -407,7 +460,7 @@ export default function RatePage() {
             <span className="flex items-center justify-center gap-2">
               <Coins size={18} /> Use 1 token · {pct}% influence
             </span>
-          ) : `Submit rating · ${pct}% influence`}
+          ) : `Share your thoughts · ${pct}% weight`}
         </button>
       </form>
     </div>

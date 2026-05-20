@@ -29,14 +29,14 @@ export default async function FeedPage() {
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5 animate-fade-in">
       <div className="flex items-center gap-2">
         <Bell size={20} className="text-primary" />
-        <h1 className="font-black text-2xl text-foreground">Your ratings</h1>
+        <h1 className="font-black text-2xl text-foreground">Your reflections</h1>
       </div>
 
       {(!ratings || ratings.length === 0) ? (
         <div className="text-center py-16 text-muted">
           <p className="text-4xl mb-3">📭</p>
-          <p className="font-semibold text-foreground">No ratings yet</p>
-          <p className="text-sm mt-1">Share your profile link to get your first rating.</p>
+          <p className="font-semibold text-foreground">No reflections yet</p>
+          <p className="text-sm mt-1">Share your profile so others can share their thoughts on you.</p>
         </div>
       ) : (
         <div className="space-y-3">

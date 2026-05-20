@@ -1,6 +1,5 @@
 import Navbar from '@/components/Navbar'
 import InstallPrompt from '@/components/InstallPrompt'
-import NotificationPrompt from '@/components/NotificationPrompt'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,7 +9,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <InstallPrompt />
-      <NotificationPrompt />
     </>
   )
 }

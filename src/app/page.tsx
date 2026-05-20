@@ -1,36 +1,37 @@
 import Link from 'next/link'
 import { Star, Users, Trophy, Shield, Zap, Eye, ChevronRight } from 'lucide-react'
+import Logo from '@/components/ui/Logo'
 
 const FEATURES = [
   {
     icon: Star,
-    title: '8 rating dimensions',
-    desc: 'Intelligence, kindness, humor, honesty and more — get a full picture of a person.',
+    title: '8 dimensions of a person',
+    desc: 'Kindness, friendship, humor, honesty — then leadership, reliability, creativity, and professionalism.',
   },
   {
     icon: Users,
     title: 'Weighted by closeness',
-    desc: "A friend's rating carries more weight than a stranger's. Proximity matters.",
+    desc: "A close friend's perspective carries more weight than a stranger's. Proximity matters.",
   },
   {
     icon: Trophy,
-    title: 'Live leaderboard',
-    desc: 'Rankings use confidence scoring — more ratings means more influence on your rank.',
+    title: 'Community Spotlight',
+    desc: 'Standing uses confidence levels — more voices means a more accurate picture.',
   },
   {
     icon: Shield,
-    title: 'Anonymous ratings',
-    desc: 'Raters stay private. Honest feedback without social pressure.',
+    title: 'Always anonymous',
+    desc: 'Perspectives stay private. Honest thoughts without social pressure.',
   },
   {
     icon: Zap,
-    title: 'Instant score',
-    desc: 'Your score updates the moment a rating is submitted. Watch it move in real time.',
+    title: 'Live impression',
+    desc: 'Your impression updates the moment someone shares their thoughts. Watch it in real time.',
   },
   {
     icon: Eye,
     title: 'See the full picture',
-    desc: 'Radar charts, metric breakdowns, and trend data — not just a single number.',
+    desc: 'Radar charts, dimension breakdowns, and trend data — not just a single number.',
   },
 ]
 
@@ -43,8 +44,8 @@ const MOCK_PROFILES = [
 
 const HOW_IT_WORKS = [
   { step: '01', title: 'Find someone', desc: 'Search by name, scan their QR code, or browse people nearby.' },
-  { step: '02', title: 'Rate them', desc: 'Score each dimension on a −5 to +5 scale. Your closeness to them weights your impact.' },
-  { step: '03', title: 'See the truth', desc: 'Their score updates instantly. Check the leaderboard — or your own profile.' },
+  { step: '02', title: 'Share your thoughts', desc: 'Weigh in on each dimension on a −5 to +5 scale. Your closeness to them shapes your impact.' },
+  { step: '03', title: 'See the truth', desc: 'Their impression updates instantly. Check the Spotlight — or your own profile.' },
 ]
 
 export default function LandingPage() {
@@ -68,20 +69,18 @@ export default function LandingPage() {
           </div>
 
           {/* Wordmark + slogan */}
-          <div>
-            <h1 className="text-7xl sm:text-8xl font-black tracking-tight leading-none">
-              <span className="text-foreground">Le</span><span className="text-primary">ns</span>
-            </h1>
-            <p className="text-2xl sm:text-3xl font-black text-foreground/80 tracking-tight mt-2">
+          <div className="flex flex-col items-center gap-3">
+            <Logo wordmark size={56} textSize="text-7xl sm:text-8xl" className="tracking-tight leading-none" />
+            <p className="text-2xl sm:text-3xl font-black text-foreground/80 tracking-tight">
               See through people, See More.
             </p>
           </div>
 
           {/* Description */}
           <p className="text-muted text-lg sm:text-xl leading-relaxed max-w-md mx-auto">
-            Rate the people around you across{' '}
+            Discover how the people around you see you across{' '}
             <span className="text-foreground font-semibold">8 dimensions</span>.
-            Your closeness to them shapes how much your opinion counts.
+            Your closeness to them shapes how much your perspective counts.
           </p>
 
           {/* CTAs */}
@@ -105,7 +104,7 @@ export default function LandingPage() {
           <div className="flex items-center justify-center gap-6 text-sm text-muted pt-2">
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-score-high" />
-              Anonymous ratings
+              Always anonymous
             </span>
             <span className="w-px h-4 bg-border" />
             <span>Free to join</span>
@@ -167,13 +166,13 @@ export default function LandingPage() {
 
           {/* Left: text */}
           <div className="flex-1 space-y-4">
-            <p className="text-primary text-sm font-bold uppercase tracking-widest">Your score</p>
+            <p className="text-primary text-sm font-bold uppercase tracking-widest">Your impression</p>
             <h2 className="text-3xl sm:text-4xl font-black text-foreground leading-tight">
-              A number that actually<br />means something
+              A picture that actually<br />means something
             </h2>
             <p className="text-muted leading-relaxed">
-              Scored on a −5 to +5 scale. A close friend's vote carries more weight than a
-              stranger's. The more ratings you receive, the more your score reflects reality.
+              Measured on a −5 to +5 scale. A close friend's perspective carries more weight than a
+              stranger's. The more people who know you, the clearer your picture becomes.
             </p>
             <ul className="space-y-2 text-sm">
               {['Weighted by proximity', 'Per-dimension breakdown', 'Radar chart overview', 'Anonymous — no pressure'].map(item => (
@@ -199,16 +198,16 @@ export default function LandingPage() {
               </div>
               <div className="text-right">
                 <p className="font-black text-2xl text-score-high">+3.74</p>
-                <p className="text-muted text-xs">score</p>
+                <p className="text-muted text-xs">impression</p>
               </div>
             </div>
 
             <div className="space-y-2.5">
               {[
-                { name: 'Intelligence', icon: '🧠', pct: 82 },
-                { name: 'Kindness',     icon: '💛', pct: 91 },
-                { name: 'Humor',        icon: '😄', pct: 68 },
-                { name: 'Honesty',      icon: '🤝', pct: 78 },
+                { name: 'Kindness',   icon: '💛', pct: 91 },
+                { name: 'Humor',      icon: '😄', pct: 68 },
+                { name: 'Honesty',    icon: '🫂', pct: 78 },
+                { name: 'Leadership', icon: '🎯', pct: 74 },
               ].map(m => (
                 <div key={m.name} className="flex items-center gap-2">
                   <span className="text-sm w-5 text-center shrink-0">{m.icon}</span>
@@ -221,8 +220,8 @@ export default function LandingPage() {
             </div>
 
             <div className="mt-4 pt-4 border-t border-border flex items-center justify-between text-xs text-muted">
-              <span>24 ratings received</span>
-              <span className="text-primary font-semibold">Rank #12 →</span>
+              <span>24 reflections received</span>
+              <span className="text-primary font-semibold">Spot #12 →</span>
             </div>
           </div>
         </div>
@@ -233,7 +232,7 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-primary text-sm font-bold uppercase tracking-widest mb-2">Built for depth</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-foreground">Everything you need to see clearly</h2>
+            <h2 className="text-3xl sm:text-4xl font-black text-foreground">Everything you need to understand people</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {FEATURES.map(({ icon: Icon, title, desc }) => (
@@ -279,7 +278,7 @@ export default function LandingPage() {
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-surface border border-border text-foreground font-semibold rounded-2xl hover:border-primary/40 hover:shadow-glow-sm transition-all text-lg"
             >
               <Trophy size={18} className="text-primary" />
-              See leaderboard
+              See Spotlight
             </Link>
           </div>
         </div>
@@ -288,14 +287,12 @@ export default function LandingPage() {
       {/* ── Footer ── */}
       <footer className="py-8 px-4 border-t border-border bg-white">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="font-black text-xl">
-            <span className="text-foreground">Le</span><span className="text-primary">ns</span>
-          </span>
+          <Logo wordmark size={18} textSize="text-xl" />
           <p className="text-muted text-sm">See through people, See More.</p>
           <div className="flex gap-4 text-sm text-muted">
             <Link href="/auth/login"  className="hover:text-primary transition-colors">Sign in</Link>
             <Link href="/auth/signup" className="hover:text-primary transition-colors">Sign up</Link>
-            <Link href="/leaderboard" className="hover:text-primary transition-colors">Leaderboard</Link>
+            <Link href="/leaderboard" className="hover:text-primary transition-colors">Spotlight</Link>
           </div>
         </div>
       </footer>

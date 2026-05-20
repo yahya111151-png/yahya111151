@@ -3,7 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import { avatarUrl } from '@/lib/utils'
-import { Trophy, Medal, Star, TrendingUp, Info } from 'lucide-react'
+import { getTier, TIERS } from '@/lib/tiers'
+import { Trophy, Medal, Star, TrendingUp, Info, Gift } from 'lucide-react'
 
 interface LeaderboardEntry {
   id: string
@@ -52,22 +53,53 @@ export default async function LeaderboardPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Trophy size={22} className="text-primary" />
-          <h1 className="font-black text-2xl text-foreground">Leaderboard</h1>
+          <h1 className="font-black text-2xl text-foreground">Spotlight</h1>
         </div>
         {myEntry && (
           <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/30 rounded-xl">
-            <span className="text-muted text-xs">Your rank</span>
+            <span className="text-muted text-xs">Your standing</span>
             <span className="font-black text-primary text-sm">#{myEntry.rank}</span>
           </div>
         )}
+      </div>
+
+      {/* Rewards banner */}
+      <div className="rounded-3xl border border-yellow-200 bg-gradient-to-br from-yellow-50 to-amber-50 overflow-hidden">
+        <div className="px-5 pt-4 pb-3 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-yellow-400/20 border border-yellow-300 flex items-center justify-center shrink-0">
+            <Gift size={20} className="text-yellow-600" />
+          </div>
+          <div>
+            <p className="font-black text-sm text-yellow-800">Top impressions earn real rewards</p>
+            <p className="text-xs text-yellow-700/70">Higher on the Spotlight → better perks, free coffee, VIP access & more.</p>
+          </div>
+        </div>
+        <div className="flex gap-2 px-5 pb-4 overflow-x-auto scrollbar-hide">
+          {TIERS.filter(t => t.key !== 'explorer').map(t => (
+            <div
+              key={t.key}
+              className="flex-shrink-0 flex flex-col items-center gap-1 px-3 py-2 bg-white/70 border border-yellow-200 rounded-2xl text-center"
+            >
+              <span className="text-xl">{t.icon}</span>
+              <span className="text-[10px] font-bold text-yellow-800">{t.label}</span>
+              <span className="text-[9px] text-yellow-700/70 max-w-[72px] leading-tight">{t.perkIcons[0]} {t.perks[0]}</span>
+            </div>
+          ))}
+        </div>
+        <div className="px-5 pb-3 flex items-start gap-1.5">
+          <Info size={10} className="text-yellow-600/60 shrink-0 mt-0.5" />
+          <p className="text-[10px] text-yellow-700/60 leading-relaxed">
+            Perks are subject to availability and partner participation. Impressions must meet minimum thresholds to qualify. Terms apply.
+          </p>
+        </div>
       </div>
 
       {/* Formula explainer */}
       <div className="flex items-start gap-2 px-4 py-3 bg-surface border border-border rounded-2xl">
         <Info size={14} className="text-muted shrink-0 mt-0.5" />
         <p className="text-muted text-xs leading-relaxed">
-          Rankings use a <span className="text-foreground font-semibold">confidence score</span>: your raw average is weighted by how many ratings you've received.
-          More ratings = more influence on your rank. A perfect score from 1 person won't beat a great score from 50.
+          Your standing uses a <span className="text-foreground font-semibold">confidence level</span>: your impression is weighted by how many people have shared their thoughts on you.
+          More voices = a clearer picture. A perfect impression from 1 person won't outshine a great one from 50.
         </p>
       </div>
 
@@ -94,7 +126,7 @@ export default async function LeaderboardPage() {
       {/* ── Ranked list (4th+) ── */}
       {rest.length > 0 && (
         <div className="space-y-2">
-          <p className="text-muted text-xs font-medium uppercase tracking-wider px-1">Full rankings</p>
+          <p className="text-muted text-xs font-medium uppercase tracking-wider px-1">Full standings</p>
           <div className="space-y-1.5">
             {rest.map(entry => (
               <RankRow key={entry.id} entry={entry} isMe={entry.id === user.id} />
@@ -106,13 +138,13 @@ export default async function LeaderboardPage() {
       {entries.length === 0 && (
         <div className="text-center py-20 text-muted">
           <p className="text-5xl mb-4">🏆</p>
-          <p className="font-bold text-foreground text-lg">No rankings yet</p>
-          <p className="text-sm mt-1">Be the first to get rated!</p>
+          <p className="font-bold text-foreground text-lg">No one here yet</p>
+          <p className="text-sm mt-1">Be the first to appear in the Spotlight!</p>
           <Link
             href="/search"
             className="inline-block mt-5 px-6 py-3 bg-primary text-white font-bold rounded-2xl shadow-glow-sm"
           >
-            Find people to rate
+            Discover people
           </Link>
         </div>
       )}
@@ -128,6 +160,7 @@ function PodiumCard({ entry, position, tall = false }: { entry: LeaderboardEntry
   const borderColor = MEDAL_BORDER[position - 1]
   const conf        = confidencePct(entry.total_ratings)
   const sColor      = scoreColor(entry.aggregate_score)
+  const tier        = getTier(entry.aggregate_score, entry.total_ratings)
 
   return (
     <Link
@@ -156,13 +189,19 @@ function PodiumCard({ entry, position, tall = false }: { entry: LeaderboardEntry
       <div className="mt-1 w-full min-w-0">
         <p className="font-bold text-foreground text-xs truncate leading-tight">{entry.full_name}</p>
         <p className="text-muted text-[10px] truncate">@{entry.username}</p>
+        {tier.key !== 'explorer' && (
+          <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full border mt-1"
+            style={{ color: tier.color, borderColor: tier.color + '40', background: tier.color + '12' }}>
+            {tier.icon} {tier.label}
+          </span>
+        )}
       </div>
 
       <div>
         <p className="font-black text-lg tabular-nums" style={{ color: sColor }}>
           {entry.aggregate_score > 0 ? '+' : ''}{entry.aggregate_score.toFixed(2)}
         </p>
-        <p className="text-muted text-[10px]">{entry.total_ratings} ratings</p>
+        <p className="text-muted text-[10px]">{entry.total_ratings} reflections</p>
       </div>
 
       {/* Confidence bar */}
@@ -184,6 +223,7 @@ function RankRow({ entry, isMe }: { entry: LeaderboardEntry; isMe: boolean }) {
   const avatar = entry.avatar_url ?? avatarUrl(entry.username)
   const conf   = confidencePct(entry.total_ratings)
   const sColor = scoreColor(entry.aggregate_score)
+  const tier   = getTier(entry.aggregate_score, entry.total_ratings)
 
   return (
     <Link
@@ -211,10 +251,16 @@ function RankRow({ entry, isMe }: { entry: LeaderboardEntry; isMe: boolean }) {
 
       {/* Name + occupation */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 flex-wrap">
           <p className="font-semibold text-foreground text-sm truncate">{entry.full_name}</p>
           {isMe && (
             <span className="shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-primary/15 text-primary">you</span>
+          )}
+          {tier.key !== 'explorer' && (
+            <span className="shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full border"
+              style={{ color: tier.color, borderColor: tier.color + '40', background: tier.color + '12' }}>
+              {tier.icon} {tier.label}
+            </span>
           )}
         </div>
         <p className="text-muted text-xs truncate">@{entry.username}</p>
@@ -228,7 +274,7 @@ function RankRow({ entry, isMe }: { entry: LeaderboardEntry; isMe: boolean }) {
             style={{ width: `${conf}%`, background: sColor }}
           />
         </div>
-        <p className="text-muted text-[10px]">{entry.total_ratings} ratings</p>
+        <p className="text-muted text-[10px]">{entry.total_ratings} reflections</p>
       </div>
 
       {/* Score */}

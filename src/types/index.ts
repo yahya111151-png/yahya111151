@@ -16,6 +16,7 @@ export interface Profile {
   location_public: boolean
   aggregate_score: number
   total_ratings: number
+  token_balance: number
   created_at: string
   updated_at: string
 }

@@ -6,9 +6,10 @@ import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { avatarUrl, coverGradient } from '@/lib/utils'
 import type { Profile } from '@/types'
-import { Camera, MapPin, Loader2, CheckCircle, ChevronLeft, Upload, X } from 'lucide-react'
+import { Camera, MapPin, Loader2, CheckCircle, ChevronLeft, Upload, X, Bell, BellOff, Trash2, AlertTriangle } from 'lucide-react'
 import Avatar from '@/components/ui/Avatar'
 import Link from 'next/link'
+import { usePushNotifications } from '@/hooks/usePushNotifications'
 
 type Section = 'profile' | 'contact' | 'privacy'
 
@@ -100,20 +101,27 @@ export default function SettingsPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
-    const ext = file.name.split('.').pop()
-    const path = `${user.id}/${type}.${ext}`
+    // Use a fixed path per type (no extension) so overwrites always hit the same object
+    const path = `${user.id}/${type}`
 
     if (type === 'avatar') setUploadingAvatar(true)
     else setUploadingCover(true)
 
-    const { error } = await supabase.storage.from('avatars').upload(path, file, { upsert: true })
+    // Remove the old file first so the subsequent upload is always a fresh INSERT
+    // (Supabase storage upsert can silently fail when the UPDATE RLS has no WITH CHECK)
+    await supabase.storage.from('avatars').remove([path])
+
+    const { error } = await supabase.storage
+      .from('avatars')
+      .upload(path, file, { contentType: file.type, cacheControl: '3600' })
 
     if (!error) {
       const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(path)
-      const bustedUrl = `${publicUrl}?t=${Date.now()}`
+      // Append cache-buster so the browser shows the new image immediately
+      const freshUrl = `${publicUrl}?t=${Date.now()}`
       setForm(f => ({
         ...f,
-        [type === 'avatar' ? 'avatar_url' : 'cover_photo_url']: bustedUrl,
+        [type === 'avatar' ? 'avatar_url' : 'cover_photo_url']: freshUrl,
       }))
     } else {
       alert(`Upload failed: ${error.message}`)
@@ -130,13 +138,16 @@ export default function SettingsPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
+    // Strip the cache-buster query param before persisting to DB
+    const cleanUrl = (url: string) => url ? url.split('?')[0] : null
+
     await supabase.from('profiles').update({
       full_name:       form.full_name,
       bio:             form.bio || null,
       occupation:      form.occupation || null,
       location:        form.location || null,
-      avatar_url:      form.avatar_url || null,
-      cover_photo_url: form.cover_photo_url || null,
+      avatar_url:      cleanUrl(form.avatar_url),
+      cover_photo_url: cleanUrl(form.cover_photo_url),
       phone:           form.phone || null,
       phone_public:    form.phone_public,
       latitude:        form.latitude,
@@ -235,8 +246,11 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      {/* Notifications toggle */}
+      <NotificationToggle />
+
       {/* Section tabs */}
-      <div className="flex gap-1 mt-8 bg-surface border border-border rounded-2xl p-1">
+      <div className="flex gap-1 bg-surface border border-border rounded-2xl p-1">
         {SECTIONS.map(s => (
           <button
             key={s.key}
@@ -366,6 +380,9 @@ export default function SettingsPage() {
           ) : 'Save changes'}
         </button>
       </form>
+
+      {/* Danger zone */}
+      <DeleteAccountSection />
     </div>
   )
 }
@@ -377,6 +394,154 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
     <div className="space-y-1.5">
       <label className="text-sm font-medium text-foreground/80">{label}</label>
       {children}
+    </div>
+  )
+}
+
+function DeleteAccountSection() {
+  const router = useRouter()
+  const [open, setOpen]         = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [done, setDone]         = useState(false)
+  const [typedWord, setTyped]   = useState('')
+  const CONFIRM_WORD = 'DELETE'
+
+  async function handleDelete() {
+    setDeleting(true)
+    const res = await fetch('/api/delete-account', { method: 'DELETE' })
+    if (res.ok) {
+      setDone(true)
+      setTimeout(() => router.push('/'), 1800)
+    } else {
+      setDeleting(false)
+      alert('Something went wrong. Please try again.')
+    }
+  }
+
+  if (done) {
+    return (
+      <div className="text-center py-8 space-y-2">
+        <CheckCircle size={36} className="text-score-high mx-auto" />
+        <p className="font-bold text-foreground">Account deleted</p>
+        <p className="text-muted text-sm">Redirecting…</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="border border-red-200 rounded-2xl overflow-hidden">
+      {/* Header */}
+      <button
+        type="button"
+        onClick={() => { setOpen(o => !o); setTyped('') }}
+        className="w-full flex items-center gap-3 px-4 py-4 bg-red-50/60 hover:bg-red-50 transition-colors text-left"
+      >
+        <div className="w-9 h-9 rounded-xl bg-red-100 border border-red-200 flex items-center justify-center shrink-0">
+          <Trash2 size={16} className="text-red-500" />
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold text-red-600 text-sm">Delete account</p>
+          <p className="text-red-400 text-xs">Permanently remove your profile and all data</p>
+        </div>
+        <span className="text-red-400 text-xs">{open ? '▲' : '▼'}</span>
+      </button>
+
+      {/* Confirmation panel */}
+      {open && (
+        <div className="px-4 pb-4 pt-3 bg-red-50/40 space-y-3 border-t border-red-100">
+          <div className="flex items-start gap-2 p-3 bg-red-100/60 rounded-xl">
+            <AlertTriangle size={15} className="text-red-500 shrink-0 mt-0.5" />
+            <p className="text-red-600 text-xs leading-relaxed">
+              This permanently deletes your profile, all ratings you gave and received, and all messages.
+              <strong className="block mt-1">This cannot be undone.</strong>
+            </p>
+          </div>
+
+          <div className="space-y-1.5">
+            <label className="text-xs font-medium text-red-500">
+              Type <strong>{CONFIRM_WORD}</strong> to confirm
+            </label>
+            <input
+              type="text"
+              value={typedWord}
+              onChange={e => setTyped(e.target.value.toUpperCase())}
+              placeholder={CONFIRM_WORD}
+              className="w-full px-3 py-2 bg-white border border-red-200 rounded-xl text-sm text-foreground placeholder:text-red-200 focus:outline-none focus:border-red-400 transition-colors font-mono tracking-widest"
+            />
+          </div>
+
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={typedWord !== CONFIRM_WORD || deleting}
+            className="w-full py-2.5 bg-red-500 text-white font-bold rounded-xl text-sm hover:bg-red-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+          >
+            {deleting
+              ? <><Loader2 size={15} className="animate-spin" /> Deleting…</>
+              : <><Trash2 size={15} /> Delete my account</>}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function NotificationToggle() {
+  const { permission, subscribed, subscribe, unsubscribe } = usePushNotifications()
+  const [loading, setLoading] = useState(false)
+  const [done, setDone] = useState(false)
+
+  const isEnabled = subscribed || permission === 'granted'
+  const isDenied  = permission === 'denied'
+
+  async function handleToggle() {
+    setLoading(true)
+    setDone(false)
+    if (isEnabled) {
+      await unsubscribe()
+    } else {
+      await subscribe()
+    }
+    setLoading(false)
+    setDone(true)
+    setTimeout(() => setDone(false), 2000)
+  }
+
+  return (
+    <div className="flex items-center justify-between gap-4 px-4 py-4 bg-surface border border-border rounded-2xl">
+      <div className="flex items-center gap-3">
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isEnabled ? 'bg-primary/10 border border-primary/20' : 'bg-border/50 border border-border'}`}>
+          {isEnabled
+            ? <Bell size={18} className="text-primary" />
+            : <BellOff size={18} className="text-muted" />}
+        </div>
+        <div>
+          <p className="font-semibold text-foreground text-sm">Push notifications</p>
+          <p className="text-muted text-xs">
+            {isDenied
+              ? 'Blocked in browser — enable in browser settings'
+              : isEnabled
+              ? 'You\'ll be notified when someone reflects on you'
+              : 'Get notified when someone shares their thoughts on you'}
+          </p>
+        </div>
+      </div>
+
+      {isDenied ? (
+        <span className="text-xs text-muted shrink-0">Blocked</span>
+      ) : (
+        <button
+          onClick={handleToggle}
+          disabled={loading}
+          className={`relative shrink-0 w-12 h-6 rounded-full transition-colors disabled:opacity-50 ${isEnabled ? 'bg-primary' : 'bg-border'}`}
+          title={isEnabled ? 'Disable notifications' : 'Enable notifications'}
+        >
+          {loading
+            ? <span className="absolute inset-0 flex items-center justify-center"><Loader2 size={12} className="text-white animate-spin" /></span>
+            : <span className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-transform ${isEnabled ? 'translate-x-7' : 'translate-x-1'}`} />
+          }
+        </button>
+      )}
     </div>
   )
 }

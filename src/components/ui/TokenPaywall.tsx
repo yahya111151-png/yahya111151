@@ -49,12 +49,12 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
       <div className="max-w-sm mx-auto px-4 py-20 text-center space-y-4 animate-fade-in">
         <CheckCircle size={56} className="text-score-high mx-auto" style={{ filter: 'drop-shadow(0 0 16px #34d399)' }} />
         <h2 className="font-black text-2xl text-foreground">Tokens added!</h2>
-        <p className="text-muted text-sm">Your token balance has been updated. You can now rate again.</p>
+        <p className="text-muted text-sm">Your token balance has been updated. You can now share your thoughts again.</p>
         <button
           onClick={onUseToken}
           className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm mt-4"
         >
-          Continue rating
+          Continue
         </button>
       </div>
     )
@@ -83,8 +83,8 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
         <div>
           <h2 className="font-black text-foreground text-xl">Daily limit reached</h2>
           <p className="text-muted text-sm mt-1">
-            You've already rated <span className="text-foreground font-semibold">{profile.full_name.split(' ')[0]}</span> today.
-            Rate again with a token.
+            You've already shared your thoughts on <span className="text-foreground font-semibold">{profile.full_name.split(' ')[0]}</span> today.
+            Reflect again with a token.
           </p>
         </div>
 
@@ -100,7 +100,7 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
             className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
           >
             <span className="flex items-center justify-center gap-2">
-              <Coins size={16} /> Use 1 token to rate now
+              <Coins size={16} /> Use 1 token to reflect now
             </span>
           </button>
         )}
@@ -141,7 +141,7 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
                       {pack.tokens} tokens
                       {pack.bonus && <span className="text-score-high text-xs ml-1.5">{pack.bonus}</span>}
                     </p>
-                    <p className="text-muted text-xs">Rate up to {pack.tokens} more times today</p>
+                    <p className="text-muted text-xs">Reflect up to {pack.tokens} more times today</p>
                   </div>
                 </div>
                 <div className="text-right">

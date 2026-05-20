@@ -14,8 +14,8 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Lens — Rate, Appreciate',
-  description: 'Rate the people in your life. Your score, weighted by how well they know you.',
+  title: 'Lens — See People Clearly',
+  description: 'Discover how the people around you truly see you. 8 dimensions, anonymous, weighted by closeness.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,

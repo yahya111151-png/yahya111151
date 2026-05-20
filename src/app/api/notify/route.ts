@@ -13,7 +13,7 @@ function initWebPush() {
 }
 
 export async function POST(request: Request) {
-  const { rated_id, rater_name } = await request.json()
+  const { rated_id } = await request.json()
   if (!rated_id) return NextResponse.json({ error: 'Missing rated_id' }, { status: 400 })
 
   initWebPush()
@@ -31,9 +31,9 @@ export async function POST(request: Request) {
   if (!subs || subs.length === 0) return NextResponse.json({ sent: 0 })
 
   const payload = JSON.stringify({
-    title: 'Someone rated you! ⭐',
-    body: rater_name ? `${rater_name} just rated you on Lens` : 'You just received a new rating',
-    url: '/dashboard',
+    title: 'New reflection ✨',
+    body: 'Someone just shared their thoughts on you anonymously on Lens.',
+    url: '/feed',
   })
 
   const results = await Promise.allSettled(

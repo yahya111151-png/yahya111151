@@ -2,20 +2,22 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Search, Bell, User, Settings, Trophy } from 'lucide-react'
+import { Home, Search, Bell, User, Settings, Trophy, MessageCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import Logo from '@/components/ui/Logo'
 
 const NAV = [
-  { href: '/dashboard',    icon: Home,    label: 'Home'       },
-  { href: '/search',       icon: Search,  label: 'Search'     },
-  { href: '/leaderboard',  icon: Trophy,  label: 'Leaderboard'},
-  { href: '/feed',         icon: Bell,    label: 'Feed'       },
-  { href: '/profile/me',   icon: User,    label: 'Profile'    },
-  { href: '/settings',     icon: Settings,label: 'Settings'   },
+  { href: '/dashboard',    icon: Home,           label: 'Home'       },
+  { href: '/search',       icon: Search,         label: 'Search'     },
+  { href: '/leaderboard',  icon: Trophy,         label: 'Spotlight'  },
+  { href: '/feed',         icon: Bell,           label: 'Feed'       },
+  { href: '/chat',         icon: MessageCircle,  label: 'Chat'       },
+  { href: '/profile/me',   icon: User,           label: 'Profile'    },
+  { href: '/settings',     icon: Settings,       label: 'Settings'   },
 ]
 
-// Bottom mobile nav: Home, Search, Leaderboard, Profile
-const MOBILE_NAV = [NAV[0], NAV[1], NAV[2], NAV[4]]
+// Bottom mobile nav: Home, Search, Chat, Profile
+const MOBILE_NAV = [NAV[0], NAV[1], NAV[4], NAV[5]]
 
 export default function Navbar() {
   const path = usePathname()
@@ -29,8 +31,8 @@ export default function Navbar() {
     <>
       {/* Desktop top bar */}
       <header className="hidden md:flex fixed top-0 left-0 right-0 z-50 h-14 items-center px-6 bg-bg/80 backdrop-blur-md border-b border-border">
-        <Link href="/dashboard" className="font-black text-xl tracking-tight text-primary mr-8">
-          Lens
+        <Link href="/dashboard" className="mr-8">
+          <Logo wordmark size={22} textSize="text-xl" />
         </Link>
         <nav className="flex items-center gap-1 flex-1">
           {NAV.map(({ href, icon: Icon, label }) => (
