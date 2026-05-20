@@ -63,34 +63,43 @@ export default async function LeaderboardPage() {
         )}
       </div>
 
-      {/* Rewards banner */}
-      <div className="rounded-3xl border border-yellow-200 bg-gradient-to-br from-yellow-50 to-amber-50 overflow-hidden">
-        <div className="px-5 pt-4 pb-3 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-yellow-400/20 border border-yellow-300 flex items-center justify-center shrink-0">
-            <Gift size={20} className="text-yellow-600" />
-          </div>
-          <div>
-            <p className="font-black text-sm text-yellow-800">Top impressions earn real rewards</p>
-            <p className="text-xs text-yellow-700/70">Higher on the Spotlight → better perks, free coffee, VIP access & more.</p>
-          </div>
-        </div>
-        <div className="flex gap-2 px-5 pb-4 overflow-x-auto scrollbar-hide">
-          {TIERS.filter(t => t.key !== 'explorer').map(t => (
-            <div
-              key={t.key}
-              className="flex-shrink-0 flex flex-col items-center gap-1 px-3 py-2 bg-white/70 border border-yellow-200 rounded-2xl text-center"
-            >
-              <span className="text-xl">{t.icon}</span>
-              <span className="text-[10px] font-bold text-yellow-800">{t.label}</span>
-              <span className="text-[9px] text-yellow-700/70 max-w-[72px] leading-tight">{t.perkIcons[0]} {t.perks[0]}</span>
+      {/* Rewards banner — prominent */}
+      <div className="rounded-3xl overflow-hidden border border-amber-300 shadow-sm">
+        {/* Bold header */}
+        <div className="bg-gradient-to-r from-amber-400 to-yellow-500 px-5 py-4">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">🏆</span>
+            <div>
+              <p className="font-black text-lg text-white leading-tight">Top impressions = real rewards</p>
+              <p className="text-white/80 text-xs mt-0.5">Climb the Spotlight and unlock free coffee, discounts & VIP access.</p>
             </div>
-          ))}
+          </div>
         </div>
-        <div className="px-5 pb-3 flex items-start gap-1.5">
-          <Info size={10} className="text-yellow-600/60 shrink-0 mt-0.5" />
-          <p className="text-[10px] text-yellow-700/60 leading-relaxed">
-            Perks are subject to availability and partner participation. Impressions must meet minimum thresholds to qualify. Terms apply.
-          </p>
+
+        {/* Tier perks grid */}
+        <div className="bg-gradient-to-br from-amber-50 to-yellow-50 px-4 pt-4 pb-3">
+          <p className="text-[10px] font-black uppercase tracking-widest text-amber-700 mb-3">What you unlock</p>
+          <div className="grid grid-cols-2 gap-2">
+            {TIERS.filter(t => t.key !== 'explorer').map(t => (
+              <div
+                key={t.key}
+                className="flex items-center gap-2.5 p-2.5 bg-white/80 border border-amber-200 rounded-2xl"
+              >
+                <span className="text-2xl shrink-0">{t.icon}</span>
+                <div className="min-w-0">
+                  <p className="text-xs font-black text-amber-800 leading-tight">{t.label}</p>
+                  <p className="text-[10px] text-amber-700/70 leading-tight truncate">{t.perkIcons[0]} {t.perks[0]}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-start gap-1.5 mt-3">
+            <Info size={10} className="text-amber-600/50 shrink-0 mt-0.5" />
+            <p className="text-[10px] text-amber-700/50 leading-relaxed">
+              Perks subject to availability & partner participation. Minimum thresholds required. Terms apply.
+            </p>
+          </div>
         </div>
       </div>
 

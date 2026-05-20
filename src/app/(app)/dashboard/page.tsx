@@ -86,11 +86,11 @@ export default async function DashboardPage() {
         </div>
       </div>
 
+      {/* Rewards tier card — front and centre */}
+      <RewardsTierCard score={profile.aggregate_score} totalRatings={profile.total_ratings} />
+
       {/* Daily streak + challenge */}
       <DailyStreakCard username={profile.username} />
-
-      {/* Rewards tier card */}
-      <RewardsTierCard score={profile.aggregate_score} totalRatings={profile.total_ratings} />
 
       {/* Metric breakdown */}
       {metrics.length > 0 && (
