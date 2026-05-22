@@ -99,7 +99,7 @@ export async function POST(req: Request) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY)
       await resend.emails.send({
-        from: 'Lens <noreply@lens-app.co>',
+        from: 'Lens <onboarding@resend.dev>',
         to: targetEmail,
         subject: `${requesterName} wants you to rate them on Lens ⭐`,
         html: `
