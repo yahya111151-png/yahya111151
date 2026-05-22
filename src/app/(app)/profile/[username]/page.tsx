@@ -36,6 +36,8 @@ export default function ProfilePage({ params }: PageProps) {
   const [tab, setTab]                 = useState<Tab>('overview')
   const [showQR, setShowQR]           = useState(false)
   const [shared, setShared]           = useState(false)
+  const [rateRequested, setRateRequested] = useState(false)
+  const [rateRequestLoading, setRateRequestLoading] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -100,6 +102,22 @@ export default function ProfilePage({ params }: PageProps) {
       setTimeout(() => setShared(false), 2000)
     }
   }
+  async function handleRateRequest() {
+    if (rateRequested || rateRequestLoading || !profile) return
+    setRateRequestLoading(true)
+    try {
+      const res = await fetch('/api/request-rating', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profileId: profile.id }),
+      })
+      if (res.ok) {
+        setRateRequested(true)
+      }
+    } catch {}
+    finally { setRateRequestLoading(false) }
+  }
+
   const metrics = profile.metric_scores ?? []
   const radarData = metrics.map(m => ({ metric: m.metric_name, score: m.avg_score, fullMark: 5 }))
 
@@ -174,6 +192,25 @@ export default function ProfilePage({ params }: PageProps) {
                 >
                   <MessageCircle size={18} />
                 </Link>
+                {/* Rate Me — ask this person to rate you back */}
+                <button
+                  onClick={handleRateRequest}
+                  disabled={rateRequested || rateRequestLoading}
+                  title={rateRequested ? 'Request sent!' : `Ask ${profile.full_name} to rate you`}
+                  className={`flex items-center gap-2 px-4 py-2.5 font-bold rounded-xl text-sm transition-all border ${
+                    rateRequested
+                      ? 'bg-green-500/15 border-green-500/40 text-green-400 cursor-default'
+                      : 'bg-surface border-border text-foreground hover:border-yellow-400/60 hover:text-yellow-400'
+                  }`}
+                >
+                  {rateRequested ? (
+                    <><span>✓</span> Sent!</>
+                  ) : rateRequestLoading ? (
+                    <><span className="animate-spin inline-block">⭐</span> Sending…</>
+                  ) : (
+                    <><span>⭐</span> Rate me!</>
+                  )}
+                </button>
                 <Link
                   href={`/rate/${profile.id}`}
                   className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
