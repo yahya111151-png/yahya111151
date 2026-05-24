@@ -8,6 +8,7 @@ import TierBadge from '@/components/ui/TierBadge'
 import RewardsTierCard from '@/components/ui/RewardsTierCard'
 import DailyStreakCard from '@/components/ui/DailyStreakCard'
 import AppSetupCard from '@/components/ui/AppSetupCard'
+import InviteFriends from '@/components/ui/InviteFriends'
 import { avatarUrl, scoreColor } from '@/lib/utils'
 import type { ProfileWithMetrics, Profile } from '@/types'
 import { Star, TrendingUp, Users, ChevronRight, Trophy } from 'lucide-react'
@@ -92,6 +93,9 @@ export default async function DashboardPage() {
 
       {/* Daily streak + challenge */}
       <DailyStreakCard username={profile.username} />
+
+      {/* Invite friends via WhatsApp */}
+      <InviteFriends username={profile.username} fullName={profile.full_name} />
 
       {/* Metric breakdown */}
       {metrics.length > 0 && (
