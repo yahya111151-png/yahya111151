@@ -167,8 +167,8 @@ export default function ProfilePage({ params }: PageProps) {
             />
           </div>
 
-          {/* Action buttons */}
-          <div className="flex gap-2 pb-1 flex-wrap justify-end">
+          {/* Secondary icon buttons (top-right of avatar row) */}
+          <div className="flex gap-2 pb-1">
             <button
               onClick={() => setShowQR(true)}
               className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-foreground hover:border-primary/40 transition-colors"
@@ -184,51 +184,77 @@ export default function ProfilePage({ params }: PageProps) {
               <Share2 size={18} className={shared ? 'text-primary' : ''} />
             </button>
             {!isOwn && currentUserId && (
-              <>
-                <Link
-                  href={`/chat/new/${profile.id}`}
-                  className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-foreground hover:border-primary/40 transition-colors"
-                  title="Message"
-                >
-                  <MessageCircle size={18} />
-                </Link>
-                {/* Rate Me — ask this person to rate you back */}
-                <button
-                  onClick={handleRateRequest}
-                  disabled={rateRequested || rateRequestLoading}
-                  title={rateRequested ? 'Request sent!' : `Ask ${profile.full_name} to rate you`}
-                  className={`flex items-center gap-2 px-4 py-2.5 font-bold rounded-xl text-sm transition-all border ${
-                    rateRequested
-                      ? 'bg-green-500/15 border-green-500/40 text-green-400 cursor-default'
-                      : 'bg-surface border-border text-foreground hover:border-yellow-400/60 hover:text-yellow-400'
-                  }`}
-                >
-                  {rateRequested ? (
-                    <><span>✓</span> Sent!</>
-                  ) : rateRequestLoading ? (
-                    <><span className="animate-spin inline-block">⭐</span> Sending…</>
-                  ) : (
-                    <><span>⭐</span> Rate me!</>
-                  )}
-                </button>
-                <Link
-                  href={`/rate/${profile.id}`}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-primary text-[#1a0f40] font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
-                >
-                  <Star size={14} /> Reflect
-                </Link>
-              </>
+              <Link
+                href={`/chat/new/${profile.id}`}
+                className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-foreground hover:border-primary/40 transition-colors"
+                title="Message"
+              >
+                <MessageCircle size={18} />
+              </Link>
             )}
             {isOwn && (
               <Link
                 href="/settings"
-                className="flex items-center gap-2 px-4 py-2.5 bg-surface border border-border text-foreground font-semibold rounded-xl text-sm hover:border-primary/40 transition-colors"
+                className="p-2.5 bg-surface border border-border rounded-xl text-muted hover:text-foreground hover:border-primary/40 transition-colors"
+                title="Edit profile"
               >
-                <Pencil size={14} /> Edit profile
+                <Pencil size={18} />
               </Link>
             )}
           </div>
         </div>
+
+        {/* ── Primary action row (non-owner) ── */}
+        {!isOwn && currentUserId && (
+          <div className="flex gap-2 mt-3">
+            {/* HERO CTA: Reflect — full-width, prominent */}
+            <Link
+              href={`/rate/${profile.id}`}
+              className="flex-1 flex items-center justify-center gap-2 py-3 bg-primary text-[#1a0f40] font-black rounded-2xl text-sm shadow-glow-sm hover:shadow-glow-md hover:bg-primary/90 transition-all"
+            >
+              <Star size={15} fill="#1a0f40" />
+              Reflect on {profile.full_name.split(' ')[0]}
+            </Link>
+            {/* Ask them to rate you back */}
+            <button
+              onClick={handleRateRequest}
+              disabled={rateRequested || rateRequestLoading}
+              title={rateRequested ? 'Request sent!' : `Ask ${profile.full_name} to rate you back`}
+              className={`flex items-center gap-1.5 px-4 py-3 font-bold rounded-2xl text-sm transition-all border ${
+                rateRequested
+                  ? 'bg-score-high/15 border-score-high/40 text-score-high cursor-default'
+                  : 'bg-surface border-border text-muted hover:border-primary/40 hover:text-primary'
+              }`}
+            >
+              {rateRequested ? (
+                <>✓ Sent!</>
+              ) : rateRequestLoading ? (
+                <><span className="animate-spin inline-block">⭐</span></>
+              ) : (
+                <>⭐ Rate me</>
+              )}
+            </button>
+          </div>
+        )}
+
+        {/* Own profile: Edit settings button */}
+        {isOwn && (
+          <div className="flex gap-2 mt-3">
+            <Link
+              href="/settings"
+              className="flex-1 flex items-center justify-center gap-2 py-3 bg-surface border border-border text-foreground font-semibold rounded-2xl text-sm hover:border-primary/40 transition-colors"
+            >
+              <Pencil size={14} /> Edit profile
+            </Link>
+            <button
+              onClick={handleShare}
+              className="flex items-center gap-2 px-5 py-3 bg-primary/15 border border-primary/30 text-primary font-bold rounded-2xl text-sm hover:bg-primary/20 transition-colors"
+            >
+              <Share2 size={14} /> Share
+            </button>
+          </div>
+        )}
+      </div>
 
         {/* ── Name + bio ── */}
         <div className="mt-3 space-y-1">

@@ -387,8 +387,19 @@ export default function RatePage() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="font-bold text-foreground text-sm">Weigh in on each dimension</h2>
-            <span className="text-muted text-xs">{ratedCount}/{metrics.length} done</span>
+            <span className={`text-xs font-bold tabular-nums ${ratedCount === metrics.length ? 'text-score-high' : 'text-muted'}`}>
+              {ratedCount}/{metrics.length} ✓
+            </span>
           </div>
+          {/* Progress bar */}
+          {metrics.length > 0 && (
+            <div className="h-1 bg-border rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-300"
+                style={{ width: `${(ratedCount / metrics.length) * 100}%` }}
+              />
+            </div>
+          )}
           {metrics.map(m => (
             <MetricSlider
               key={m.id}
@@ -447,21 +458,35 @@ export default function RatePage() {
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={submitting || ratedCount === 0}
-          className="w-full py-4 bg-primary text-[#1a0f40] font-bold rounded-2xl text-lg hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md"
-        >
-          {submitting ? (
-            <span className="flex items-center justify-center gap-2">
-              <Loader2 size={20} className="animate-spin" /> Submitting…
-            </span>
-          ) : canRateInfo?.requires_token ? (
-            <span className="flex items-center justify-center gap-2">
-              <Coins size={18} /> Use 1 token · {pct}% influence
-            </span>
-          ) : `Share your thoughts · ${pct}% weight`}
-        </button>
+        {/* Progress hint */}
+        {ratedCount === 0 && (
+          <p className="text-center text-muted text-sm">Rate at least one metric above to submit</p>
+        )}
+
+        {/* Sticky submit at bottom on mobile */}
+        <div className="sticky bottom-20 md:bottom-4 z-10">
+          <button
+            type="submit"
+            disabled={submitting || ratedCount === 0}
+            className="w-full py-4 bg-primary text-[#1a0f40] font-black rounded-2xl text-lg hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-glow-md hover:shadow-glow-md"
+          >
+            {submitting ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 size={20} className="animate-spin" /> Submitting…
+              </span>
+            ) : ratedCount === 0 ? (
+              'Rate metrics above to submit'
+            ) : canRateInfo?.requires_token ? (
+              <span className="flex items-center justify-center gap-2">
+                <Coins size={18} /> Use 1 token · {pct}% influence
+              </span>
+            ) : (
+              <span className="flex items-center justify-center gap-2">
+                ⭐ Submit reflection · {pct}% weight
+              </span>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   )
