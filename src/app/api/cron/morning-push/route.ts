@@ -26,7 +26,7 @@ function isAuthorized(req: Request) {
   return auth === `Bearer ${secret}`
 }
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://yahya111151.vercel.app'
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://see-more-lens.vercel.app'
 
 export async function GET(req: Request) {
   if (!isAuthorized(req)) {

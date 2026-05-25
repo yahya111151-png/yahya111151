@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? `${p.bio} — Impression ${score}, seen by ${p.total_ratings} people on Lens.`
     : `${p.full_name} has an impression of ${score} from ${p.total_ratings} people on Lens. See through people, See More.`
 
-  const url = `https://lens.yahya111151.vercel.app/profile/${p.username}`
+  const url = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://see-more-lens.vercel.app'}/profile/${p.username}`
 
   return {
     title,

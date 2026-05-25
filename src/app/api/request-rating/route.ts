@@ -54,8 +54,8 @@ export async function POST(req: Request) {
   const targetEmail = authUser?.user?.email
 
   const requesterName = requester.full_name ?? `@${requester.username}`
-  const profileUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://yahya111151.vercel.app'}/profile/${requester.username}`
-  const rateUrl    = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://yahya111151.vercel.app'}/rate/${user.id}`
+  const profileUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://see-more-lens.vercel.app'}/profile/${requester.username}`
+  const rateUrl    = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://see-more-lens.vercel.app'}/rate/${user.id}`
 
   // 4. Push notification
   try {
