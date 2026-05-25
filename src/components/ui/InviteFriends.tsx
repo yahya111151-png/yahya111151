@@ -22,7 +22,7 @@ export default function InviteFriends({ username, fullName }: InviteFriendsProps
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState<Set<string>>(new Set())
 
-  const profileUrl = `https://yahya111151.vercel.app/profile/${username}`
+  const profileUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/profile/${username}`
   const inviteText = `Hey! I'm on Lens — a social reputation app where people rate each other honestly. Check out my profile and rate me! 👇\n${profileUrl}\n\nJoin me on Lens 🌟`
 
   useEffect(() => {
