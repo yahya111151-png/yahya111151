@@ -70,7 +70,7 @@ export default function LandingPage() {
 
           {/* Wordmark + slogan */}
           <div className="flex flex-col items-center gap-3">
-            <Logo wordmark size={72} textSize="text-7xl sm:text-8xl" className="tracking-tight leading-none" showSlogan />
+            <Logo wordmark size={56} textSize="text-7xl sm:text-8xl" className="tracking-tight leading-none" />
             <p className="text-2xl sm:text-3xl font-black text-foreground/80 tracking-tight">
               See through people, See More.
             </p>
@@ -287,7 +287,7 @@ export default function LandingPage() {
       {/* ── Footer ── */}
       <footer className="py-8 px-4 border-t border-border bg-white">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <Logo wordmark size={20} textSize="text-xl" showSlogan />
+          <Logo wordmark size={18} textSize="text-xl" />
           <p className="text-muted text-sm">See through people, See More.</p>
           <div className="flex gap-4 text-sm text-muted">
             <Link href="/auth/login"  className="hover:text-primary transition-colors">Sign in</Link>
