@@ -1,62 +1,55 @@
-/**
- * Lens brand mark + optional wordmark.
- * The mark is a bold rounded "L" with small round glasses — friendly, clear, on-brand.
- *
- * <Logo />                 — mark only (default 28 px)
- * <Logo size={40} />       — mark only, larger
- * <Logo wordmark />        — mark + "Lens" text side-by-side
- * <Logo wordmark size={32} textSize="text-2xl" />
- */
-
 interface Props {
-  /** Pixel size of the aperture mark */
   size?: number
-  /** Show the "Lens" wordmark next to the mark */
   wordmark?: boolean
-  /** Tailwind text-size class for the wordmark text */
   textSize?: string
   className?: string
   showSlogan?: boolean
 }
 
-/**
- * "L with glasses" mark — transparent background, brand pink.
- * Matches icon.svg geometry: bold rounded L + two tiny round glasses frames.
- */
-function ApertureMark({ size = 28 }: { size?: number }) {
+function Lensmark({ size = 28 }: { size?: number }) {
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 512 512"
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* Bold rounded L — vertical stroke */}
-      <rect x="148" y="88"  width="92"  height="328" rx="46" fill="#e8476a"/>
-      {/* Bold rounded L — horizontal stroke */}
-      <rect x="148" y="324" width="220" height="92"  rx="46" fill="#e8476a"/>
-
-      {/* Glasses */}
-      <circle cx="162" cy="180" r="26" stroke="#fce7ec" strokeWidth="11"/>
-      <circle cx="226" cy="180" r="26" stroke="#fce7ec" strokeWidth="11"/>
-      <line   x1="188" y1="180" x2="200" y2="180" stroke="#fce7ec" strokeWidth="11" strokeLinecap="round"/>
-      <line   x1="136" y1="180" x2="110" y2="189" stroke="#fce7ec" strokeWidth="11" strokeLinecap="round"/>
-      <line   x1="252" y1="180" x2="278" y2="189" stroke="#fce7ec" strokeWidth="11" strokeLinecap="round"/>
+      <rect width="100" height="100" rx="24" fill="#2D1B69"/>
+      {/* L vertical stroke, center at x=37 */}
+      <rect x="28" y="30" width="18" height="52" rx="7" fill="#FFD700"/>
+      {/* L horizontal stroke */}
+      <rect x="28" y="64" width="44" height="18" rx="7" fill="#FFD700"/>
+      {/* Glasses — left lens centered on vertical stroke (cx=37), right at cx=63, pair center=50 */}
+      <circle cx="37" cy="22" r="10" stroke="white" strokeWidth="4" fill="none"/>
+      <circle cx="63" cy="22" r="10" stroke="white" strokeWidth="4" fill="none"/>
+      <line x1="47" y1="22" x2="53" y2="22" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+      <line x1="27" y1="22" x2="20" y2="20" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+      <line x1="73" y1="22" x2="80" y2="20" stroke="white" strokeWidth="4" strokeLinecap="round"/>
     </svg>
   )
 }
 
 export default function Logo({ size = 28, wordmark = false, textSize = 'text-xl', className = '', showSlogan = false }: Props) {
-  if (!wordmark) return <ApertureMark size={size} />
+  if (!wordmark) return <Lensmark size={size} />
 
   return (
-    <span className={`inline-flex items-center gap-2 ${className}`}>
-      <ApertureMark size={size} />
-      <span className={`font-black tracking-tight leading-none ${textSize}`}>
-        <span className="text-foreground">Le</span>
-        <span className="text-primary">ns</span>
+    <span className={`inline-flex items-center gap-2.5 ${className}`}>
+      <Lensmark size={size} />
+      <span className="flex flex-col justify-center leading-none gap-1">
+        <span className={`font-black tracking-tight leading-none ${textSize}`}>
+          <span className="text-foreground">Le</span>
+          <span className="text-primary">ns</span>
+        </span>
+        {showSlogan && (
+          <span
+            className="font-bold tracking-widest uppercase"
+            style={{ fontSize: `${Math.max(7, Math.round(size * 0.28))}px`, color: '#FFD700', opacity: 0.85, letterSpacing: '0.2em' }}
+          >
+            See More
+          </span>
+        )}
       </span>
     </span>
   )
