@@ -36,7 +36,7 @@ export default function ScoreRing({
           cy={center}
           r={radius}
           fill="none"
-          stroke="#fce7ec"
+          stroke="#2d2052"
           strokeWidth={strokeWidth}
         />
         {/* Progress */}

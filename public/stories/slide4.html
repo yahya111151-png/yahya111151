@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Slide 4</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:#0d0823; }
+.slide {
+  width:1080px; height:1920px; background:#0d0823;
+  position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.g1 {
+  position:absolute; border-radius:50%; pointer-events:none;
+  width:900px; height:900px;
+  background:radial-gradient(circle,rgba(45,27,105,.9) 0%,transparent 70%);
+  top:20%; left:50%; transform:translateX(-50%);
+}
+.g2 {
+  position:absolute; border-radius:50%; pointer-events:none;
+  width:400px; height:400px;
+  background:radial-gradient(circle,rgba(255,215,0,.15) 0%,transparent 70%);
+  top:15%; left:55%;
+}
+.content { position:relative; z-index:2; text-align:center; width:860px; }
+.icon {
+  width:140px; height:140px; border-radius:36px;
+  background:rgba(255,215,0,.08); border:2px solid rgba(255,215,0,.22);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 40px; font-size:68px; line-height:1;
+}
+.eye { font-family:'Segoe UI','Arial',sans-serif; font-size:20px; font-weight:600; color:#FFD700; text-transform:uppercase; letter-spacing:.18em; margin-bottom:28px; display:block; }
+h1 { font-size:88px; font-weight:800; color:#fff; line-height:.96; letter-spacing:-.03em; margin-bottom:36px; }
+h1 .y { color:#FFD700; }
+.bar { width:64px; height:6px; background:#FFD700; border-radius:3px; margin:0 auto 36px; }
+.sub { font-family:'Segoe UI','Arial',sans-serif; font-size:26px; color:rgba(255,255,255,.52); line-height:1.55; max-width:700px; margin:0 auto; }
+.sub strong { color:rgba(255,255,255,.88); font-weight:600; }
+.logo { position:absolute; bottom:52px; left:50%; transform:translateX(-50%); z-index:2; }
+.lname { font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:30px; font-weight:800; color:rgba(255,215,0,.5); }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="g1"></div><div class="g2"></div>
+  <div class="content">
+    <div class="icon">🔍</div>
+    <span class="eye">why it works</span>
+    <h1>people are <span class="y">honest</span><br/>when no one<br/>is watching.</h1>
+    <div class="bar"></div>
+    <p class="sub">Anonymous reflections mean <strong>no social pressure, no filters</strong> — just what people genuinely think about someone.</p>
+  </div>
+  <div class="logo"><span class="lname">Lens</span></div>
+</div>
+</body>
+</html>

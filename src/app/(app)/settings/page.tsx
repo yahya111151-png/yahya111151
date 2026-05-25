@@ -375,7 +375,7 @@ export default function SettingsPage() {
         <button
           type="submit"
           disabled={saving}
-          className="w-full py-3.5 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md flex items-center justify-center gap-2"
+          className="w-full py-3.5 bg-primary text-[#1a0f40] font-bold rounded-2xl hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md flex items-center justify-center gap-2"
         >
           {saving ? (
             <><Loader2 size={18} className="animate-spin" /> Saving…</>

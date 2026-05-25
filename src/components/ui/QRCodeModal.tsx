@@ -59,7 +59,7 @@ export default function QRCodeModal({ username, fullName, onClose }: QRCodeModal
                 value={url}
                 size={180}
                 bgColor="#ffffff"
-                fgColor="#1c1b22"
+                fgColor="#e5e7eb"
                 level="M"
               />
             )}
@@ -82,7 +82,7 @@ export default function QRCodeModal({ username, fullName, onClose }: QRCodeModal
           </button>
           <button
             onClick={share}
-            className="flex items-center justify-center gap-2 py-3 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm"
+            className="flex items-center justify-center gap-2 py-3 bg-primary text-[#1a0f40] font-bold rounded-xl text-sm shadow-glow-sm"
           >
             <Share2 size={16} />
             Share

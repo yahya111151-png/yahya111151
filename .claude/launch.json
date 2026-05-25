@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "stories",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "public/stories", "-p", "4200", "--no-clipboard"],
+      "port": 4200
+    },
+    {
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    }
+  ]
+}

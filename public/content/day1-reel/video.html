@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#0d0823; }
+  .scene {
+    width:1080px; height:1920px; position:relative; overflow:hidden;
+    font-family:'Segoe UI Black','Arial Black',sans-serif;
+    background:#0d0823;
+  }
+  .bg-glow {
+    position:absolute; border-radius:50%; pointer-events:none;
+    width:1100px; height:1100px;
+    background:radial-gradient(circle, #2D1B69 0%, rgba(45,27,105,0.4) 40%, transparent 70%);
+    top:50%; left:50%; transform:translate(-50%,-50%);
+    opacity:0; transition:opacity 1s ease;
+  }
+
+  .el {
+    position:absolute; opacity:0; transform:translateY(36px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+    text-align:center; left:0; width:1080px; padding:0 80px;
+  }
+  .el.in  { opacity:1; transform:translateY(0); }
+  .el.out { opacity:0; transform:translateY(-36px); transition-duration:0.4s; }
+
+  /* Scene 1 */
+  #s1eyebrow {
+    top:530px;
+    font-family:'Segoe UI','Arial',sans-serif;
+    font-size:28px; font-weight:700; color:#FFD700;
+    letter-spacing:0.2em; text-transform:uppercase;
+  }
+  #s1a {
+    top:580px;
+    font-size:110px; font-weight:800; color:#fff;
+    line-height:1.02; letter-spacing:-0.025em;
+  }
+  #s1b {
+    top:940px;
+    font-size:52px; font-weight:700; color:rgba(255,255,255,0.55);
+    font-family:'Segoe UI','Arial',sans-serif; font-style:italic;
+    line-height:1.4;
+    transition-delay:0.2s;
+  }
+
+  /* Scene 2: ratings */
+  #ratingsBlock {
+    position:absolute; top:550px; left:0; width:1080px;
+    padding:0 90px; opacity:0; transform:translateY(28px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  #ratingsBlock.in  { opacity:1; transform:translateY(0); }
+  #ratingsBlock.out { opacity:0; transform:translateY(-28px); transition-duration:0.4s; }
+
+  .r-row {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:30px;
+    opacity:0; transform:translateX(-16px);
+    transition:opacity 0.5s ease, transform 0.5s ease;
+  }
+  .r-row.in { opacity:1; transform:translateX(0); }
+  .r-name { font-size:84px; font-weight:800; color:#fff; letter-spacing:-0.02em; }
+  .r-stars { display:flex; align-items:center; gap:10px; }
+  .r-score { font-size:56px; font-weight:800; color:#FFD700; letter-spacing:-0.02em; }
+  .r-dot { font-size:28px; color:rgba(255,215,0,0.3); }
+
+  /* Scene 3 */
+  #s3a { top:700px; font-size:116px; font-weight:800; color:#FFD700; line-height:1.02; letter-spacing:-0.025em; }
+  #s3b { top:940px; font-size:116px; font-weight:800; color:#fff; line-height:1.02; letter-spacing:-0.025em; transition-delay:0.18s; }
+
+  /* Scene 4 */
+  #s4a { top:780px; font-family:'Segoe UI','Arial',sans-serif; font-size:30px; font-weight:600; color:rgba(255,255,255,0.45); letter-spacing:0.2em; text-transform:uppercase; }
+  #s4b { top:830px; font-size:100px; font-weight:800; color:#fff; line-height:1.05; letter-spacing:-0.03em; transition-delay:0.12s; }
+  #s4b em { font-style:normal; color:#FFD700; }
+
+  /* Scene 5: logo */
+  #logoWrap {
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%) scale(0.88);
+    display:flex; flex-direction:column; align-items:center; gap:24px;
+    opacity:0; transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+  #logoWrap.in { opacity:1; transform:translate(-50%,-50%) scale(1); }
+  .lbox {
+    width:130px; height:130px; background:#FFD700; border-radius:30px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lname { font-size:110px; font-weight:800; color:#FFD700; letter-spacing:-0.025em; line-height:1; }
+  .ltag  { font-family:'Segoe UI','Arial',sans-serif; font-size:34px; color:rgba(255,255,255,0.5); letter-spacing:0.06em; }
+
+  #eyeFlash {
+    position:absolute; top:760px; left:50%; transform:translateX(-50%) scale(0.7);
+    font-size:96px; line-height:1; opacity:0;
+    transition:opacity 0.4s ease, transform 0.4s ease;
+  }
+  #eyeFlash.in { opacity:1; transform:translateX(-50%) scale(1); }
+
+  .prog { position:absolute; bottom:0; left:0; height:5px; background:#FFD700; opacity:0.4; }
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div class="bg-glow" id="bgGlow"></div>
+
+  <!-- S1 -->
+  <div class="el" id="s1eyebrow">be honest</div>
+  <div class="el" id="s1a">you already<br/>rate people<br/>in your head.</div>
+  <div class="el" id="s1b">every single day —<br/>you just never said it out loud.</div>
+
+  <!-- S2 -->
+  <div id="ratingsBlock">
+    <div class="r-row" id="rr1">
+      <span class="r-name">Sarah</span>
+      <div class="r-stars"><span class="r-score">4.8</span><span class="r-dot">★★★★★</span></div>
+    </div>
+    <div class="r-row" id="rr2">
+      <span class="r-name">James</span>
+      <div class="r-stars"><span class="r-score">2.1</span><span class="r-dot">★★☆☆☆</span></div>
+    </div>
+    <div class="r-row" id="rr3">
+      <span class="r-name">Priya</span>
+      <div class="r-stars"><span class="r-score">4.6</span><span class="r-dot">★★★★★</span></div>
+    </div>
+    <div class="r-row" id="rr4">
+      <span class="r-name">Mark</span>
+      <div class="r-stars"><span class="r-score">1.9</span><span class="r-dot">★☆☆☆☆</span></div>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="el" id="s3a">now make</div>
+  <div class="el" id="s3b">it real.</div>
+
+  <!-- S4 -->
+  <div class="el" id="s4a">rate the people around you</div>
+  <div class="el" id="s4b">let <em>Lens</em><br/>do the rest.</div>
+
+  <!-- Eye -->
+  <div id="eyeFlash">👁️</div>
+
+  <!-- S5 -->
+  <div id="logoWrap">
+    <div class="lbox">
+      <svg width="78" height="78" viewBox="0 0 512 512" fill="none">
+        <rect x="148" y="88" width="92" height="328" rx="46" fill="#2D1B69"/>
+        <rect x="148" y="324" width="220" height="92" rx="46" fill="#2D1B69"/>
+        <circle cx="162" cy="180" r="26" stroke="#2D1B69" stroke-width="11"/>
+        <circle cx="226" cy="180" r="26" stroke="#2D1B69" stroke-width="11"/>
+        <line x1="188" y1="180" x2="200" y2="180" stroke="#2D1B69" stroke-width="11" stroke-linecap="round"/>
+        <line x1="136" y1="180" x2="110" y2="189" stroke="#2D1B69" stroke-width="11" stroke-linecap="round"/>
+        <line x1="252" y1="180" x2="278" y2="189" stroke="#2D1B69" stroke-width="11" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="lname">Lens</div>
+    <div class="ltag">see people clearly.</div>
+  </div>
+
+  <div class="prog" id="prog" style="width:0%"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const show = id => { const e=$(id); if(e){e.classList.remove('out');e.classList.add('in');} };
+const hide = id => { const e=$(id); if(e){e.classList.remove('in');e.classList.add('out');} };
+const rst  = id => { const e=$(id); if(e){e.classList.remove('in','out');} };
+
+window.renderFrame = function(t) {
+  const s = t * 15;
+
+  ['bgGlow','s1eyebrow','s1a','s1b',
+   'ratingsBlock','rr1','rr2','rr3','rr4',
+   's3a','s3b','s4a','s4b',
+   'eyeFlash','logoWrap'].forEach(rst);
+
+  $('prog').style.width = (t * 100) + '%';
+
+  // Scene 1: 0.3–4.2
+  if (s >= 0.3) show('bgGlow');
+  if (s >= 0.5) show('s1eyebrow');
+  if (s >= 0.9) show('s1a');
+  if (s >= 2.2) show('s1b');
+  if (s >= 4.2) ['s1eyebrow','s1a','s1b'].forEach(hide);
+
+  // Scene 2: 4.7–8.8
+  if (s >= 4.7) show('ratingsBlock');
+  if (s >= 5.0) show('rr1');
+  if (s >= 5.5) show('rr2');
+  if (s >= 6.0) show('rr3');
+  if (s >= 6.5) show('rr4');
+  if (s >= 8.6) hide('ratingsBlock');
+
+  // Scene 3: 9.1–11.3
+  if (s >= 9.1) show('s3a');
+  if (s >= 9.6) show('s3b');
+  if (s >= 11.1) ['s3a','s3b'].forEach(hide);
+
+  // Scene 4: 11.5–13.2
+  if (s >= 11.5) show('s4a');
+  if (s >= 11.9) show('s4b');
+  if (s >= 13.1) ['s4a','s4b'].forEach(hide);
+
+  // Eye: 13.2–13.9
+  if (s >= 13.2 && s < 13.9) show('eyeFlash');
+
+  // Scene 5: 13.7–15
+  if (s >= 13.7) show('logoWrap');
+};
+</script>
+</body>
+</html>

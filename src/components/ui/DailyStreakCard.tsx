@@ -59,7 +59,7 @@ export default function DailyStreakCard({ username }: DailyStreakCardProps) {
 
   if (!hydrated) return null
 
-  const streakColor = streak.count >= 7 ? 'text-orange-500' : streak.count >= 3 ? 'text-amber-500' : 'text-muted'
+  const streakColor = streak.count >= 7 ? 'text-score-mid' : streak.count >= 3 ? 'text-primary' : 'text-muted'
 
   return (
     <div className="space-y-3">
@@ -77,7 +77,7 @@ export default function DailyStreakCard({ username }: DailyStreakCardProps) {
             {streak.donToday ? '✅ Streak secured today!' : 'Daily streak'}
           </p>
           {streak.count >= 7 && (
-            <span className="mt-1 text-[10px] font-bold text-orange-500 bg-orange-50 border border-orange-200 rounded-full px-2 py-0.5 self-start">
+            <span className="mt-1 text-[10px] font-bold text-score-mid bg-score-mid/10 border border-score-mid/30 rounded-full px-2 py-0.5 self-start">
               🔥 On fire!
             </span>
           )}

@@ -23,33 +23,33 @@ export default async function OgImage({ params }: { params: { username: string }
       <div
         style={{
           width: '100%', height: '100%',
-          background: 'linear-gradient(135deg,#fff0f3 0%,#ffffff 60%,#fce7ec 100%)',
+          background: 'linear-gradient(135deg,#2D1B69 0%,#0d0823 60%,#1a1035 100%)',
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center',
           fontFamily: 'sans-serif', gap: 24,
         }}
       >
-        <div style={{ fontSize: 64, fontWeight: 900, color: '#1c1b22' }}>
-          Le<span style={{ color: '#e8476a' }}>ns</span>
+        <div style={{ fontSize: 64, fontWeight: 900, color: '#ffffff' }}>
+          Le<span style={{ color: '#FFD700' }}>ns</span>
         </div>
-        <div style={{ fontSize: 48, fontWeight: 900, color: '#1c1b22' }}>{name}</div>
-        <div style={{ fontSize: 24, color: '#64748b' }}>@{user}</div>
+        <div style={{ fontSize: 48, fontWeight: 900, color: '#e5e7eb' }}>{name}</div>
+        <div style={{ fontSize: 24, color: '#a78bfa' }}>@{user}</div>
         <div style={{
           display: 'flex', gap: 40, marginTop: 16,
-          background: '#fff', borderRadius: 24, padding: '20px 48px',
-          border: '2px solid #fce7ec',
+          background: '#1a1035', borderRadius: 24, padding: '20px 48px',
+          border: '2px solid #2d2052',
         }}>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 52, fontWeight: 900, color: '#e8476a' }}>{score}</div>
-            <div style={{ fontSize: 18, color: '#94a3b8' }}>Score</div>
+            <div style={{ fontSize: 52, fontWeight: 900, color: '#FFD700' }}>{score}</div>
+            <div style={{ fontSize: 18, color: '#9ca3af' }}>Score</div>
           </div>
-          <div style={{ width: 2, background: '#fce7ec' }} />
+          <div style={{ width: 2, background: '#2d2052' }} />
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 52, fontWeight: 900, color: '#1c1b22' }}>{count}</div>
-            <div style={{ fontSize: 18, color: '#94a3b8' }}>Ratings</div>
+            <div style={{ fontSize: 52, fontWeight: 900, color: '#e5e7eb' }}>{count}</div>
+            <div style={{ fontSize: 18, color: '#9ca3af' }}>Ratings</div>
           </div>
         </div>
-        <div style={{ fontSize: 18, color: '#94a3b8', marginTop: 8 }}>
+        <div style={{ fontSize: 18, color: '#a78bfa', marginTop: 8 }}>
           See through people, See More.
         </div>
       </div>

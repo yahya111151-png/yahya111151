@@ -71,7 +71,7 @@ export default function QRScanner() {
           </div>
           <button
             onClick={startScanner}
-            className="px-8 py-3 bg-primary text-white font-bold rounded-2xl shadow-glow-sm hover:shadow-glow-md transition-all"
+            className="px-8 py-3 bg-primary text-[#1a0f40] font-bold rounded-2xl shadow-glow-sm hover:shadow-glow-md transition-all"
           >
             Open Camera
           </button>

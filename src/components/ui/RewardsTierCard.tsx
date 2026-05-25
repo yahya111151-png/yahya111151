@@ -20,20 +20,20 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
   const scoreNeeded   = nextTier ? Math.max(0, nextTier.minScore - score).toFixed(1) : null
   const ratingsNeeded = nextTier ? Math.max(0, nextTier.minRatings - totalRatings) : null
 
-  // Gradient per tier
+  // Gradient per tier (dark-themed)
   const gradients: Record<string, string> = {
-    explorer: 'from-slate-100 to-slate-50',
-    rising:   'from-amber-100 via-yellow-50 to-amber-50',
-    trusted:  'from-blue-100 via-blue-50 to-sky-50',
-    stellar:  'from-violet-100 via-purple-50 to-violet-50',
-    legend:   'from-yellow-100 via-amber-50 to-yellow-50',
+    explorer: 'from-[#1a1035] to-[#0d0823]',
+    rising:   'from-[#1a1200] via-[#1a1035] to-[#0d0823]',
+    trusted:  'from-[#0a1628] via-[#1a1035] to-[#0d0823]',
+    stellar:  'from-[#1a0f40] via-[#1a1035] to-[#0d0823]',
+    legend:   'from-[#1a1200] via-[#1a1035] to-[#0d0823]',
   }
   const headerGradients: Record<string, string> = {
-    explorer: 'from-slate-400 to-slate-500',
-    rising:   'from-amber-400 to-yellow-500',
-    trusted:  'from-blue-500 to-sky-600',
-    stellar:  'from-violet-500 to-purple-600',
-    legend:   'from-yellow-500 to-amber-600',
+    explorer: 'from-[#2d2052] to-[#1a1035]',
+    rising:   'from-[#2D1B69] to-[#4c1d95]',
+    trusted:  'from-[#1e3a5f] to-[#1a1035]',
+    stellar:  'from-[#4c1d95] to-[#2D1B69]',
+    legend:   'from-[#92400e] to-[#78350f]',
   }
 
   return (
@@ -51,7 +51,7 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
           </div>
           <button
             onClick={() => setShowAllTiers(v => !v)}
-            className="flex items-center gap-1 px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-xl text-white text-xs font-semibold transition-colors"
+            className="flex items-center gap-1 px-3 py-1.5 bg-white/20 hover:bg-surface/30 rounded-xl text-white text-xs font-semibold transition-colors"
           >
             All tiers {showAllTiers ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
           </button>
@@ -72,7 +72,7 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
           {tier.perks.map((perk, i) => (
             <div
               key={i}
-              className="flex flex-col items-center gap-1.5 p-3 bg-white/70 border rounded-2xl text-center"
+              className="flex flex-col items-center gap-1.5 p-3 bg-[#0d0823]/60 border rounded-2xl text-center"
               style={{ borderColor: tier.color + '30' }}
             >
               <span className="text-2xl">{tier.perkIcons[i]}</span>
@@ -85,7 +85,7 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
       {/* ── Progress to next tier ── */}
       {nextTier && (
         <div className="px-5 pb-4">
-          <div className="bg-white/50 border border-black/8 rounded-2xl p-3.5">
+          <div className="bg-[#0d0823]/50 border border-border rounded-2xl p-3.5">
             {/* Progress bar */}
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-foreground">
@@ -95,7 +95,7 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
                 {progress}%
               </span>
             </div>
-            <div className="h-2.5 bg-black/8 rounded-full overflow-hidden mb-2">
+            <div className="h-2.5 bg-border/40 rounded-full overflow-hidden mb-2">
               <div
                 className="h-full rounded-full transition-all duration-700"
                 style={{ width: `${progress}%`, background: tier.color, boxShadow: `0 0 8px ${tier.color}66` }}
@@ -116,7 +116,7 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
               {nextTier.perks.map((perk, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 bg-black/5 border border-black/8 rounded-xl opacity-60"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 bg-border/30 border border-border rounded-xl opacity-60"
                 >
                   <span className="text-sm">{nextTier.perkIcons[i]}</span>
                   <span className="text-[10px] font-semibold text-muted truncate max-w-[70px]">{perk}</span>
@@ -129,7 +129,7 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
 
       {/* ── All tiers ladder (collapsible) ── */}
       {showAllTiers && (
-        <div className="border-t border-black/8 px-5 pt-4 pb-5 space-y-2">
+        <div className="border-t border-border px-5 pt-4 pb-5 space-y-2">
           <p className="text-xs font-black uppercase tracking-wider text-muted mb-3">All tiers</p>
           {TIERS.filter(t => t.key !== 'explorer').map(t => {
             const unlocked  = t.minScore <= score && t.minRatings <= totalRatings
@@ -140,10 +140,10 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
                 className={cn(
                   'flex items-center gap-3 p-3 rounded-2xl border transition-all',
                   isCurrent
-                    ? `border-2 bg-white/80`
+                    ? `border-2 bg-surface`
                     : unlocked
-                      ? 'border border-green-200 bg-green-50/50'
-                      : 'border border-black/8 bg-white/30 opacity-50',
+                      ? 'border border-score-high/30 bg-score-high/5'
+                      : 'border border-border bg-surface/30 opacity-50',
                 )}
                 style={isCurrent ? { borderColor: t.color } : {}}
               >
@@ -161,7 +161,7 @@ export default function RewardsTierCard({ score, totalRatings }: RewardsTierCard
                 </div>
                 <div className="text-right shrink-0">
                   {unlocked ? (
-                    <span className="text-xs text-green-600 font-bold">✓ Unlocked</span>
+                    <span className="text-xs text-score-high font-bold">✓ Unlocked</span>
                   ) : (
                     <div className="text-[10px] text-muted font-medium">
                       <div>+{t.minScore} score</div>

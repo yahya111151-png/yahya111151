@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#FFD700; }
+.slide { width:1080px; height:1080px; background:#FFD700; position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif; display:flex; flex-direction:column; justify-content:space-between; padding:64px 72px; }
+.g { position:absolute; border-radius:50%; width:700px; height:700px; background:radial-gradient(circle,rgba(45,27,105,.12) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.top { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.dots { display:flex; gap:10px; }
+.dot { width:12px; height:12px; border-radius:50%; background:rgba(45,27,105,.2); }
+.dot.a { background:#2D1B69; }
+.num { font-size:18px; font-weight:700; font-family:'Segoe UI','Arial',sans-serif; color:rgba(45,27,105,.5); letter-spacing:.1em; }
+.center { flex:1; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+.big-num { font-size:160px; font-weight:800; color:rgba(45,27,105,.08); line-height:1; margin-bottom:-30px; }
+h2 { font-size:76px; font-weight:800; color:#2D1B69; line-height:1.06; letter-spacing:-.025em; margin-bottom:28px; }
+.desc { font-family:'Segoe UI','Arial',sans-serif; font-size:30px; color:rgba(45,27,105,.7); line-height:1.55; max-width:840px; }
+.desc strong { color:#2D1B69; font-weight:700; }
+.bottom { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.lname { font-size:22px; font-weight:800; color:rgba(45,27,105,.5); }
+.tag { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; color:rgba(45,27,105,.4); }
+</style></head><body>
+<div class="slide">
+  <div class="g"></div>
+  <div class="top">
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot a"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <span class="num">02 / 05</span>
+  </div>
+  <div class="center">
+    <p class="big-num">02</p>
+    <h2>Lens reads<br/>between the lines.</h2>
+    <p class="desc">Not just what they say — but how <strong>reliable, kind, honest,</strong> and consistent they actually are. Across 8 real dimensions of character.</p>
+  </div>
+  <div class="bottom"><span class="lname">Lens</span><span class="tag">see people clearly.</span></div>
+</div>
+</body></html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><title>How it Works — Step 2</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#FFD700; }
+.slide { width:1080px; height:1080px; background:#FFD700; position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif; display:flex; flex-direction:column; justify-content:space-between; padding:64px 72px; }
+.blob { position:absolute; border-radius:50%; background:#2D1B69; opacity:.05; pointer-events:none; }
+.b1 { width:560px; height:560px; bottom:-140px; right:-140px; }
+.top { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.steps { display:flex; gap:12px; }
+.step { width:40px; height:7px; border-radius:4px; background:rgba(45,27,105,.2); }
+.step.a { background:#2D1B69; }
+.step-label { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; font-weight:600; color:rgba(45,27,105,.5); letter-spacing:.1em; }
+.center { flex:1; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+.step-num { font-size:120px; font-weight:800; color:rgba(45,27,105,.1); line-height:1; margin-bottom:-20px; }
+h1 { font-size:80px; font-weight:800; color:#2D1B69; line-height:1.02; letter-spacing:-.025em; margin-bottom:24px; }
+.desc { font-family:'Segoe UI','Arial',sans-serif; font-size:28px; color:rgba(45,27,105,.7); line-height:1.5; max-width:760px; }
+.desc strong { color:#2D1B69; font-weight:700; }
+.scale-demo { display:flex; align-items:center; gap:12px; margin-top:36px; background:#2D1B69; border-radius:20px; padding:24px 32px; }
+.scale-label { font-family:'Segoe UI','Arial',sans-serif; font-size:20px; color:rgba(255,215,0,.7); white-space:nowrap; }
+.scale-track { flex:1; height:8px; background:rgba(255,215,0,.2); border-radius:4px; position:relative; }
+.scale-fill { position:absolute; left:50%; top:0; right:15%; height:100%; background:#FFD700; border-radius:4px; }
+.scale-thumb { position:absolute; right:15%; top:50%; transform:translate(50%,-50%); width:20px; height:20px; background:#FFD700; border-radius:50%; }
+.bottom { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.next { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; color:rgba(45,27,105,.45); }
+.lname { font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:22px; font-weight:800; color:rgba(45,27,105,.4); }
+</style></head><body>
+<div class="slide">
+  <div class="blob b1"></div>
+  <div class="top">
+    <div class="steps"><div class="step"></div><div class="step"></div><div class="step a"></div><div class="step"></div></div>
+    <span class="step-label">Step 2 of 3</span>
+  </div>
+  <div class="center">
+    <p class="step-num">02</p>
+    <h1>Share your<br/>honest thoughts.</h1>
+    <p class="desc">Weigh in on each of the <strong>8 dimensions</strong> on a −5 to +5 scale. Your closeness to them shapes how much your reflection counts.</p>
+    <div class="scale-demo">
+      <span class="scale-label">−5</span>
+      <div class="scale-track"><div class="scale-fill"></div><div class="scale-thumb"></div></div>
+      <span class="scale-label">+5</span>
+    </div>
+  </div>
+  <div class="bottom"><span class="next">next: see the full picture →</span><span class="lname">Lens</span></div>
+</div>
+</body></html>

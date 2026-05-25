@@ -32,7 +32,7 @@ export default function Navbar() {
       {/* Desktop top bar */}
       <header className="hidden md:flex fixed top-0 left-0 right-0 z-50 h-14 items-center px-6 bg-bg/80 backdrop-blur-md border-b border-border">
         <Link href="/dashboard" className="mr-8">
-          <Logo wordmark size={22} textSize="text-xl" />
+          <Logo wordmark size={28} textSize="text-xl" showSlogan />
         </Link>
         <nav className="flex items-center gap-1 flex-1">
           {NAV.map(({ href, icon: Icon, label }) => (

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!--
+    Concept 2 — "Warm Heart"
+    Soft coral-to-rose background, one large white heart,
+    four 4-point sparkle stars floating around it.
+  -->
+  <defs>
+    <radialGradient id="bg2" cx="44%" cy="38%" r="78%">
+      <stop offset="0%"   stop-color="#ffb3c6"/>
+      <stop offset="100%" stop-color="#e8476a"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg2)"/>
+
+  <!--
+    Heart centred at (256,228).
+    Bezier: tip at (256,340), shoulders at y≈122 on each side.
+    Width ≈ 244 px (x 134–378), height ≈ 218 px.
+  -->
+  <path
+    d="M 256,340
+       C 200,300 134,260 134,192
+       C 134,148 162,122 200,122
+       C 224,122 244,136 256,156
+       C 268,136 288,122 312,122
+       C 350,122 378,148 378,192
+       C 378,260 312,300 256,340 Z"
+    fill="white"
+    opacity="0.96"
+  />
+
+  <!--
+    4-point sparkle stars (8 polygon points each):
+      formula at (cx,cy) outer R, inner r:
+        cx,cy–R  cx+r,cy–r  cx+R,cy  cx+r,cy+r  cx,cy+R  cx–r,cy+r  cx–R,cy  cx–r,cy–r
+
+    Top-centre  (256, 94)  R=20 r=8:
+      256,74  264,86  276,94  264,102  256,114  248,102  236,94  248,86
+
+    Top-left    (164,108)  R=24 r=9:
+      164,84  173,99  188,108  173,117  164,132  155,117  140,108  155,99
+
+    Top-right   (348,108)  R=24 r=9:
+      348,84  357,99  372,108  357,117  348,132  339,117  324,108  339,99
+
+    Left-mid    (110,228)  R=17 r=6:
+      110,211  116,222  127,228  116,234  110,245  104,234  93,228  104,222
+
+    Right-mid   (402,228)  R=17 r=6:
+      402,211  408,222  419,228  408,234  402,245  396,234  385,228  396,222
+  -->
+  <g fill="white" opacity="0.90">
+    <polygon points="256,74 264,86 276,94 264,102 256,114 248,102 236,94 248,86"/>
+    <polygon points="164,84 173,99 188,108 173,117 164,132 155,117 140,108 155,99"/>
+    <polygon points="348,84 357,99 372,108 357,117 348,132 339,117 324,108 339,99"/>
+    <polygon points="110,211 116,222 127,228 116,234 110,245 104,234 93,228 104,222"/>
+    <polygon points="402,211 408,222 419,228 408,234 402,245 396,234 385,228 396,222"/>
+  </g>
+</svg>

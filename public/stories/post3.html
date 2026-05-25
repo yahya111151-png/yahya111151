@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Post 3 — Quote</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#0d0823; }
+.slide {
+  width:1080px; height:1080px; background:#0d0823;
+  position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.g1 { position:absolute; border-radius:50%; pointer-events:none; width:800px; height:800px; background:radial-gradient(circle,rgba(45,27,105,.9) 0%,transparent 70%); top:10%; left:50%; transform:translateX(-50%); }
+.g2 { position:absolute; border-radius:50%; pointer-events:none; width:360px; height:360px; background:radial-gradient(circle,rgba(255,215,0,.14) 0%,transparent 70%); top:8%; left:52%; }
+.content { position:relative; z-index:2; text-align:center; width:860px; }
+.qmark { font-size:100px; color:#FFD700; line-height:.7; margin-bottom:16px; display:block; font-family:Georgia,serif; opacity:.7; }
+.quote { font-size:52px; font-weight:800; color:#fff; line-height:1.1; letter-spacing:-.02em; margin-bottom:36px; font-style:italic; }
+.quote em { font-style:normal; color:#FFD700; }
+.bar { width:64px; height:5px; background:#FFD700; border-radius:3px; margin:0 auto 28px; opacity:.6; }
+.attr { font-family:'Segoe UI','Arial',sans-serif; font-size:20px; color:rgba(255,255,255,.45); letter-spacing:.05em; margin-bottom:48px; }
+.sub { font-family:'Segoe UI','Arial',sans-serif; font-size:22px; color:rgba(255,255,255,.5); line-height:1.5; max-width:600px; margin:0 auto 40px; }
+.sub strong { color:rgba(255,215,0,.8); font-weight:600; }
+.cta { display:inline-flex; align-items:center; gap:10px; background:#FFD700; color:#2D1B69; font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:24px; font-weight:800; padding:16px 40px; border-radius:12px; }
+.logo { position:absolute; bottom:32px; right:40px; z-index:2; }
+.lname { font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:22px; font-weight:800; color:rgba(255,215,0,.4); }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="g1"></div><div class="g2"></div>
+  <div class="content">
+    <span class="qmark">"</span>
+    <p class="quote">the most honest<br/>opinion you'll get<br/>is from someone who<br/>doesn't know<br/><em>you're listening.</em></p>
+    <div class="bar"></div>
+    <p class="attr">— That's Lens.</p>
+    <p class="sub">Anonymous reflections. <strong>Real people. Real thoughts.</strong> No filters.</p>
+    <div class="cta">👁️ See your true picture</div>
+  </div>
+  <div class="logo"><span class="lname">Lens</span></div>
+</div>
+</body>
+</html>

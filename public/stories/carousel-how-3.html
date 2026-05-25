@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><title>How it Works — Step 3</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#0d0823; }
+.slide { width:1080px; height:1080px; background:#0d0823; position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif; display:flex; flex-direction:column; justify-content:space-between; padding:64px 72px; }
+.g { position:absolute; border-radius:50%; pointer-events:none; width:700px; height:700px; background:radial-gradient(circle,rgba(45,27,105,.85) 0%,transparent 70%); top:0; left:50%; transform:translateX(-50%); }
+.top { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.steps { display:flex; gap:12px; }
+.step { width:40px; height:7px; border-radius:4px; background:rgba(255,215,0,.2); }
+.step.a { background:#FFD700; }
+.step-label { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; font-weight:600; color:rgba(255,215,0,.5); letter-spacing:.1em; }
+.center { flex:1; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+.step-num { font-size:120px; font-weight:800; color:rgba(255,215,0,.08); line-height:1; margin-bottom:-20px; }
+h1 { font-size:80px; font-weight:800; color:#FFD700; line-height:1.02; letter-spacing:-.025em; margin-bottom:24px; }
+.desc { font-family:'Segoe UI','Arial',sans-serif; font-size:28px; color:rgba(255,255,255,.62); line-height:1.5; max-width:760px; }
+.desc strong { color:#fff; font-weight:600; }
+.metric-row { display:flex; gap:12px; margin-top:36px; flex-wrap:wrap; }
+.mc { display:flex; align-items:center; gap:8px; background:rgba(255,215,0,.08); border:1.5px solid rgba(255,215,0,.18); border-radius:12px; padding:10px 18px; }
+.mc-emoji { font-size:22px; }
+.mc-score { font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:20px; font-weight:800; color:#FFD700; }
+.bottom { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.cta { display:inline-flex; align-items:center; gap:8px; background:#FFD700; color:#2D1B69; font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:20px; font-weight:800; padding:14px 32px; border-radius:10px; }
+.lname { font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:22px; font-weight:800; color:rgba(255,215,0,.45); }
+</style></head><body>
+<div class="slide">
+  <div class="g"></div>
+  <div class="top">
+    <div class="steps"><div class="step"></div><div class="step"></div><div class="step"></div><div class="step a"></div></div>
+    <span class="step-label">Step 3 of 3</span>
+  </div>
+  <div class="center">
+    <p class="step-num">03</p>
+    <h1>See the full<br/>picture.</h1>
+    <p class="desc">Their impression updates <strong>instantly</strong>. Radar charts, dimension breakdowns, trend data — a complete view of who someone really is.</p>
+    <div class="metric-row">
+      <div class="mc"><span class="mc-emoji">💛</span><span class="mc-score">+4.2</span></div>
+      <div class="mc"><span class="mc-emoji">🤝</span><span class="mc-score">+3.8</span></div>
+      <div class="mc"><span class="mc-emoji">😄</span><span class="mc-score">+4.7</span></div>
+      <div class="mc"><span class="mc-emoji">🫂</span><span class="mc-score">+3.1</span></div>
+      <div class="mc"><span class="mc-emoji">🎯</span><span class="mc-score">+2.9</span></div>
+      <div class="mc"><span class="mc-emoji">⏰</span><span class="mc-score">+4.0</span></div>
+    </div>
+  </div>
+  <div class="bottom"><div class="cta">Try Lens free →</div><span class="lname">Lens</span></div>
+</div>
+</body></html>

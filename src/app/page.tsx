@@ -36,10 +36,10 @@ const FEATURES = [
 ]
 
 const MOCK_PROFILES = [
-  { name: 'Sarah K.',  username: 'sarah_k',  score: '+4.21', color: '#16a34a', ratings: 38 },
-  { name: 'James L.', username: 'james_l',  score: '+2.88', color: '#d97706', ratings: 14 },
-  { name: 'Maya T.',  username: 'maya_t',   score: '+3.74', color: '#16a34a', ratings: 61 },
-  { name: 'Omar R.',  username: 'omar_r',   score: '-1.20', color: '#dc2626', ratings: 9  },
+  { name: 'Sarah K.',  username: 'sarah_k',  score: '+4.21', color: '#34d399', ratings: 38 },
+  { name: 'James L.', username: 'james_l',  score: '+2.88', color: '#fbbf24', ratings: 14 },
+  { name: 'Maya T.',  username: 'maya_t',   score: '+3.74', color: '#34d399', ratings: 61 },
+  { name: 'Omar R.',  username: 'omar_r',   score: '-1.20', color: '#f87171', ratings: 9  },
 ]
 
 const HOW_IT_WORKS = [
@@ -50,20 +50,20 @@ const HOW_IT_WORKS = [
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen overflow-x-hidden">
+    <main className="min-h-screen overflow-x-hidden bg-bg">
 
       {/* ── Hero ── */}
       <section className="relative flex flex-col items-center px-4 pt-20 pb-12 overflow-hidden">
 
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-rose-50 via-white to-white pointer-events-none" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/6 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#2D1B69]/30 via-bg to-bg pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-glow-primary rounded-full blur-3xl pointer-events-none" />
 
-        {/* Content — no absolute children inside, so nothing can overlap */}
+        {/* Content */}
         <div className="relative z-10 text-center max-w-2xl w-full space-y-6 animate-slide-up">
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/30 text-primary text-sm font-semibold">
             <Eye size={14} />
             Social reputation, quantified
           </div>
@@ -87,14 +87,14 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/auth/signup"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-glow-sm hover:shadow-glow-md text-lg"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-[#1a0f40] font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-glow-sm hover:shadow-glow-md text-lg"
             >
               Get Started
               <ChevronRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link
               href="/auth/login"
-              className="inline-flex items-center justify-center px-8 py-3.5 bg-white border border-border text-foreground font-semibold rounded-2xl hover:border-primary/40 hover:shadow-glow-sm transition-all text-lg"
+              className="inline-flex items-center justify-center px-8 py-3.5 bg-surface border border-border text-foreground font-semibold rounded-2xl hover:border-primary/40 hover:shadow-glow-sm transition-all text-lg"
             >
               Sign In
             </Link>
@@ -113,14 +113,14 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Profile cards row — below content, no overlap possible */}
+        {/* Profile cards row */}
         <div className="relative z-10 w-full max-w-2xl mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3">
           {MOCK_PROFILES.map((p) => (
             <div
               key={p.name}
-              className="flex items-center gap-2.5 px-3 py-2.5 bg-white/90 border border-rose-100 rounded-2xl shadow-sm select-none"
+              className="flex items-center gap-2.5 px-3 py-2.5 bg-surface border border-border rounded-2xl shadow-sm select-none"
             >
-              <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-xs font-black text-primary shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-primary/15 flex items-center justify-center text-xs font-black text-[#1a0f40] shrink-0">
                 {p.name[0]}
               </div>
               <div className="min-w-0">
@@ -134,7 +134,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── How it works ── */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-surface/50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-primary text-sm font-bold uppercase tracking-widest mb-2">How it works</p>
@@ -144,13 +144,13 @@ export default function LandingPage() {
             {HOW_IT_WORKS.map((step, i) => (
               <div
                 key={step.step}
-                className="relative p-6 rounded-3xl border border-border bg-surface hover:border-primary/30 hover:shadow-glow-sm transition-all"
+                className="relative p-6 rounded-3xl border border-border bg-surface hover:border-primary/40 hover:shadow-glow-sm transition-all"
               >
-                <p className="text-5xl font-black text-primary/15 leading-none mb-3">{step.step}</p>
+                <p className="text-5xl font-black text-primary/20 leading-none mb-3">{step.step}</p>
                 <h3 className="font-black text-foreground text-lg mb-2">{step.title}</h3>
                 <p className="text-muted text-sm leading-relaxed">{step.desc}</p>
                 {i < HOW_IT_WORKS.length - 1 && (
-                  <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-0.5">
+                  <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-surface rounded-full p-0.5">
                     <ChevronRight size={18} className="text-border" />
                   </div>
                 )}
@@ -161,7 +161,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Score showcase ── */}
-      <section className="py-20 px-4 bg-rose-50/40">
+      <section className="py-20 px-4 bg-bg">
         <div className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center gap-12">
 
           {/* Left: text */}
@@ -187,9 +187,9 @@ export default function LandingPage() {
           </div>
 
           {/* Right: mock profile card */}
-          <div className="w-full max-w-xs bg-white border border-border rounded-3xl p-5 shadow-glow-sm shrink-0">
+          <div className="w-full max-w-xs bg-surface border border-border rounded-3xl p-5 shadow-glow-sm shrink-0">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-300 to-pink-400 flex items-center justify-center text-xl font-black text-white shadow-sm">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2D1B69] to-[#4c1d95] flex items-center justify-center text-xl font-black text-primary shadow-sm">
                 Y
               </div>
               <div className="flex-1">
@@ -228,7 +228,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Features grid ── */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-surface/50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-primary text-sm font-bold uppercase tracking-widest mb-2">Built for depth</p>
@@ -238,9 +238,9 @@ export default function LandingPage() {
             {FEATURES.map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className="p-5 rounded-2xl border border-border bg-surface hover:border-primary/30 hover:shadow-glow-sm transition-all group"
+                className="p-5 rounded-2xl border border-border bg-surface hover:border-primary/40 hover:shadow-glow-sm transition-all group"
               >
-                <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-primary/15 border border-primary/25 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <Icon size={18} className="text-primary" />
                 </div>
                 <h3 className="font-bold text-foreground mb-1">{title}</h3>
@@ -252,9 +252,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── Final CTA ── */}
-      <section className="py-24 px-4 bg-gradient-to-b from-rose-50/60 to-white">
+      <section className="py-24 px-4 bg-gradient-to-b from-bg via-[#2D1B69]/20 to-bg">
         <div className="max-w-lg mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/30 text-primary text-sm font-semibold">
             <Eye size={14} />
             Join Lens today
           </div>
@@ -268,7 +268,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/auth/signup"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-glow-sm hover:shadow-glow-md text-lg"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-[#1a0f40] font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-glow-sm hover:shadow-glow-md text-lg"
             >
               Create your profile
               <ChevronRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
@@ -285,7 +285,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="py-8 px-4 border-t border-border bg-white">
+      <footer className="py-8 px-4 border-t border-border bg-bg">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <Logo wordmark size={18} textSize="text-xl" />
           <p className="text-muted text-sm">See through people, See More.</p>

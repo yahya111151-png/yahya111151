@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#0d0823; }
+.slide { width:1080px; height:1080px; background:#0d0823; position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif; display:flex; flex-direction:column; justify-content:space-between; padding:64px 72px; }
+.g { position:absolute; border-radius:50%; width:900px; height:900px; background:radial-gradient(circle,rgba(45,27,105,.9) 0%,transparent 70%); top:-80px; left:50%; transform:translateX(-50%); }
+.g2 { position:absolute; border-radius:50%; width:500px; height:500px; background:radial-gradient(circle,rgba(255,215,0,.08) 0%,transparent 70%); bottom:-60px; right:-60px; }
+.top { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.dots { display:flex; gap:10px; }
+.dot { width:12px; height:12px; border-radius:50%; background:rgba(255,215,0,.2); }
+.dot.a { background:#FFD700; }
+.swipe { font-family:'Segoe UI','Arial',sans-serif; font-size:17px; font-weight:600; color:rgba(255,255,255,.3); letter-spacing:.06em; }
+.center { flex:1; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; position:relative; z-index:2; }
+.eyebrow { font-family:'Segoe UI','Arial',sans-serif; font-size:22px; font-weight:700; color:#FFD700; letter-spacing:.18em; text-transform:uppercase; margin-bottom:20px; }
+h1 { font-size:100px; font-weight:800; color:#fff; line-height:1.02; letter-spacing:-.03em; margin-bottom:28px; }
+h1 em { font-style:normal; color:#FFD700; }
+.sub { font-family:'Segoe UI','Arial',sans-serif; font-size:30px; color:rgba(255,255,255,.55); line-height:1.5; max-width:820px; }
+.bottom { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.cta-arrow { font-family:'Segoe UI','Arial',sans-serif; font-size:20px; font-weight:600; color:rgba(255,215,0,.5); letter-spacing:.06em; }
+.lname { font-size:22px; font-weight:800; color:rgba(255,215,0,.4); }
+</style></head><body>
+<div class="slide">
+  <div class="g"></div><div class="g2"></div>
+  <div class="top">
+    <div class="dots"><div class="dot a"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <span class="swipe">swipe to read →</span>
+  </div>
+  <div class="center">
+    <p class="eyebrow">your reputation pays</p>
+    <h1>Your good<br/>impression<br/>pays <em>off.</em></h1>
+    <p class="sub">Build your Lens impression and unlock real perks — free coffee, discounts, and more.</p>
+  </div>
+  <div class="bottom"><span class="cta-arrow">see how it works →</span><span class="lname">Lens</span></div>
+</div>
+</body></html>

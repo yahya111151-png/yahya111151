@@ -5,7 +5,7 @@ import './globals.css'
 const nunito = Nunito({ subsets: ['latin'], variable: '--font-nunito', weight: ['400','500','600','700','800','900'] })
 
 export const viewport: Viewport = {
-  themeColor: '#e8476a',
+  themeColor: '#2D1B69',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,

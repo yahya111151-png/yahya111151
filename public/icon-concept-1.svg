@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!--
+    Concept 1 — "Sunny Glow"
+    Warm amber-to-rose background, 8 soft rays radiating outward,
+    bright white centre circle, a single cheerful star inside.
+  -->
+  <defs>
+    <radialGradient id="bg1" cx="42%" cy="36%" r="80%">
+      <stop offset="0%"   stop-color="#ffc947"/>
+      <stop offset="52%"  stop-color="#ff8660"/>
+      <stop offset="100%" stop-color="#e8476a"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg1)"/>
+
+  <!--
+    8 rounded rays, each a line from r=148 to r=212 from centre (256,256).
+    Angles: 0° 45° 90° 135° 180° 225° 270° 315°  (0° = right, 90° = down)
+    Precomputed endpoints (near → far):
+      0°:   (404,256) → (468,256)
+      45°:  (358,358) → (405,405)
+      90°:  (256,404) → (256,468)
+      135°: (154,358) → (107,405)
+      180°: (108,256) →  (44,256)
+      225°: (154,154) → (107,107)
+      270°: (256,108) → (256, 44)
+      315°: (358,154) → (405,107)
+  -->
+  <g stroke="white" stroke-width="22" stroke-linecap="round" fill="none" opacity="0.45">
+    <line x1="404" y1="256" x2="468" y2="256"/>
+    <line x1="358" y1="358" x2="405" y2="405"/>
+    <line x1="256" y1="404" x2="256" y2="468"/>
+    <line x1="154" y1="358" x2="107" y2="405"/>
+    <line x1="108" y1="256" x2="44"  y2="256"/>
+    <line x1="154" y1="154" x2="107" y2="107"/>
+    <line x1="256" y1="108" x2="256" y2="44"/>
+    <line x1="358" y1="154" x2="405" y2="107"/>
+  </g>
+
+  <!-- Glowing outer halo -->
+  <circle cx="256" cy="256" r="148" fill="white" opacity="0.18"/>
+
+  <!-- Bright centre circle -->
+  <circle cx="256" cy="256" r="124" fill="white" opacity="0.97"/>
+
+  <!--
+    5-point star centred at (256,256), outer R=68, inner r=28.
+    Alternating outer/inner points starting from top (–90°):
+
+    Outer (R=68):
+      Top        (256, 188)
+      –18°       (256+64.7, 256–21)  = (320.7, 235)
+      +54°       (256+40.0, 256+55)  = (296.0, 311)
+      +126°      (256–40.0, 256+55)  = (216.0, 311)
+      +198°      (256–64.7, 256–21)  = (191.3, 235)
+
+    Inner (r=28):
+      –54°       (256+16.5, 256–22.7) = (272.5, 233.3)
+      +18°       (256+26.6, 256+ 8.7) = (282.6, 264.7)
+      +90°       (256,      256+28)    = (256,   284)
+      +162°      (256–26.6, 256+ 8.7) = (229.4, 264.7)
+      +234°      (256–16.5, 256–22.7) = (239.5, 233.3)
+  -->
+  <polygon
+    points="256,188 272.5,233.3 320.7,235 282.6,264.7 296,311 256,284 216,311 229.4,264.7 191.3,235 239.5,233.3"
+    fill="#ff8660"
+    opacity="0.92"
+  />
+</svg>

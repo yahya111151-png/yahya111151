@@ -182,7 +182,7 @@ export default function SearchPage() {
               </div>
               <button
                 onClick={getNearby}
-                className="px-8 py-3 bg-primary text-white font-bold rounded-2xl shadow-glow-sm hover:shadow-glow-md transition-all"
+                className="px-8 py-3 bg-primary text-[#1a0f40] font-bold rounded-2xl shadow-glow-sm hover:shadow-glow-md transition-all"
               >
                 Enable Location
               </button>
@@ -274,7 +274,7 @@ export default function SearchPage() {
             <button
               onClick={searchByPhone}
               disabled={phoneLoading || !phone.trim()}
-              className="px-5 py-3 bg-primary text-white font-bold rounded-2xl disabled:opacity-50 transition-all shadow-glow-sm"
+              className="px-5 py-3 bg-primary text-[#1a0f40] font-bold rounded-2xl disabled:opacity-50 transition-all shadow-glow-sm"
             >
               {phoneLoading ? <Loader2 size={18} className="animate-spin" /> : <Search size={18} />}
             </button>

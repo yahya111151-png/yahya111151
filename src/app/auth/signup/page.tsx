@@ -80,7 +80,7 @@ export default function SignupPage() {
           </div>
           <Link
             href="/auth/login"
-            className="block w-full py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
+            className="block w-full py-3 bg-primary text-[#1a0f40] font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
           >
             Go to Sign In
           </Link>
@@ -170,7 +170,7 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md"
+            className="w-full py-3 bg-primary text-[#1a0f40] font-bold rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-all shadow-glow-sm hover:shadow-glow-md"
           >
             {loading ? 'Creating account…' : 'Create Account'}
           </button>

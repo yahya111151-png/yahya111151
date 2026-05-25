@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Carousel: 8 Dimensions — Cover</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#2D1B69; }
+.slide {
+  width:1080px; height:1080px; background:#2D1B69;
+  position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.circ { position:absolute; border-radius:50%; background:#FFD700; opacity:.07; pointer-events:none; }
+.c1 { width:700px; height:700px; top:-200px; right:-200px; }
+.c2 { width:450px; height:450px; bottom:-130px; left:-130px; }
+.content { position:relative; z-index:2; text-align:center; width:840px; }
+.label { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; font-weight:600; color:#FFD700; text-transform:uppercase; letter-spacing:.2em; margin-bottom:24px; display:block; }
+h1 { font-size:88px; font-weight:800; color:#fff; line-height:1.0; letter-spacing:-.025em; margin-bottom:24px; }
+h1 em { font-style:normal; color:#FFD700; display:block; }
+.bar { width:64px; height:6px; background:#FFD700; border-radius:3px; margin:0 auto 28px; }
+.sub { font-family:'Segoe UI','Arial',sans-serif; font-size:24px; color:rgba(255,255,255,.55); line-height:1.5; max-width:620px; margin:0 auto 36px; }
+.swipe { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; color:rgba(255,215,0,.6); display:flex; align-items:center; justify-content:center; gap:8px; }
+.logo { position:absolute; bottom:36px; right:44px; display:flex; align-items:center; gap:8px; z-index:2; }
+.lname { font-size:24px; font-weight:800; color:rgba(255,215,0,.6); }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="circ c1"></div><div class="circ c2"></div>
+  <div class="content">
+    <span class="label">Swipe to discover</span>
+    <h1>8 dimensions<br/>of a<br/><em>person</em></h1>
+    <div class="bar"></div>
+    <p class="sub">Lens breaks down who someone truly is into 8 distinct dimensions — 4 personal, 4 professional.</p>
+    <p class="swipe">swipe to explore each one →</p>
+  </div>
+  <div class="logo"><span class="lname">Lens</span></div>
+</div>
+</body>
+</html>

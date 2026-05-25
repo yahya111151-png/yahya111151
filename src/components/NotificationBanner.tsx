@@ -32,7 +32,7 @@ export default function NotificationBanner() {
       <button
         onClick={handleEnable}
         disabled={loading}
-        className="shrink-0 px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 disabled:opacity-60 transition-colors"
+        className="shrink-0 px-3 py-1.5 bg-primary text-[#1a0f40] text-xs font-bold rounded-lg hover:bg-primary/90 disabled:opacity-60 transition-colors"
       >
         {loading ? '…' : 'Enable'}
       </button>

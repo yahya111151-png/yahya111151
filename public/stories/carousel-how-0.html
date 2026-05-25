@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><title>How it Works — Cover</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#FFD700; }
+.slide { width:1080px; height:1080px; background:#FFD700; position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.blob { position:absolute; border-radius:50%; background:#2D1B69; opacity:.05; pointer-events:none; }
+.b1 { width:700px; height:700px; top:-200px; right:-200px; }
+.b2 { width:400px; height:400px; bottom:-100px; left:-100px; }
+.content { position:relative; z-index:2; text-align:center; width:820px; }
+.steps { display:flex; gap:16px; justify-content:center; margin-bottom:32px; }
+.step { width:44px; height:8px; border-radius:4px; background:#2D1B69; opacity:.25; }
+.step.a { opacity:1; }
+.label { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; font-weight:600; color:rgba(45,27,105,.55); text-transform:uppercase; letter-spacing:.18em; margin-bottom:24px; display:block; }
+h1 { font-size:88px; font-weight:800; color:#2D1B69; line-height:1.0; letter-spacing:-.025em; margin-bottom:24px; }
+.bar { width:64px; height:6px; background:#2D1B69; border-radius:3px; margin:0 auto 28px; opacity:.3; }
+.sub { font-family:'Segoe UI','Arial',sans-serif; font-size:24px; color:rgba(45,27,105,.62); line-height:1.5; max-width:600px; margin:0 auto 32px; }
+.swipe { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; color:rgba(45,27,105,.45); }
+.logo { position:absolute; bottom:36px; right:44px; z-index:2; }
+.lname { font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:22px; font-weight:800; color:rgba(45,27,105,.4); }
+</style></head><body>
+<div class="slide">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="content">
+    <div class="steps"><div class="step a"></div><div class="step"></div><div class="step"></div><div class="step"></div></div>
+    <span class="label">3 simple steps</span>
+    <h1>how<br/>Lens<br/>works</h1>
+    <div class="bar"></div>
+    <p class="sub">From finding someone to seeing the full picture of who they are — it takes under a minute.</p>
+    <p class="swipe">swipe to see how →</p>
+  </div>
+  <div class="logo"><span class="lname">Lens</span></div>
+</div>
+</body></html>

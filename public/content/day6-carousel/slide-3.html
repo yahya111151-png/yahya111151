@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#0d0823; }
+.slide { width:1080px; height:1080px; background:#0d0823; position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif; display:flex; flex-direction:column; justify-content:space-between; padding:64px 72px; }
+.g { position:absolute; border-radius:50%; width:750px; height:750px; background:radial-gradient(circle,rgba(45,27,105,.85) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.top { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.dots { display:flex; gap:10px; }
+.dot { width:12px; height:12px; border-radius:50%; background:rgba(255,215,0,.2); }
+.dot.a { background:#FFD700; }
+.num { font-size:18px; font-weight:700; font-family:'Segoe UI','Arial',sans-serif; color:rgba(255,215,0,.45); letter-spacing:.1em; }
+.center { flex:1; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+.big-num { font-size:160px; font-weight:800; color:rgba(255,215,0,.07); line-height:1; margin-bottom:-30px; }
+h2 { font-size:72px; font-weight:800; color:#fff; line-height:1.04; letter-spacing:-.025em; margin-bottom:28px; }
+h2 em { font-style:normal; color:#FFD700; }
+.reward-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.rw { background:rgba(255,215,0,.06); border:1.5px solid rgba(255,215,0,.15); border-radius:14px; padding:22px 24px; display:flex; align-items:center; gap:16px; }
+.rw-icon { font-size:44px; line-height:1; flex-shrink:0; }
+.rw-text { font-family:'Segoe UI','Arial',sans-serif; font-size:24px; font-weight:600; color:rgba(255,255,255,.75); line-height:1.3; }
+.bottom { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.lname { font-size:22px; font-weight:800; color:rgba(255,215,0,.4); }
+.tag { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; color:rgba(255,255,255,.25); }
+</style></head><body>
+<div class="slide">
+  <div class="g"></div>
+  <div class="top">
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot a"></div><div class="dot"></div><div class="dot"></div></div>
+    <span class="num">03 / 05</span>
+  </div>
+  <div class="center">
+    <p class="big-num">03</p>
+    <h2><em>Free coffee.</em><br/>Discounts.<br/>VIP access.</h2>
+    <div class="reward-grid">
+      <div class="rw"><span class="rw-icon">☕</span><span class="rw-text">Free coffee from partner cafés</span></div>
+      <div class="rw"><span class="rw-icon">🏷️</span><span class="rw-text">Exclusive discounts at local spots</span></div>
+      <div class="rw"><span class="rw-icon">🎟️</span><span class="rw-text">VIP access to events & offers</span></div>
+      <div class="rw"><span class="rw-icon">🤝</span><span class="rw-text">Priority intros & connections</span></div>
+    </div>
+  </div>
+  <div class="bottom"><span class="lname">Lens</span><span class="tag">see people clearly.</span></div>
+</div>
+</body></html>

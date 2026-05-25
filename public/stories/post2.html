@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Post 2 — Feature</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#FFD700; }
+.slide {
+  width:1080px; height:1080px; background:#FFD700;
+  position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.blob { position:absolute; border-radius:50%; background:#2D1B69; opacity:.05; pointer-events:none; }
+.b1 { width:700px; height:700px; top:-200px; left:-200px; }
+.b2 { width:400px; height:400px; bottom:-80px; right:-100px; }
+.content { position:relative; z-index:2; width:920px; }
+.top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:36px; }
+.tag { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; font-weight:600; color:rgba(45,27,105,.6); text-transform:uppercase; letter-spacing:.16em; }
+h1 { font-size:76px; font-weight:800; color:#2D1B69; line-height:1.0; letter-spacing:-.025em; margin-bottom:32px; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:36px; }
+.card { background:#2D1B69; border-radius:20px; padding:24px 28px; }
+.card-icon { font-size:36px; margin-bottom:10px; display:block; }
+.card-title { font-size:22px; font-weight:800; color:#fff; margin-bottom:6px; }
+.card-desc { font-family:'Segoe UI','Arial',sans-serif; font-size:17px; color:rgba(255,255,255,.6); line-height:1.4; }
+.card-desc strong { color:#FFD700; font-weight:600; }
+.bottom { display:flex; align-items:center; justify-content:space-between; }
+.sub { font-family:'Segoe UI','Arial',sans-serif; font-size:20px; color:rgba(45,27,105,.6); line-height:1.4; max-width:480px; }
+.cta { background:#2D1B69; color:#FFD700; font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:22px; font-weight:800; padding:16px 36px; border-radius:12px; white-space:nowrap; }
+.logo { position:absolute; bottom:32px; right:40px; display:flex; align-items:center; gap:8px; z-index:2; }
+.lname { font-size:22px; font-weight:800; color:rgba(45,27,105,.45); }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="content">
+    <div class="top">
+      <span class="tag">How it works</span>
+    </div>
+    <h1>one profile.<br/>eight truths.</h1>
+    <div class="grid">
+      <div class="card"><span class="card-icon">💛</span><p class="card-title">Personal side</p><p class="card-desc">Kindness, Friendship, Humor, Honesty — <strong>who they are</strong> to the people close to them.</p></div>
+      <div class="card"><span class="card-icon">🎯</span><p class="card-title">Professional side</p><p class="card-desc">Leadership, Reliability, Creativity, Professionalism — <strong>how they show up</strong> in the world.</p></div>
+      <div class="card"><span class="card-icon">⚖️</span><p class="card-title">Weighted by closeness</p><p class="card-desc">A close friend's view <strong>counts more</strong> than a stranger's. Proximity matters.</p></div>
+      <div class="card"><span class="card-icon">🔒</span><p class="card-title">Always anonymous</p><p class="card-desc">No names. No pressure. Just <strong>honest thoughts</strong> from real people.</p></div>
+    </div>
+    <div class="bottom">
+      <p class="sub">The most complete picture of a person you'll ever see.</p>
+      <div class="cta">Try Lens →</div>
+    </div>
+  </div>
+  <div class="logo"><span class="lname">Lens</span></div>
+</div>
+</body>
+</html>

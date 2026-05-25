@@ -42,7 +42,7 @@ function thumbPct(v: number) {
 function trackGradient(v: number): string {
   const color = scoreColor(v)
   const pos = thumbPct(v)
-  const neutral = '#fce7ec'
+  const neutral = '#2d2052'
   if (v > 0)  return `linear-gradient(to right, ${neutral} 50%, ${color} 50%, ${color} ${pos}%, ${neutral} ${pos}%)`
   if (v < 0)  return `linear-gradient(to right, ${neutral} ${pos}%, ${color} ${pos}%, ${color} 50%, ${neutral} 50%)`
   return neutral
@@ -60,8 +60,8 @@ export default function MetricSlider({
     <div
       className="rounded-2xl border p-4 space-y-3 transition-all duration-200"
       style={{
-        background: rated ? '#fef6f7' : '#ffffff',
-        borderColor: rated ? '#f9c0cb' : '#fce7ec',
+        background: rated ? '#1a1035' : '#16103a',
+        borderColor: rated ? '#4c1d95' : '#2d2052',
       }}
     >
       {/* Header */}
@@ -69,7 +69,7 @@ export default function MetricSlider({
         <div className="flex items-center gap-2">
           <span className="text-xl" style={{ opacity: rated ? 1 : 0.4 }}>{icon}</span>
           <div>
-            <p className="font-semibold text-sm" style={{ color: rated ? '#1c1b22' : '#94a3b8' }}>{name}</p>
+            <p className="font-semibold text-sm" style={{ color: rated ? '#e5e7eb' : '#9ca3af' }}>{name}</p>
             <p className="text-xs text-muted">{description}</p>
           </div>
         </div>
@@ -102,8 +102,8 @@ export default function MetricSlider({
             onClick={() => onChange(metricId, q)}
             className="flex-1 h-9 rounded-xl font-bold text-xs transition-all duration-150"
             style={{
-              background: value === q ? scoreColor(q) + '22' : '#fce7ec',
-              border: `1.5px solid ${value === q ? scoreColor(q) : '#f9c0cb'}`,
+              background: value === q ? scoreColor(q) + '22' : '#2d2052',
+              border: `1.5px solid ${value === q ? scoreColor(q) : '#3d2a6a'}`,
               color: value === q ? scoreColor(q) : '#94a3b8',
               boxShadow: value === q ? `0 0 8px ${scoreColor(q)}44` : undefined,
             }}
@@ -124,7 +124,7 @@ export default function MetricSlider({
           onChange={e => onChange(metricId, Number(e.target.value))}
           className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
           style={{
-            background: rated ? trackGradient(value!) : '#fce7ec',
+            background: rated ? trackGradient(value!) : '#2d2052',
             accentColor: rated ? color : '#94a3b8',
           }}
         />

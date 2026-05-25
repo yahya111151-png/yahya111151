@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Slide 3</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:#1a0e47; }
+.slide {
+  width:1080px; height:1920px;
+  background:linear-gradient(160deg,#1a0e47 0%,#2D1B69 55%,#3d2488 100%);
+  position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif;
+}
+.dots {
+  position:absolute; inset:0;
+  background-image:radial-gradient(circle,rgba(255,215,0,.08) 2px,transparent 2px);
+  background-size:64px 64px; pointer-events:none;
+}
+.header { position:absolute; top:88px; left:72px; right:72px; z-index:2; }
+.eye { font-family:'Segoe UI','Arial',sans-serif; font-size:20px; font-weight:600; color:#FFD700; text-transform:uppercase; letter-spacing:.16em; margin-bottom:16px; display:block; }
+h1 { font-size:72px; font-weight:800; color:#fff; line-height:1.02; letter-spacing:-.02em; }
+h1 em { font-style:normal; color:#FFD700; }
+.bar { width:60px; height:5px; background:#FFD700; border-radius:3px; margin-top:20px; }
+.grid {
+  position:absolute; top:420px; left:52px; right:52px; bottom:96px;
+  display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(4,1fr);
+  gap:14px; z-index:2;
+}
+.card {
+  background:rgba(255,255,255,.07); border:1.5px solid rgba(255,215,0,.18);
+  border-radius:22px; padding:0 24px;
+  display:flex; align-items:center; gap:16px;
+}
+.emoji { font-size:40px; line-height:1; flex-shrink:0; }
+.name { font-size:30px; font-weight:800; color:#fff; line-height:1.1; }
+.tag { font-family:'Segoe UI','Arial',sans-serif; font-size:20px; color:#FFD700; font-weight:500; opacity:.75; margin-top:2px; }
+.logo { position:absolute; bottom:36px; left:50%; transform:translateX(-50%); z-index:2; }
+.lname { font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:28px; font-weight:800; color:rgba(255,215,0,.55); }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="dots"></div>
+  <div class="header">
+    <span class="eye">8 ways to truly know someone</span>
+    <h1>what Lens<br/>reveals about<br/><em>people</em></h1>
+    <div class="bar"></div>
+  </div>
+  <div class="grid">
+    <div class="card"><span class="emoji">💛</span><div><p class="name">Kindness</p><p class="tag">Personal</p></div></div>
+    <div class="card"><span class="emoji">🤝</span><div><p class="name">Friendship</p><p class="tag">Personal</p></div></div>
+    <div class="card"><span class="emoji">😄</span><div><p class="name">Humor</p><p class="tag">Personal</p></div></div>
+    <div class="card"><span class="emoji">🫂</span><div><p class="name">Honesty</p><p class="tag">Personal</p></div></div>
+    <div class="card"><span class="emoji">🎯</span><div><p class="name">Leadership</p><p class="tag">Professional</p></div></div>
+    <div class="card"><span class="emoji">⏰</span><div><p class="name">Reliability</p><p class="tag">Professional</p></div></div>
+    <div class="card"><span class="emoji">💡</span><div><p class="name">Creativity</p><p class="tag">Professional</p></div></div>
+    <div class="card"><span class="emoji">💼</span><div><p class="name">Professionalism</p><p class="tag">Professional</p></div></div>
+  </div>
+  <div class="logo"><span class="lname">Lens</span></div>
+</div>
+</body>
+</html>

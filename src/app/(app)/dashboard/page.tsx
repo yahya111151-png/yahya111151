@@ -195,7 +195,7 @@ export default async function DashboardPage() {
         </p>
         <Link
           href="/search"
-          className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
+          className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-primary text-[#1a0f40] font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
         >
           <Star size={14} /> Reflect on someone now
         </Link>

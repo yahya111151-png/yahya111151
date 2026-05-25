@@ -140,7 +140,7 @@ export default function AppSetupCard() {
               {!step.done && step.available && step.action && (
                 <button
                   onClick={step.action}
-                  className="shrink-0 flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-xs font-black rounded-xl shadow-glow-sm hover:shadow-glow-md transition-all active:scale-95"
+                  className="shrink-0 flex items-center gap-1.5 px-4 py-2 bg-primary text-[#1a0f40] text-xs font-black rounded-xl shadow-glow-sm hover:shadow-glow-md transition-all active:scale-95"
                 >
                   {step.label}
                   <ChevronRight size={13} />
@@ -174,7 +174,7 @@ export default function AppSetupCard() {
             </ol>
             <button
               onClick={() => setIosModalOpen(false)}
-              className="mt-6 w-full py-3 bg-primary text-white font-black rounded-2xl shadow-glow-sm"
+              className="mt-6 w-full py-3 bg-primary text-[#1a0f40] font-black rounded-2xl shadow-glow-sm"
             >
               Got it
             </button>

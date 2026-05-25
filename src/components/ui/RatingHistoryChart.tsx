@@ -91,35 +91,35 @@ export default function RatingHistoryChart({ userId }: Props) {
           <AreaChart data={chartData} margin={{ top: 4, right: 4, left: -24, bottom: 0 }}>
             <defs>
               <linearGradient id="avgGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%"  stopColor="#e8476a" stopOpacity={0.18} />
-                <stop offset="95%" stopColor="#e8476a" stopOpacity={0}    />
+                <stop offset="5%"  stopColor="#FFD700" stopOpacity={0.22} />
+                <stop offset="95%" stopColor="#FFD700" stopOpacity={0}    />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#fce7ec" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#2d2052" vertical={false} />
             <XAxis
               dataKey="date"
-              tick={{ fill: '#94a3b8', fontSize: 10 }}
+              tick={{ fill: '#9ca3af', fontSize: 10 }}
               tickLine={false}
               axisLine={false}
               interval="preserveStartEnd"
             />
             <YAxis
               domain={[yMin, yMax]}
-              tick={{ fill: '#94a3b8', fontSize: 10 }}
+              tick={{ fill: '#9ca3af', fontSize: 10 }}
               tickLine={false}
               axisLine={false}
               tickFormatter={v => (v >= 0 ? `+${v}` : `${v}`)}
             />
             <Tooltip content={<CustomTooltip />} />
-            <ReferenceLine y={0} stroke="#fce7ec" strokeDasharray="4 4" />
+            <ReferenceLine y={0} stroke="#2d2052" strokeDasharray="4 4" />
             {/* Individual rating dots */}
             <Line
               type="monotone"
               dataKey="raw_score"
-              stroke="#e8476a"
+              stroke="#FFD700"
               strokeOpacity={0.35}
               strokeWidth={0}
-              dot={{ r: 3, fill: '#e8476a', fillOpacity: 0.45, strokeWidth: 0 }}
+              dot={{ r: 3, fill: '#FFD700', fillOpacity: 0.45, strokeWidth: 0 }}
               activeDot={false}
               isAnimationActive={false}
             />
@@ -127,11 +127,11 @@ export default function RatingHistoryChart({ userId }: Props) {
             <Area
               type="monotone"
               dataKey="running_avg"
-              stroke="#e8476a"
+              stroke="#FFD700"
               strokeWidth={2.5}
               fill="url(#avgGrad)"
               dot={false}
-              activeDot={{ r: 5, fill: '#e8476a', strokeWidth: 2, stroke: '#fff' }}
+              activeDot={{ r: 5, fill: '#FFD700', strokeWidth: 2, stroke: '#1a1035' }}
             />
           </AreaChart>
         </ResponsiveContainer>

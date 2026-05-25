@@ -52,7 +52,7 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
         <p className="text-muted text-sm">Your token balance has been updated. You can now share your thoughts again.</p>
         <button
           onClick={onUseToken}
-          className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm mt-4"
+          className="w-full py-3 bg-primary text-[#1a0f40] font-bold rounded-xl shadow-glow-sm mt-4"
         >
           Continue
         </button>
@@ -97,7 +97,7 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
         {hasTokens && (
           <button
             onClick={onUseToken}
-            className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
+            className="w-full py-3 bg-primary text-[#1a0f40] font-bold rounded-xl shadow-glow-sm hover:bg-primary/90 transition-all"
           >
             <span className="flex items-center justify-center gap-2">
               <Coins size={16} /> Use 1 token to reflect now
@@ -121,13 +121,13 @@ export default function TokenPaywall({ profile, tokens, requiresToken, onUseToke
               disabled={buying}
               className="w-full p-4 rounded-xl border text-left transition-all duration-150 relative overflow-hidden disabled:opacity-50"
               style={{
-                background: pack.popular ? '#e8476a0d' : '#ffffff',
-                borderColor: pack.popular ? '#e8476a' : '#fce7ec',
+                background: pack.popular ? '#FFD7000d' : '#1a1035',
+                borderColor: pack.popular ? '#FFD700' : '#2d2052',
                 boxShadow: pack.popular ? '0 0 16px rgba(232,71,106,0.15)' : undefined,
               }}
             >
               {pack.popular && (
-                <span className="absolute top-2 right-2 text-xs font-bold px-2 py-0.5 rounded-full bg-primary text-white">
+                <span className="absolute top-2 right-2 text-xs font-bold px-2 py-0.5 rounded-full bg-primary text-[#1a0f40]">
                   Popular
                 </span>
               )}

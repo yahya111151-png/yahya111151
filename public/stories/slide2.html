@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Slide 2</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:#FFD700; }
+.slide {
+  width:1080px; height:1920px; background:#FFD700;
+  position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.blob { position:absolute; border-radius:50%; background:#2D1B69; opacity:.05; pointer-events:none; }
+.b1 { width:720px; height:720px; top:-200px; left:-200px; }
+.b2 { width:440px; height:440px; bottom:-80px; right:-100px; }
+.content { position:relative; z-index:2; text-align:center; width:860px; }
+.eye {
+  font-family:'Segoe UI','Arial',sans-serif; font-size:20px; font-weight:600;
+  color:rgba(45,27,105,.6); letter-spacing:.18em; text-transform:uppercase;
+  margin-bottom:28px; display:block;
+}
+h1 {
+  font-size:96px; font-weight:800; color:#2D1B69;
+  line-height:.96; letter-spacing:-.03em; margin-bottom:32px;
+}
+.bar { width:64px; height:6px; background:#2D1B69; border-radius:3px; margin:0 auto 36px; opacity:.35; }
+.qblock {
+  background:#2D1B69; border-radius:24px; padding:40px 48px;
+  text-align:left; margin-bottom:32px;
+}
+.qmark { font-size:56px; color:#FFD700; line-height:.7; margin-bottom:12px; display:block; font-family:Georgia,serif; }
+.qtext { font-family:'Segoe UI','Arial',sans-serif; font-size:30px; color:#fff; line-height:1.5; font-weight:400; }
+.qtext strong { color:#FFD700; font-weight:700; }
+.sub { font-family:'Segoe UI','Arial',sans-serif; font-size:24px; color:rgba(45,27,105,.6); line-height:1.5; font-style:italic; }
+.logo {
+  position:absolute; bottom:52px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:10px; z-index:2;
+}
+.lbox { width:38px; height:38px; background:#2D1B69; border-radius:9px; display:flex; align-items:center; justify-content:center; }
+.lname { font-size:30px; font-weight:800; color:#2D1B69; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="content">
+    <span class="eye">the truth is</span>
+    <h1>people show<br/>you what<br/>they want.</h1>
+    <div class="bar"></div>
+    <div class="qblock">
+      <span class="qmark">"</span>
+      <p class="qtext">The people around you have an <strong>honest opinion</strong> of who someone is. Lens lets you hear it — anonymously.</p>
+    </div>
+    <p class="sub">See through the surface. Know people truly.</p>
+  </div>
+  <div class="logo">
+    <div class="lbox"><svg width="22" height="22" viewBox="0 0 512 512" fill="none"><rect x="148" y="88" width="92" height="328" rx="46" fill="#FFD700"/><rect x="148" y="324" width="220" height="92" rx="46" fill="#FFD700"/></svg></div>
+    <span class="lname">Lens</span>
+  </div>
+</div>
+</body>
+</html>

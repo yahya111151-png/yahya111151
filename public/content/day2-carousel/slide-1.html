@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1080px; overflow:hidden; background:#1a0e47; }
+.slide { width:1080px; height:1080px; background:#1a0e47; position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif; display:flex; flex-direction:column; justify-content:space-between; padding:64px 72px; }
+.g { position:absolute; border-radius:50%; width:700px; height:700px; background:radial-gradient(circle,rgba(45,27,105,.8) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.top { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.dots { display:flex; gap:10px; }
+.dot { width:12px; height:12px; border-radius:50%; background:rgba(255,215,0,.2); }
+.dot.a { background:#FFD700; }
+.num { font-size:18px; font-weight:700; font-family:'Segoe UI','Arial',sans-serif; color:rgba(255,215,0,.45); letter-spacing:.1em; }
+.center { flex:1; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+.big-num { font-size:160px; font-weight:800; color:rgba(255,215,0,.07); line-height:1; margin-bottom:-30px; }
+h2 { font-size:76px; font-weight:800; color:#fff; line-height:1.06; letter-spacing:-.025em; margin-bottom:28px; }
+h2 em { font-style:normal; color:#FFD700; }
+.desc { font-family:'Segoe UI','Arial',sans-serif; font-size:30px; color:rgba(255,255,255,.6); line-height:1.55; max-width:840px; }
+.desc strong { color:#fff; font-weight:600; }
+.bottom { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.lname { font-size:22px; font-weight:800; color:rgba(255,215,0,.4); }
+.tag { font-family:'Segoe UI','Arial',sans-serif; font-size:18px; color:rgba(255,255,255,.25); }
+</style></head><body>
+<div class="slide">
+  <div class="g"></div>
+  <div class="top">
+    <div class="dots"><div class="dot"></div><div class="dot a"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <span class="num">01 / 05</span>
+  </div>
+  <div class="center">
+    <p class="big-num">01</p>
+    <h2>They seem <em>friendly.</em><br/>But are they?</h2>
+    <p class="desc">A warm smile doesn't mean <strong>good intentions.</strong> People who fool you most are often the ones who seem the nicest at first.</p>
+  </div>
+  <div class="bottom"><span class="lname">Lens</span><span class="tag">see people clearly.</span></div>
+</div>
+</body></html>

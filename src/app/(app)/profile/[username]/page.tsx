@@ -213,7 +213,7 @@ export default function ProfilePage({ params }: PageProps) {
                 </button>
                 <Link
                   href={`/rate/${profile.id}`}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
+                  className="flex items-center gap-2 px-4 py-2.5 bg-primary text-[#1a0f40] font-bold rounded-xl text-sm shadow-glow-sm hover:shadow-glow-md transition-all"
                 >
                   <Star size={14} /> Reflect
                 </Link>
@@ -321,7 +321,7 @@ export default function ProfilePage({ params }: PageProps) {
                   {isOwn ? 'Share your profile so others can reflect on you.' : `Be the first to share your thoughts on ${profile.full_name.split(' ')[0]}.`}
                 </p>
                 {!isOwn && currentUserId && (
-                  <Link href={`/rate/${profile.id}`} className="inline-block mt-4 px-6 py-2.5 bg-primary text-white font-bold rounded-xl text-sm shadow-glow-sm">
+                  <Link href={`/rate/${profile.id}`} className="inline-block mt-4 px-6 py-2.5 bg-primary text-[#1a0f40] font-bold rounded-xl text-sm shadow-glow-sm">
                     Share your thoughts
                   </Link>
                 )}
@@ -336,9 +336,9 @@ export default function ProfilePage({ params }: PageProps) {
                   <p className="text-xs text-muted mb-2 font-medium uppercase tracking-wider">Skill radar</p>
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart data={radarData} margin={{ top: 0, right: 20, bottom: 10, left: 20 }}>
-                      <PolarGrid stroke="#fce7ec" />
-                      <PolarAngleAxis dataKey="metric" tick={{ fill: '#94a3b8', fontSize: 10 }} />
-                      <Radar dataKey="score" stroke="#e8476a" fill="#e8476a" fillOpacity={0.2} strokeWidth={2} />
+                      <PolarGrid stroke="#2d2052" />
+                      <PolarAngleAxis dataKey="metric" tick={{ fill: '#9ca3af', fontSize: 10 }} />
+                      <Radar dataKey="score" stroke="#FFD700" fill="#FFD700" fillOpacity={0.15} strokeWidth={2} />
                     </RadarChart>
                   </ResponsiveContainer>
                 </div>

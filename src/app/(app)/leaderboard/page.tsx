@@ -29,8 +29,8 @@ function scoreColor(score: number): string {
 }
 
 const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'] // gold, silver, bronze
-const MEDAL_BG    = ['#fffbeb', '#f8fafc', '#fef3e7']
-const MEDAL_BORDER= ['#fde68a', '#e2e8f0', '#fed7aa']
+const MEDAL_BG    = ['rgba(255,215,0,0.10)', 'rgba(192,192,192,0.08)', 'rgba(205,127,50,0.10)']
+const MEDAL_BORDER= ['#FFD70040', '#C0C0C030', '#CD7F3240']
 
 export default async function LeaderboardPage() {
   const supabase = await createClient()
@@ -64,39 +64,39 @@ export default async function LeaderboardPage() {
       </div>
 
       {/* Rewards banner — prominent */}
-      <div className="rounded-3xl overflow-hidden border border-amber-300 shadow-sm">
+      <div className="rounded-3xl overflow-hidden border border-primary/40 shadow-glow-sm">
         {/* Bold header */}
-        <div className="bg-gradient-to-r from-amber-400 to-yellow-500 px-5 py-4">
+        <div className="bg-gradient-to-r from-[#2D1B69] to-[#4c1d95] px-5 py-4">
           <div className="flex items-center gap-3">
             <span className="text-3xl">🏆</span>
             <div>
-              <p className="font-black text-lg text-white leading-tight">Top impressions = real rewards</p>
-              <p className="text-white/80 text-xs mt-0.5">Climb the Spotlight and unlock free coffee, discounts & VIP access.</p>
+              <p className="font-black text-lg text-primary leading-tight">Top impressions = real rewards</p>
+              <p className="text-foreground/70 text-xs mt-0.5">Climb the Spotlight and unlock free coffee, discounts & VIP access.</p>
             </div>
           </div>
         </div>
 
         {/* Tier perks grid */}
-        <div className="bg-gradient-to-br from-amber-50 to-yellow-50 px-4 pt-4 pb-3">
-          <p className="text-[10px] font-black uppercase tracking-widest text-amber-700 mb-3">What you unlock</p>
+        <div className="bg-surface px-4 pt-4 pb-3">
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-3">What you unlock</p>
           <div className="grid grid-cols-2 gap-2">
             {TIERS.filter(t => t.key !== 'explorer').map(t => (
               <div
                 key={t.key}
-                className="flex items-center gap-2.5 p-2.5 bg-white/80 border border-amber-200 rounded-2xl"
+                className="flex items-center gap-2.5 p-2.5 bg-bg border border-border rounded-2xl"
               >
                 <span className="text-2xl shrink-0">{t.icon}</span>
                 <div className="min-w-0">
-                  <p className="text-xs font-black text-amber-800 leading-tight">{t.label}</p>
-                  <p className="text-[10px] text-amber-700/70 leading-tight truncate">{t.perkIcons[0]} {t.perks[0]}</p>
+                  <p className="text-xs font-black text-foreground leading-tight">{t.label}</p>
+                  <p className="text-[10px] text-muted leading-tight truncate">{t.perkIcons[0]} {t.perks[0]}</p>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="flex items-start gap-1.5 mt-3">
-            <Info size={10} className="text-amber-600/50 shrink-0 mt-0.5" />
-            <p className="text-[10px] text-amber-700/50 leading-relaxed">
+            <Info size={10} className="text-muted shrink-0 mt-0.5" />
+            <p className="text-[10px] text-muted leading-relaxed">
               Perks subject to availability & partner participation. Minimum thresholds required. Terms apply.
             </p>
           </div>
@@ -151,7 +151,7 @@ export default async function LeaderboardPage() {
           <p className="text-sm mt-1">Be the first to appear in the Spotlight!</p>
           <Link
             href="/search"
-            className="inline-block mt-5 px-6 py-3 bg-primary text-white font-bold rounded-2xl shadow-glow-sm"
+            className="inline-block mt-5 px-6 py-3 bg-primary text-[#1a0f40] font-bold rounded-2xl shadow-glow-sm"
           >
             Discover people
           </Link>
@@ -189,7 +189,7 @@ function PodiumCard({ entry, position, tall = false }: { entry: LeaderboardEntry
         />
         <span
           className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black shadow-sm"
-          style={{ background: medalColor, color: position === 1 ? '#78350f' : position === 2 ? '#334155' : '#7c2d12' }}
+          style={{ background: medalColor, color: position === 1 ? '#1a0f40' : position === 2 ? '#1a1035' : '#1a0f40' }}
         >
           {position}
         </span>
@@ -239,13 +239,13 @@ function RankRow({ entry, isMe }: { entry: LeaderboardEntry; isMe: boolean }) {
       href={`/profile/${entry.username}`}
       className="flex items-center gap-3 px-3 py-2.5 rounded-xl border transition-all hover:border-primary/30 hover:shadow-glow-sm"
       style={{
-        background: isMe ? '#e8476a0a' : '#ffffff',
-        borderColor: isMe ? '#e8476a40' : '#fce7ec',
+        background: isMe ? '#FFD7000a' : '#1a1035',
+        borderColor: isMe ? '#FFD70040' : '#2d2052',
       }}
     >
       {/* Rank number */}
       <span className="w-7 text-center font-black tabular-nums text-sm shrink-0"
-        style={{ color: entry.rank <= 10 ? '#e8476a' : '#94a3b8' }}>
+        style={{ color: entry.rank <= 10 ? '#FFD700' : '#9ca3af' }}>
         {entry.rank}
       </span>
 
@@ -263,7 +263,7 @@ function RankRow({ entry, isMe }: { entry: LeaderboardEntry; isMe: boolean }) {
         <div className="flex items-center gap-1.5 flex-wrap">
           <p className="font-semibold text-foreground text-sm truncate">{entry.full_name}</p>
           {isMe && (
-            <span className="shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-primary/15 text-primary">you</span>
+            <span className="shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-primary/20 text-[#1a0f40]">you</span>
           )}
           {tier.key !== 'explorer' && (
             <span className="shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full border"

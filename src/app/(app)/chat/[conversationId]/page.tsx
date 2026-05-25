@@ -221,7 +221,7 @@ export default function ConversationPage() {
                 <div
                   className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
                     isMine
-                      ? 'bg-primary text-white rounded-br-md'
+                      ? 'bg-primary text-[#1a0f40] rounded-br-md'
                       : 'bg-surface border border-border text-foreground rounded-bl-md'
                   }`}
                 >

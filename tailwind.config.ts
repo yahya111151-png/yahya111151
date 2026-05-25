@@ -5,31 +5,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#fef6f7',
-        surface: '#ffffff',
-        border: '#fce7ec',
-        primary: '#e8476a',    // rose/coral — Nosedive rating pink
-        secondary: '#8b6ff7',  // soft purple
-        accent: '#ff8fab',     // light pink
-        muted: '#94a3b8',
-        foreground: '#1c1b22', // dark text for light bg
+        bg: '#0d0823',         // very dark purple background
+        surface: '#1a1035',    // dark card surface
+        border: '#2d2052',     // subtle purple border
+        primary: '#FFD700',    // gold — Lens brand accent
+        secondary: '#2D1B69',  // deep brand purple
+        accent: '#a78bfa',     // light purple for secondary text/icons
+        muted: '#9ca3af',
+        foreground: '#e5e7eb', // light text for dark bg
         score: {
-          high: '#16a34a',     // green
-          mid: '#d97706',      // amber
-          low: '#dc2626',      // red
+          high: '#34d399',     // emerald green
+          mid: '#fbbf24',      // amber
+          low: '#f87171',      // red
         },
       },
       fontFamily: {
         sans: ['var(--font-nunito)', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
-        'glow-primary': 'radial-gradient(ellipse at center, rgba(232,71,106,0.12) 0%, transparent 70%)',
-        'glow-accent': 'radial-gradient(ellipse at center, rgba(255,143,171,0.1) 0%, transparent 70%)',
+        'glow-primary': 'radial-gradient(ellipse at center, rgba(255,215,0,0.10) 0%, transparent 70%)',
+        'glow-accent':  'radial-gradient(ellipse at center, rgba(167,139,250,0.10) 0%, transparent 70%)',
       },
       boxShadow: {
-        'glow-sm': '0 2px 12px rgba(232,71,106,0.18)',
-        'glow-md': '0 4px 24px rgba(232,71,106,0.25)',
-        'glow-accent': '0 4px 20px rgba(255,143,171,0.25)',
+        'glow-sm':    '0 2px 12px rgba(255,215,0,0.18)',
+        'glow-md':    '0 4px 24px rgba(255,215,0,0.28)',
+        'glow-accent':'0 4px 20px rgba(167,139,250,0.22)',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#0d0823; }
+  .scene {
+    width:1080px; height:1920px; position:relative; overflow:hidden;
+    font-family:'Segoe UI Black','Arial Black',sans-serif;
+    background:#0d0823;
+  }
+  .bg-glow {
+    position:absolute; border-radius:50%; pointer-events:none;
+    width:1100px; height:1100px;
+    background:radial-gradient(circle, #2D1B69 0%, rgba(45,27,105,0.4) 40%, transparent 70%);
+    top:50%; left:50%; transform:translate(-50%,-50%);
+    opacity:0; transition:opacity 1s ease;
+  }
+
+  .el {
+    position:absolute; opacity:0; transform:translateY(36px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+    text-align:center; left:0; width:1080px; padding:0 80px;
+  }
+  .el.in  { opacity:1; transform:translateY(0); }
+  .el.out { opacity:0; transform:translateY(-36px); transition-duration:0.4s; }
+
+  /* Scene 1 */
+  #s1eyebrow {
+    top:520px;
+    font-family:'Segoe UI','Arial',sans-serif;
+    font-size:28px; font-weight:700; color:#FFD700;
+    letter-spacing:0.2em; text-transform:uppercase;
+  }
+  #s1a {
+    top:570px;
+    font-size:102px; font-weight:800; color:#fff;
+    line-height:1.04; letter-spacing:-0.025em;
+  }
+  #s1b {
+    top:980px;
+    font-size:52px; font-weight:700; color:rgba(255,255,255,0.5);
+    font-family:'Segoe UI','Arial',sans-serif; font-style:italic;
+    line-height:1.4; transition-delay:0.2s;
+  }
+
+  /* Scene 2: good people */
+  #goodBlock {
+    position:absolute; top:540px; left:0; width:1080px;
+    padding:0 90px; opacity:0; transform:translateY(28px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  #goodBlock.in  { opacity:1; transform:translateY(0); }
+  #goodBlock.out { opacity:0; transform:translateY(-28px); transition-duration:0.4s; }
+
+  .g-row {
+    display:flex; align-items:center; gap:20px; margin-bottom:26px;
+    opacity:0; transform:translateX(-16px);
+    transition:opacity 0.5s ease, transform 0.5s ease;
+  }
+  .g-row.in { opacity:1; transform:translateX(0); }
+  .g-name { font-size:80px; font-weight:800; color:#fff; letter-spacing:-0.02em; flex:1; }
+  .g-badge {
+    font-family:'Segoe UI','Arial',sans-serif; font-size:26px; font-weight:700;
+    color:#2D1B69; background:#FFD700; padding:8px 20px; border-radius:8px;
+    white-space:nowrap;
+  }
+
+  /* Scene 3 */
+  #s3a { top:700px; font-size:110px; font-weight:800; color:#fff; line-height:1.04; letter-spacing:-0.025em; }
+  #s3b { top:930px; font-size:110px; font-weight:800; color:#FFD700; line-height:1.04; letter-spacing:-0.025em; transition-delay:0.18s; }
+
+  /* Scene 4 */
+  #s4a { top:760px; font-family:'Segoe UI','Arial',sans-serif; font-size:30px; font-weight:600; color:rgba(255,255,255,0.45); letter-spacing:0.2em; text-transform:uppercase; }
+  #s4b { top:820px; font-size:100px; font-weight:800; color:#fff; line-height:1.04; letter-spacing:-0.03em; transition-delay:0.12s; }
+  #s4b em { font-style:normal; color:#FFD700; }
+
+  /* Logo */
+  #logoWrap {
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%) scale(0.88);
+    display:flex; flex-direction:column; align-items:center; gap:24px;
+    opacity:0; transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+  #logoWrap.in { opacity:1; transform:translate(-50%,-50%) scale(1); }
+  .lbox { width:130px; height:130px; background:#FFD700; border-radius:30px; display:flex; align-items:center; justify-content:center; }
+  .lname { font-size:110px; font-weight:800; color:#FFD700; letter-spacing:-0.025em; line-height:1; }
+  .ltag  { font-family:'Segoe UI','Arial',sans-serif; font-size:34px; color:rgba(255,255,255,0.5); letter-spacing:0.06em; }
+
+  #eyeFlash {
+    position:absolute; top:760px; left:50%; transform:translateX(-50%) scale(0.7);
+    font-size:96px; line-height:1; opacity:0;
+    transition:opacity 0.4s ease, transform 0.4s ease;
+  }
+  #eyeFlash.in { opacity:1; transform:translateX(-50%) scale(1); }
+
+  .prog { position:absolute; bottom:0; left:0; height:5px; background:#FFD700; opacity:0.4; }
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div class="bg-glow" id="bgGlow"></div>
+
+  <!-- S1 -->
+  <div class="el" id="s1eyebrow">for the good ones</div>
+  <div class="el" id="s1a">some people<br/>show up every<br/>single day.</div>
+  <div class="el" id="s1b">and never get the credit<br/>they actually deserve.</div>
+
+  <!-- S2 -->
+  <div id="goodBlock">
+    <div class="g-row" id="gr1"><span class="g-name">Layla</span><span class="g-badge">Always reliable</span></div>
+    <div class="g-row" id="gr2"><span class="g-name">Carlos</span><span class="g-badge">Genuinely kind</span></div>
+    <div class="g-row" id="gr3"><span class="g-name">Zoe</span><span class="g-badge">Makes you better</span></div>
+    <div class="g-row" id="gr4"><span class="g-name">Dev</span><span class="g-badge">Shows up always</span></div>
+  </div>
+
+  <!-- S3 -->
+  <div class="el" id="s3a">they deserve</div>
+  <div class="el" id="s3b">to be seen.</div>
+
+  <!-- S4 -->
+  <div class="el" id="s4a">tell the world</div>
+  <div class="el" id="s4b">rate them<br/>on <em>Lens.</em></div>
+
+  <!-- Eye -->
+  <div id="eyeFlash">👁️</div>
+
+  <!-- S5 -->
+  <div id="logoWrap">
+    <div class="lbox">
+      <svg width="78" height="78" viewBox="0 0 512 512" fill="none">
+        <rect x="148" y="88" width="92" height="328" rx="46" fill="#2D1B69"/>
+        <rect x="148" y="324" width="220" height="92" rx="46" fill="#2D1B69"/>
+        <circle cx="162" cy="180" r="26" stroke="#2D1B69" stroke-width="11"/>
+        <circle cx="226" cy="180" r="26" stroke="#2D1B69" stroke-width="11"/>
+        <line x1="188" y1="180" x2="200" y2="180" stroke="#2D1B69" stroke-width="11" stroke-linecap="round"/>
+        <line x1="136" y1="180" x2="110" y2="189" stroke="#2D1B69" stroke-width="11" stroke-linecap="round"/>
+        <line x1="252" y1="180" x2="278" y2="189" stroke="#2D1B69" stroke-width="11" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="lname">Lens</div>
+    <div class="ltag">see people clearly.</div>
+  </div>
+
+  <div class="prog" id="prog" style="width:0%"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const show = id => { const e=$(id); if(e){e.classList.remove('out');e.classList.add('in');} };
+const hide = id => { const e=$(id); if(e){e.classList.remove('in');e.classList.add('out');} };
+const rst  = id => { const e=$(id); if(e){e.classList.remove('in','out');} };
+
+window.renderFrame = function(t) {
+  const s = t * 15;
+
+  ['bgGlow','s1eyebrow','s1a','s1b',
+   'goodBlock','gr1','gr2','gr3','gr4',
+   's3a','s3b','s4a','s4b',
+   'eyeFlash','logoWrap'].forEach(rst);
+
+  $('prog').style.width = (t * 100) + '%';
+
+  // Scene 1: 0.3–4.2
+  if (s >= 0.3) show('bgGlow');
+  if (s >= 0.5) show('s1eyebrow');
+  if (s >= 0.9) show('s1a');
+  if (s >= 2.2) show('s1b');
+  if (s >= 4.2) ['s1eyebrow','s1a','s1b'].forEach(hide);
+
+  // Scene 2: 4.7–8.7
+  if (s >= 4.7) show('goodBlock');
+  if (s >= 5.0) show('gr1');
+  if (s >= 5.5) show('gr2');
+  if (s >= 6.0) show('gr3');
+  if (s >= 6.5) show('gr4');
+  if (s >= 8.6) hide('goodBlock');
+
+  // Scene 3: 9.0–11.2
+  if (s >= 9.0) show('s3a');
+  if (s >= 9.5) show('s3b');
+  if (s >= 11.1) ['s3a','s3b'].forEach(hide);
+
+  // Scene 4: 11.5–13.2
+  if (s >= 11.5) show('s4a');
+  if (s >= 11.9) show('s4b');
+  if (s >= 13.1) ['s4a','s4b'].forEach(hide);
+
+  // Eye: 13.2–13.9
+  if (s >= 13.2 && s < 13.9) show('eyeFlash');
+
+  // Scene 5: 13.7–15
+  if (s >= 13.7) show('logoWrap');
+};
+</script>
+</body>
+</html>

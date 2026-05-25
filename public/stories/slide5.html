@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Slide 5</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:#FFD700; }
+.slide {
+  width:1080px; height:1920px; background:#FFD700;
+  position:relative; overflow:hidden; font-family:'Segoe UI Black','Arial Black',sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.tex {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:repeating-linear-gradient(-45deg,rgba(45,27,105,.035) 0px,rgba(45,27,105,.035) 2px,transparent 2px,transparent 28px);
+}
+.blob { position:absolute; border-radius:50%; background:#2D1B69; opacity:.06; pointer-events:none; }
+.b1 { width:620px; height:620px; top:-140px; right:-180px; }
+.b2 { width:400px; height:400px; bottom:180px; left:-100px; }
+.content { position:relative; z-index:2; text-align:center; width:860px; }
+.eye-icon { font-size:80px; margin-bottom:32px; line-height:1; display:block; }
+h1 { font-size:88px; font-weight:800; color:#2D1B69; line-height:.98; letter-spacing:-.03em; margin-bottom:32px; }
+.sub { font-family:'Segoe UI','Arial',sans-serif; font-size:26px; color:rgba(45,27,105,.65); line-height:1.5; max-width:700px; margin:0 auto 52px; }
+.sub strong { color:#2D1B69; font-weight:700; }
+.cta {
+  display:inline-flex; align-items:center; gap:14px;
+  background:#2D1B69; color:#FFD700;
+  font-family:'Segoe UI Black','Arial Black',sans-serif; font-size:36px; font-weight:800;
+  padding:28px 56px; border-radius:20px; letter-spacing:-.01em;
+  margin-bottom:28px; box-shadow:0 16px 48px rgba(45,27,105,.32);
+}
+.hint { font-family:'Segoe UI','Arial',sans-serif; font-size:20px; color:rgba(45,27,105,.45); font-weight:600; text-transform:uppercase; letter-spacing:.1em; }
+.logo { position:absolute; bottom:52px; left:50%; transform:translateX(-50%); z-index:2; display:flex; align-items:center; gap:10px; }
+.lname { font-size:30px; font-weight:800; color:rgba(45,27,105,.4); }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="tex"></div>
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="content">
+    <span class="eye-icon">👁️</span>
+    <h1>start seeing<br/>people<br/>clearly.</h1>
+    <p class="sub">Search anyone on Lens. <strong>Reflect on them.</strong><br/>Discover who they truly are across 8 dimensions.</p>
+    <div class="cta">Create your profile →</div>
+    <p class="hint">Free · Link in bio</p>
+  </div>
+  <div class="logo"><span class="lname">Lens</span></div>
+</div>
+</body>
+</html>
